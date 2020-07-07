@@ -6,9 +6,10 @@ static int Average(int NumOne, int NumTwo)
 }
 static void Main(string[] args)
 {
+     //hello
     int a = 30;
     int b = 36;
-
+    var varl = 10;
     int c = Average(a, b);
 }
 }
