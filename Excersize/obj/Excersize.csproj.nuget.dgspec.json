@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "\\\\GMRDC1\\Folder Redirection\\Hakop.Zarikyan\\Documents\\Visual Studio 2019\\Projects\\Excersize\\Excersize\\Excersize.csproj": {}
+    "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {}
   },
   "projects": {
-    "\\\\GMRDC1\\Folder Redirection\\Hakop.Zarikyan\\Documents\\Visual Studio 2019\\Projects\\Excersize\\Excersize\\Excersize.csproj": {
+    "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\Hakop.Zarikyan\\Documents\\Visual Studio 2019\\Projects\\Excersize\\Excersize\\Excersize.csproj",
+        "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj",
         "projectName": "Excersize",
-        "projectPath": "\\\\GMRDC1\\Folder Redirection\\Hakop.Zarikyan\\Documents\\Visual Studio 2019\\Projects\\Excersize\\Excersize\\Excersize.csproj",
-        "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
-        "outputPath": "\\\\GMRDC1\\Folder Redirection\\Hakop.Zarikyan\\Documents\\Visual Studio 2019\\Projects\\Excersize\\Excersize\\obj\\",
+        "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj",
+        "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -57,7 +56,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

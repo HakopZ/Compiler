@@ -37,8 +37,9 @@ namespace Excersize
             dictionary.Add("+", KeyWords.Operators);
             dictionary.Add("-", KeyWords.Operators);
             dictionary.Add("=", KeyWords.Operators);
-
-            string[] text = File.ReadAllLines(@"\\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\Excersize\Excersize\text.txt");
+            dictionary.Add("/", KeyWords.Operators);
+            dictionary.Add(",", KeyWords.Punctuation);
+            string[] text = File.ReadAllLines(@"D:\Visual Studio 2019 Projects\MakeParse\Excersize\text.txt");
 
             ReadOnlySpan<string> AllText = new ReadOnlySpan<string>(text);
             string t = "";
@@ -52,36 +53,47 @@ namespace Excersize
                 {
                     var character = word.Slice(a, 1);
 
+
                     if (dictionary.ContainsKey(character.ToString()))
                     {
+                        if (name != null && name.Length > 0)
+                        {
+                            pairs.Add(new KeyValuePair<string, KeyWords>(name, KeyWords.Identifier));
+                        }
                         pairs.Add(new KeyValuePair<string, KeyWords>(character.ToString(), dictionary[character.ToString()]));
-                        pairs.Add(new KeyValuePair<string, KeyWords>(name, KeyWords.Identifier));
                         name = "";
+                        continue;
                     }
                     name += character.ToString();
-                    
+
                     if (dictionary.ContainsKey(name))
                     {
                         pairs.Add(new KeyValuePair<string, KeyWords>(name, dictionary[name]));
                         name = "";
                     }
-                    if (character.IsWhiteSpace() && name.Length > 0 && name != " ") 
+                    if (character.IsWhiteSpace() && name.Length > 0 && name != " ")
                     {
                         pairs.Add(new KeyValuePair<string, KeyWords>(name, KeyWords.Identifier));
                         name = "";
                     }
-                    if(name == " ")
+                    if (name == " ")
                     {
                         name = default;
                     }
 
 
                 }
-
-                pairs.Add(new KeyValuePair<string, KeyWords>(name, KeyWords.Identifier));
+                if (name != "")
+                {
+                    pairs.Add(new KeyValuePair<string, KeyWords>(name, KeyWords.Identifier));
+                }
 
             }
-
+            foreach (var item in pairs)
+            {
+                t += $"{item.Key} : {item.Value}\n";
+            }
+            File.WriteAllText(@"Output.txt", t);
         }
     }
 
