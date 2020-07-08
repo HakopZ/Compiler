@@ -22,3 +22,16 @@ D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excer
 D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.AssemblyInfo.cs
 D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.dll
 D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\bin\Debug\netcoreapp3.1\Excersize.exe
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\bin\Debug\netcoreapp3.1\Excersize.deps.json
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\bin\Debug\netcoreapp3.1\Excersize.runtimeconfig.json
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\bin\Debug\netcoreapp3.1\Excersize.runtimeconfig.dev.json
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\bin\Debug\netcoreapp3.1\Excersize.dll
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\bin\Debug\netcoreapp3.1\Excersize.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.csprojAssemblyReference.cache
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.AssemblyInfoInputs.cache
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.AssemblyInfo.cs
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.csproj.CoreCompileInputs.cache
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.dll
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netcoreapp3.1\Excersize.genruntimeconfig.cache

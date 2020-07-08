@@ -1,5 +1,6 @@
 class : KeyWord
   : WhiteSpace
+Program invalid Token
 \n : Punctuation
 { : Punctuation
 \n : Punctuation
@@ -7,13 +8,16 @@ static : KeyWord
   : WhiteSpace
 int : KeyWord
   : WhiteSpace
+Average invalid Token
 ( : Punctuation
 int : KeyWord
   : WhiteSpace
+NumOne invalid Token
 , : Punctuation
   : WhiteSpace
 int : KeyWord
   : WhiteSpace
+NumTwo invalid Token
 ) : Punctuation
 \n : Punctuation
 { : Punctuation
@@ -22,23 +26,29 @@ int : KeyWord
 return : KeyWord
   : WhiteSpace
 ( : Punctuation
+NumOne invalid Token
   : WhiteSpace
 + : Operators
   : WhiteSpace
+NumTwo invalid Token
 ) : Punctuation
   : WhiteSpace
 / : Operators
   : WhiteSpace
-2 invalid Token; : Punctuation
+; : Punctuation
 \n : Punctuation
 } : Punctuation
 \n : Punctuation
 static : KeyWord
   : WhiteSpace
+void invalid Token
   : WhiteSpace
+Main invalid Token
 ( : Punctuation
 string : KeyWord
+[] invalid Token
   : WhiteSpace
+args invalid Token
 ) : Punctuation
 \n : Punctuation
 { : Punctuation
@@ -50,35 +60,43 @@ string : KeyWord
 \t : Punctuation
 int : KeyWord
   : WhiteSpace
+a invalid Token
   : WhiteSpace
 = : Operators
   : WhiteSpace
-30 invalid Token; : Punctuation
+; : Punctuation
 \n : Punctuation
 \t : Punctuation
 int : KeyWord
   : WhiteSpace
+b invalid Token
   : WhiteSpace
 = : Operators
   : WhiteSpace
-36 invalid Token; : Punctuation
+; : Punctuation
 \n : Punctuation
 \t : Punctuation
+var invalid Token
   : WhiteSpace
+varl invalid Token
   : WhiteSpace
 = : Operators
   : WhiteSpace
-10 invalid Token; : Punctuation
+; : Punctuation
 \n : Punctuation
 \t : Punctuation
 int : KeyWord
   : WhiteSpace
+c invalid Token
   : WhiteSpace
 = : Operators
   : WhiteSpace
+Average invalid Token
 ( : Punctuation
+a invalid Token
 , : Punctuation
   : WhiteSpace
+b invalid Token
 ) : Punctuation
 ; : Punctuation
 \n : Punctuation
