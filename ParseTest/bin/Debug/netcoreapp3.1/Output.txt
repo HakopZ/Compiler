@@ -1,6 +1,5 @@
 class : KeyWord
   : WhiteSpace
-Program : Identifier
 \n : Punctuation
 { : Punctuation
 \n : Punctuation
@@ -8,16 +7,13 @@ static : KeyWord
   : WhiteSpace
 int : KeyWord
   : WhiteSpace
-Average : Identifier
 ( : Punctuation
 int : KeyWord
   : WhiteSpace
-NumOne : Identifier
 , : Punctuation
   : WhiteSpace
 int : KeyWord
   : WhiteSpace
-NumTwo : Identifier
 ) : Punctuation
 \n : Punctuation
 { : Punctuation
@@ -26,30 +22,23 @@ NumTwo : Identifier
 return : KeyWord
   : WhiteSpace
 ( : Punctuation
-NumOne : Identifier
   : WhiteSpace
 + : Operators
   : WhiteSpace
-NumTwo : Identifier
 ) : Punctuation
   : WhiteSpace
 / : Operators
   : WhiteSpace
-2 : Identifier
-; : Punctuation
+2 invalid Token; : Punctuation
 \n : Punctuation
 } : Punctuation
 \n : Punctuation
 static : KeyWord
   : WhiteSpace
-void : Identifier
   : WhiteSpace
-Main : Identifier
 ( : Punctuation
 string : KeyWord
-[] : Identifier
   : WhiteSpace
-args : Identifier
 ) : Punctuation
 \n : Punctuation
 { : Punctuation
@@ -61,46 +50,35 @@ args : Identifier
 \t : Punctuation
 int : KeyWord
   : WhiteSpace
-a : Identifier
   : WhiteSpace
 = : Operators
   : WhiteSpace
-30 : Identifier
-; : Punctuation
+30 invalid Token; : Punctuation
 \n : Punctuation
 \t : Punctuation
 int : KeyWord
   : WhiteSpace
-b : Identifier
   : WhiteSpace
 = : Operators
   : WhiteSpace
-36 : Identifier
-; : Punctuation
+36 invalid Token; : Punctuation
 \n : Punctuation
 \t : Punctuation
-var : Identifier
   : WhiteSpace
-varl : Identifier
   : WhiteSpace
 = : Operators
   : WhiteSpace
-10 : Identifier
-; : Punctuation
+10 invalid Token; : Punctuation
 \n : Punctuation
 \t : Punctuation
 int : KeyWord
   : WhiteSpace
-c : Identifier
   : WhiteSpace
 = : Operators
   : WhiteSpace
-Average : Identifier
 ( : Punctuation
-a : Identifier
 , : Punctuation
   : WhiteSpace
-b : Identifier
 ) : Punctuation
 ; : Punctuation
 \n : Punctuation

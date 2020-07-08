@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Excersize
@@ -121,15 +122,23 @@ namespace Excersize
                     pairs.Add(new KeyValuePair<string, KeyWords>(name, KeyWords.Identifier));
                 }
                 pairs.Add(new KeyValuePair<string, KeyWords>("\\n", KeyWords.Punctuation));
-
+                
             }
             if(pairs.Count == 0)
             {
                 return false;
+                
             }
             foreach (var item in pairs)
             {
-                if (item.Key == "    ")
+                if(item.Value == KeyWords.Identifier)
+                {
+                    if(item.Key.Any(char.IsDigit))
+                    {
+                        t += $"{item.Key} invalid Token\n";
+                    }
+                }
+                else if (item.Key == "    ")
                 {
                     t += $"\\t : {item.Value}\n";
                 }
