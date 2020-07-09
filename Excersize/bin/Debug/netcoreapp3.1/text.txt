@@ -2,7 +2,7 @@
 {
 static int Average(int NumOne, int NumTwo)
 {
-    return (NumOne + NumTwo) / 2;
+	return (NumOne + NumTwo) / 2;
 }
 static void Main(string[] args)
 {
