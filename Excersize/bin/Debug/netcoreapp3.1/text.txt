@@ -23,34 +23,33 @@ namespace MyNameSpace
             Print("Pick rock(1), paper(2), scissor(3)");
             return int.Parse(Read());
         }
-        static method entrypoint Start()
+        static method entrypoint Main()
         {
             local bool isPlaying = true;
-            Random rand();
-	    local int x[1..5];
+            local int x[5];
             while(isPlaying)
             {
                 local int Answer = GetNumber();
-                local int Computer = rand.Next(1, 4);
-                if(int Computer == 1)
+                local int Computer = 2;
+                if(Computer == 1)
                 {
                    Print("Tie");
                 }
-                else if(int Computer == 2)
+                else if(Computer == 2)
                 {
-	       	   Print("Win");
+	       	        Print("Win");
                 }
                 else
                 {
                    Print("Loss");
                 }
                 local char Again = Console.WriteLine("Want to play again(y/n)?");
-                if(char Again == 'n')
+                if(Again == 'n')
                 {
                     isPlaying = false;
                 }
             }
-	    Pause();
+	        Pause();
         }
     }
 }

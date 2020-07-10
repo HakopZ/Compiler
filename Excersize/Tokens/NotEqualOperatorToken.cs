@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class RandomKeyWord : KeywordToken
+    public class NotEqualOperatorToken : OperatorToken
     {
-        public RandomKeyWord(string lexeme) 
+        public NotEqualOperatorToken(string lexeme) 
             : base(lexeme)
         {
         }
