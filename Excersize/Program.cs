@@ -24,6 +24,7 @@ namespace Excersize
                Console.WriteLine(CheckPhoneNumber("8186464852"));
                Console.WriteLine(CheckPhoneNumber("(818)(646)(4852)"));
               */
+            Console.WriteLine(Regex.IsMatch("(", @"\p{P}"));
             Tokenizer tokenizer = new Tokenizer();
             tokenizer.Tokenize(File.ReadAllText(@"text.txt"));
             Console.ReadKey();

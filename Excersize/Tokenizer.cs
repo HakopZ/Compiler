@@ -14,19 +14,19 @@ namespace Excersize
         {
             ["^namespace"] = (lexeme) => new NamespaceKeywordToken(lexeme),
             ["^class"] = (lexeme) => new ClassKeyWordToken(lexeme),
-            ["true"] = (lexeme) => new TrueKeyWordToken(lexeme),
-            ["false"] = (lexeme) => new FalseKeyWordToken(lexeme),
+            ["^true"] = (lexeme) => new TrueKeyWordToken(lexeme),
+            ["^false"] = (lexeme) => new FalseKeyWordToken(lexeme),
             ["^static"] = (lexeme) => new StaticKeyWordToken(lexeme),
             ["^method"] = (lexeme) => new FunctionKeyWordToken(lexeme),
             ["^public"] = (lexeme) => new PublicKeyWordToken(lexeme),
             ["^private"] = (lexeme) => new PrivateKeyWordToken(lexeme),
-            ["entrypoint"] = (lexeme) => new EntryPointKeyWord(lexeme),
-            ["while"] = (lexeme) => new WhileKeyWord(lexeme),
-            ["if"] = (lexeme) => new IfKeyWordToken(lexeme),
-            ["else"] = (lexeme) => new ElseKeywordToken(lexeme),
-            ["Random"] = (lexeme) => new RandomKeyWord(lexeme),
-            ["Print"] = (lexeme) => new PrintKeyWordToken(lexeme),
-            ["Read"] = (lexeme) => new ReadKeyWordToken(lexeme),
+            ["^entrypoint"] = (lexeme) => new EntryPointKeyWord(lexeme),
+            ["^while"] = (lexeme) => new WhileKeyWord(lexeme),
+            ["^if"] = (lexeme) => new IfKeyWordToken(lexeme),
+            ["^else"] = (lexeme) => new ElseKeywordToken(lexeme),
+            ["^Random"] = (lexeme) => new RandomKeyWord(lexeme),
+            ["^Print"] = (lexeme) => new PrintKeyWordToken(lexeme),
+            ["^Read"] = (lexeme) => new ReadKeyWordToken(lexeme),
             ["^return"] = (lexeme) => new ReturnKeyWordToken(lexeme),
             ["^int"] = (lexeme) => new IntToken(lexeme),
             ["^string"] = (lexeme) => new StringToken(lexeme),
@@ -38,16 +38,17 @@ namespace Excersize
             ["^;"] = (lexeme) => new SemiColonToken(lexeme),
             ["^,"] = (lexeme) => new CommaToken(lexeme),
             ["\\\""] = (lexeme) => new QuotatitionMarkToken(lexeme),
-            ["^(?(?=\\.{2})\\.{2}|\\.)"] = (lexeme) => new PeriodToken(lexeme),
+            ["\\."] = (lexeme) => new PeriodToken(lexeme),
             ["^local"] = (lexeme) => new LocalKeyWordToken(lexeme),
             ["\\*"] = (lexeme) => new MultiplierOperatorToken(lexeme),
+            ["\\%"] = (lexeme) => new ModOperatorToken(lexeme),
             ["^(?(?=\\++)\\++|\\+)"] = (lexeme) => new PlusOperatorToken(lexeme),
             ["^\\-"] = (lexeme) => new SubtractionToken(lexeme),
             ["\\/"] = (lexeme) => new DividingOperatorToken(lexeme),
-            ["^(?(?=\\&{2})\\&{2}|\\8"] = (lexeme) => new AndOperatorToken(lexeme),
+            ["^(?(?=\\&{2})\\&{2}|\\&)"] = (lexeme) => new AndOperatorToken(lexeme),
             ["^(?(?===)==|=)"] = (lexeme) => new EqualOperatorToken(lexeme),
-            ["\\("] = (lexeme) => new OpenParenthesisToken(lexeme),
-            ["\\)"] = (lexeme) => new CloseParenthesisToken(lexeme),
+            ["^\\($"] = (lexeme) => new OpenParenthesisToken(lexeme),
+            ["^\\)$"] = (lexeme) => new CloseParenthesisToken(lexeme),
             ["^\\d"] = (lexeme) => new NumberLiteralToken(lexeme),
             ["^\\["] = (lexeme) => new OpenBracketToken(lexeme),
             ["^\\]"] = (lexeme) => new CloseBracketToken(lexeme),
@@ -59,104 +60,132 @@ namespace Excersize
             ["^(\\'.?\\')"] = (lexeme) => new CharLiteral(lexeme),
             ["[A-Za-z_]\\w*"] = (lexeme) => new IdentifierToken(lexeme)
         };
-        
+        public List<Token> tokens = new List<Token>();
         public IEnumerable<Token> Tokenize(ReadOnlySpan<char> input)
         {
             string lexeme = "";
             int Position = 0;
-            var tokens = new List<Token>();
-            bool Found = false;
-            bool IsWord = false;
-            bool Skip = false;
+            bool Found;
+            bool IsWord;
+            bool Skip;
             while (Position != input.Length)
             {
                 Found = false;
                 IsWord = false;
                 Skip = false;
-                while (Regex.IsMatch(input[Position].ToString(), @"\w"))
-                {
-                    lexeme += input.Slice(Position++, 1).ToString();
-                    IsWord = true;
-                    Found = true;
-
-                }
-                while (!IsWord && Regex.IsMatch(input[Position].ToString(), @"\d"))
-                {
-                    lexeme += input.Slice(Position++, 1).ToString();
-                    Found = true;
-
-                }
-                while (!IsWord && Regex.IsMatch(input[Position].ToString(), @"(\n|\r|\r\n)"))
-                {
-                    lexeme += input.Slice(Position++, 1).ToString();
-                    Found = true;
-                    Skip = true;
-                }
-                while (!Skip && !IsWord && Regex.IsMatch(input[Position].ToString(), @"\s"))
-                {
-                    lexeme += input.Slice(Position++, 1).ToString();
-                    Found = true;
-                }
-                while(!Skip&& !IsWord && Regex.IsMatch(input[Position].ToString(), @"\."))
-                {
-                    lexeme += input.Slice(Position++, 1).ToString();
-                    Found = true;
-                }
-                if (!Found && Regex.IsMatch(input[Position].ToString(), new string("\\\"")))
-                {
-                    do
-                    {
-                        lexeme += input.Slice(Position++, 1).ToString();
-
-                    } while (!Regex.IsMatch(input[Position].ToString(), new string("\\\"")));
-                    Position++;
-                    Found = true;
-                }
-                if (!Found && Regex.IsMatch(input[Position].ToString(), new string("\\'")))
-                {
-                    do
-                    {
-                        lexeme += input.Slice(Position++, 1).ToString();
-
-                    } while (!Regex.IsMatch(input[Position].ToString(), new string("\\'")));
-                    Position++;
-                    Found = true;
-                }
-                if (!Found)
-                {
-                    lexeme += input.Slice(Position++, 1).ToString();
-                }
-                if (lexeme == "#")
+                if (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"#"))
                 {
                     while (!Regex.IsMatch(input[Position].ToString(), @"(\n|\r|\r\n)"))
                     {
                         Position++;
                     }
                     lexeme = "";
-                    lexeme += input.Slice(Position, 2).ToString();
                     Position += 2;
+                    continue;
                 }
-                Found = false;
-                //   if(!IsWord && Regex.IsMatch)
-                foreach (var (regexPattern, createTokenFunc) in PatternDictionary)
+                while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"\w"))
                 {
-                    var match = Regex.Match(lexeme, regexPattern);
-                    if (!match.Success) continue;
-                    var token = createTokenFunc(lexeme);
-                    tokens.Add(token);
+                    lexeme += input.Slice(Position++, 1).ToString();
+                    IsWord = true;
                     Found = true;
 
-                    lexeme = "";
-                    break;
+                }
+                if (Position < input.Length && !Found && Regex.IsMatch(input[Position].ToString(), new string("\\\"")))
+                {
+                    do
+                    {
+                        lexeme += input.Slice(Position++, 1).ToString();
+
+                    } while (Position < input.Length && !Regex.IsMatch(input[Position].ToString(), new string("\\\"")));
+                    Position++;
+                    Found = true;
+                }
+                if (Position < input.Length && !Found && Regex.IsMatch(input[Position].ToString(), new string("\\'")))
+                {
+                    do
+                    {
+                        lexeme += input.Slice(Position++, 1).ToString();
+
+                    } while (Position < input.Length && !Regex.IsMatch(input[Position].ToString(), new string("\\'")));
+                    Position++;
+                    Found = true;
+                }
+                //while(Regex.IsMatch(input[Position].ToString(), @"\s"))
+                while (!IsWord && Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"(\n|\r|\r\n)"))
+                {
+                    lexeme += input.Slice(Position++, 1).ToString();
+                    Found = true;
+                    Skip = true;
+                }
+                
+                while (Position < input.Length && !Skip && !IsWord && Regex.IsMatch(input[Position].ToString(), @"\s"))
+                {
+                    lexeme += input.Slice(Position++, 1).ToString();
+                    Found = true;
+                    
+                } 
+
+                if (!Found && Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"\p{P}"))
+                {
+                    do
+                    {
+                        lexeme += input.Slice(Position++, 1).ToString();
+                    } while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"\p{P}"));
+                    int Take =-1;
+                    int OriginalLexemeLength = lexeme.Length;
+                    do
+                    {
+                        Take++;
+                        if(Position > 650)
+                        {
+                            ;
+                        }
+                        if(Take == OriginalLexemeLength)
+                        {
+                            throw new Exception("Not found");
+                        }
+                        Position -= 1;
+                        lexeme = lexeme.Substring(0, lexeme.Length - (Take == 0 ? 0 : 1));
+                        Found = AddToken(ref lexeme);
+                    } while (!Found);
+
+                }
+                else
+                {
+                    if (Position < input.Length && !Found)
+                    {
+                        lexeme += input.Slice(Position++, 1).ToString();
+                    }
+                    if (Position >= input.Length)
+                    {
+                        break;
+                    }
+                    Found = AddToken(ref lexeme);
+                    //   if(!IsWord && Regex.IsMatch)
+                    if (!Found)
+                    {
+                        throw new Exception($"{lexeme}");
+                    }
                 }
 
-                if (!Found)
-                {
-                    throw new Exception($"{lexeme}");
-                }
+                
             }
 
             return tokens;
+        }
+        private bool AddToken(ref string lexeme)
+        {
+
+            foreach (var (regexPattern, createTokenFunc) in PatternDictionary)
+            {
+                var match = Regex.Match(lexeme, regexPattern);
+                if (!match.Success) continue;
+                var token = createTokenFunc(lexeme);
+                tokens.Add(token);
+                lexeme = "";
+                return true;
+            }
+            return false;
         }
         public Tokenizer()
         {
