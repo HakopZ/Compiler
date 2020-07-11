@@ -28,10 +28,11 @@ namespace Excersize
             ["^Read"] = (lexeme) => new ReadKeyWordToken(lexeme),
             ["^return"] = (lexeme) => new ReturnKeyWordToken(lexeme),
             ["^int$"] = (lexeme) => new IntToken(lexeme),
+            ["^char$"] = (lexeme) => new CharKeyWordToken(lexeme),
             ["^string$"] = (lexeme) => new StringToken(lexeme),
             ["^bool$"] = (lexeme) => new BoolToken(lexeme),
             ["^delegate$"] = (lexeme) => new DelegateKeyWordToken(lexeme),
-            ["(\n|\r|\r\n)"] = (lexeme) => new NewLineToken(lexeme),
+            ["^(\r?\n)"] = (lexeme) => new NewLineToken(lexeme),
             ["^(?(?=\t)\t|\\s)"] = (lexeme) => new WhitespaceToken(lexeme),
             ["^{$"] = (lexeme) => new LeftCurlyBraceToken(lexeme),
             ["^}$"] = (lexeme) => new RightCurlBraceToken(lexeme),
@@ -42,10 +43,16 @@ namespace Excersize
             ["^local"] = (lexeme) => new LocalKeyWordToken(lexeme),
             ["\\*$"] = (lexeme) => new MultiplierOperatorToken(lexeme),
             ["\\%$"] = (lexeme) => new ModOperatorToken(lexeme),
+            ["^(\".*?\")"] = (lexeme) => new StringLiteralToken(lexeme),
+            ["^(-?\\d+)"] = (lexeme) => new NumberLiteralToken(lexeme),
+            ["^(\\'.?\\')"] = (lexeme) => new CharLiteral(lexeme),
             ["^(?(?=\\++)\\++|\\+)"] = (lexeme) => new PlusOperatorToken(lexeme),
             ["^\\-$"] = (lexeme) => new SubtractionToken(lexeme),
             ["\\/$"] = (lexeme) => new DividingOperatorToken(lexeme),
             ["^(?(?=\\&{2})\\&{2}|\\&)"] = (lexeme) => new AndOperatorToken(lexeme),
+            ["^\\|\\|"] = (lexeme) => new OrOperatorToken(lexeme),
+            ["^>=$"] = (lexeme) => new GreatThanOrEqualOperatorToken(lexeme),
+            ["^<=$"] = (lexeme) => new LessThanOrEqualOperatorToken(lexeme),
             ["^\\>=$"] = (lexeme) => new GreatThanOrEqualOperatorToken(lexeme),
             ["^\\<=$"] = (lexeme) => new LessThanOrEqualOperatorToken(lexeme),
             ["^!=$"] = (lexeme) => new NotEqualOperatorToken(lexeme),
@@ -56,13 +63,8 @@ namespace Excersize
             ["^\\[$"] = (lexeme) => new OpenBracketToken(lexeme),
             ["^\\]$"] = (lexeme) => new CloseBracketToken(lexeme),
             ["^\\!$"] = (lexeme) => new NotToken(lexeme),
-            ["^>=$"] = (lexeme) => new GreatThanOrEqualOperatorToken(lexeme),
-            ["^<=$"] = (lexeme) => new LessThanOrEqualOperatorToken(lexeme),
             ["^\\<$"] = (lexeme) => new LessThanOperator(lexeme),
             ["^\\>$"] = (lexeme) => new GreaterThanOperator(lexeme),
-            ["^(\".*?\")"] = (lexeme) => new StringLiteralToken(lexeme),
-            ["^(\\d+)"] = (lexeme) => new NumberLiteralToken(lexeme),
-            ["^(\\'.?\\')"] = (lexeme) => new CharLiteral(lexeme),
             ["^[A-Za-z_]\\w*"] = (lexeme) => new IdentifierToken(lexeme)
         };
         public List<Token> tokens = new List<Token>();
@@ -88,20 +90,51 @@ namespace Excersize
                     Position += 2;
                     continue;
                 }
-                while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"\w"))
-                {
-                    lexeme += input.Slice(Position++, 1).ToString();
-                    IsWord = true;
-                    Found = true;
 
+                if(input[Position] == '-')
+                {
+                    ;
+                }
+                if (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"\-"))
+                {
+                    Token currentToken;
+                    int TokenPos = tokens.Count;
+                    do
+                    {
+
+                        currentToken = tokens[--TokenPos];
+                    } while (TokenPos >= 0 && currentToken.GetType() == typeof(WhitespaceToken));
+                    
+                    lexeme += input.Slice(Position++, 1).ToString();
+                    if (currentToken.GetType() != typeof(NumberLiteralToken) || currentToken.GetType() != typeof(IdentifierToken))
+                    {
+                        while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"\w"))
+                        {
+                            lexeme += input.Slice(Position++, 1).ToString();
+                        }
+                    }
+                    Found = AddToken(ref lexeme);
+                    if (!Found)
+                    {
+                        throw new Exception($"{lexeme}");
+                    }
+                    continue;
+                }
+                else
+                {
+                    while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"\w"))
+                    {
+                        lexeme += input.Slice(Position++, 1).ToString();
+                        IsWord = true;
+
+                        Found = true;
+                    }
                 }
                 if (Position < input.Length && !Found && Regex.IsMatch(input[Position].ToString(), new string("\\\"")))
                 {
-
                     do
                     {
                         lexeme += input.Slice(Position++, 1).ToString();
-
                     } while (Position < input.Length && !Regex.IsMatch(input[Position].ToString(), new string("\\\"")));
                     lexeme += input.Slice(Position, 1).ToString();
                     Position++;
@@ -131,16 +164,12 @@ namespace Excersize
                     Found = true;
 
                 }
-                if (Position >= 492)
-                {
-                    ;
-                }
-                if (!Found && Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"^(\+|\-|\/|\*|\|\!|\=)"))
+                if (!Found && Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"^(\+|\-|\/|\*|\|\!|\=|\>|\<)"))
                 {
                     do
                     {
                         lexeme += input.Slice(Position++, 1).ToString();
-                    } while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"^(\+|\-|\/|\*|\|\!|\=)"));
+                    } while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"^(\+|\-|\/|\*|\|\!|\=|\>|\<)"));
                     int Take = -1;
                     int OriginalLexemeLength = lexeme.Length;
                     do
@@ -167,7 +196,6 @@ namespace Excersize
                     do
                     {
                         Take++;
-
                         if (Take == OriginalLexemeLength)
                         {
                             throw new Exception("Not found");
@@ -188,7 +216,6 @@ namespace Excersize
                         break;
                     }
                     Found = AddToken(ref lexeme);
-                    //   if(!IsWord && Regex.IsMatch)
                     if (!Found)
                     {
                         throw new Exception($"{lexeme}");

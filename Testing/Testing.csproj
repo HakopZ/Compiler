@@ -13,4 +13,14 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Excersize\Excersize.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Excersize">
+      <HintPath>..\Excersize\bin\Debug\netcoreapp3.1\Excersize.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -8,10 +8,12 @@
     ".NETCoreApp,Version=v3.1": {
       "Testing/1.0.0": {
         "dependencies": {
+          "Excersize": "1.0.0",
           "Microsoft.NET.Test.Sdk": "16.5.0",
           "coverlet.collector": "1.2.0",
           "xunit": "2.4.0",
-          "xunit.runner.visualstudio": "2.4.0"
+          "xunit.runner.visualstudio": "2.4.0",
+          "Excersize.Reference": "1.0.0.0"
         },
         "runtime": {
           "Testing.dll": {}
@@ -687,6 +689,14 @@
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "16.5.0"
         }
+      },
+      "Excersize.Reference/1.0.0.0": {
+        "runtime": {
+          "Excersize.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -1045,6 +1055,11 @@
       "sha512": "sha512-3eq5cGXbEJkqW9nwLuXwtxy9B5gMA8i7HW4rN63AhAvy5UvEcQbZnve23wx/oPrkyg/4CbfNhxkBezS0b1oUdQ==",
       "path": "xunit.runner.visualstudio/2.4.0",
       "hashPath": "xunit.runner.visualstudio.2.4.0.nupkg.sha512"
+    },
+    "Excersize.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

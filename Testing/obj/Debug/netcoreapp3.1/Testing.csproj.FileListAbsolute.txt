@@ -92,3 +92,6 @@ D:\Visual Studio 2019 Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing
 D:\Visual Studio 2019 Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing.csproj.CopyComplete
 D:\Visual Studio 2019 Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing.dll
 D:\Visual Studio 2019 Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing.pdb
+D:\Visual Studio 2019 Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\Excersize.exe
+D:\Visual Studio 2019 Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\Excersize.dll
+D:\Visual Studio 2019 Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\Excersize.pdb

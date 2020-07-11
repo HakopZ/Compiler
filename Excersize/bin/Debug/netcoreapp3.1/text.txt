@@ -31,6 +31,7 @@ namespace MyNameSpace
             {
                 local int Answer = GetNumber();
                 local int Computer = 2;
+                local int a = -1;
                 if(Computer == 1)
                 {
                    Print("Tie");
