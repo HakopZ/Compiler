@@ -68,6 +68,7 @@ namespace Excersize
             ["^[A-Za-z_]\\w*"] = (lexeme) => new IdentifierToken(lexeme)
         };
         public List<Token> tokens = new List<Token>();
+        
         public IEnumerable<Token> Tokenize(ReadOnlySpan<char> input)
         {
             string lexeme = "";
@@ -82,19 +83,16 @@ namespace Excersize
                 Skip = false;
                 if (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"#"))
                 {
-                    while (!Regex.IsMatch(input[Position].ToString(), @"(\n|\r|\r\n)"))
+                    Match match;
+                    while (!((match = Regex.Match(input[Position].ToString(), @"(?=(\n\r|\r\n))\r|\n")).Success))
                     {
                         Position++;
                     }
                     lexeme = "";
-                    Position += 2;
+                    Position += match.Length;
                     continue;
                 }
-
-                if(input[Position] == '-')
-                {
-                    ;
-                }
+                
                 if (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"\-"))
                 {
                     Token currentToken;
@@ -164,12 +162,12 @@ namespace Excersize
                     Found = true;
 
                 }
-                if (!Found && Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"^(\+|\-|\/|\*|\|\!|\=|\>|\<)"))
+                if (!Found && Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"^(\+|\/|\*|\|\!|\=|\>|\<)"))
                 {
                     do
                     {
                         lexeme += input.Slice(Position++, 1).ToString();
-                    } while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"^(\+|\-|\/|\*|\|\!|\=|\>|\<)"));
+                    } while (Position < input.Length && Regex.IsMatch(input[Position].ToString(), @"^(\+|\/|\*|\|\!|\=|\>|\<)"));
                     int Take = -1;
                     int OriginalLexemeLength = lexeme.Length;
                     do
