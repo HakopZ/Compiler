@@ -56,7 +56,7 @@ namespace Excersize
             ["^\\>=$"] = (lexeme) => new GreatThanOrEqualOperatorToken(lexeme),
             ["^\\<=$"] = (lexeme) => new LessThanOrEqualOperatorToken(lexeme),
             ["^!=$"] = (lexeme) => new NotEqualOperatorToken(lexeme),
-            ["^(?(?===)==|=)"] = (lexeme) => new EqualOperatorToken(lexeme),
+            ["^(?(?===)==|=)"] = (lexeme) => new AssignmentOperatorToken(lexeme),
             ["^\\($"] = (lexeme) => new OpenParenthesisToken(lexeme),
             ["^\\)$"] = (lexeme) => new CloseParenthesisToken(lexeme),
             ["^\\d"] = (lexeme) => new NumberLiteralToken(lexeme),

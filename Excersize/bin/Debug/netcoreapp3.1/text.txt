@@ -32,11 +32,12 @@ namespace MyNameSpace
                 local int Answer = GetNumber();
                 local int Computer = 2;
                 local int a = -1;
-                if(Computer == 1)
+		local bool l = a >= 1;
+                if(Computer == 1 && a == -1)
                 {
                    Print("Tie");
                 }
-                else if(Computer == 2)
+                else if(Computer == 2 || a == 1)
                 {
 	       	        Print("Win");
                 }

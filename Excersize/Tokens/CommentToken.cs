@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class EqualOperatorToken : OperatorToken
+    public class CommentToken : GrammarToken
     {
-        public EqualOperatorToken(string lexeme) : base(lexeme)
+        public CommentToken(string lexeme) 
+            : base(lexeme)
         {
         }
     }

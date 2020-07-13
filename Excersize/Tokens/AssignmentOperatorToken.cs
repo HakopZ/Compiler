@@ -4,10 +4,11 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class EqualOperatorToken : OperatorToken
+    public class AssignmentOperatorToken : OperatorToken
     {
-        public EqualOperatorToken(string lexeme) : base(lexeme)
+        public AssignmentOperatorToken(string lexeme) : base(lexeme)
         {
+
         }
     }
 }
