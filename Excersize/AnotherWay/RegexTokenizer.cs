@@ -42,11 +42,18 @@ namespace Excersize
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\]"), (lexeme) => new CloseBracketToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G;"), (lexeme) => new SemiColonToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G,"), (lexeme) => new CommaToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\+="), (lexeme) => new AddWithOperatorToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\*="), (lexeme) => new MultiplyWithOperatorToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\/="), (lexeme) => new DivideWithOperatorToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\-="), (lexeme) => new SubtractWithOperatorToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G=="), (lexeme) => new EqualOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\*"), (lexeme) => new MultiplierOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\%"), (lexeme) => new ModOperatorToken(lexeme)),
-            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(?(?=\\+\\+)\\+\\+|\\+)"), (lexeme) => new PlusOperatorToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\+\\+"), (lexeme) => new AddOneOperatorToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\+"), (lexeme) => new PlusOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\/"), (lexeme) => new DividingOperatorToken(lexeme)),
-            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(?(?=\\&{2})\\&{2}|\\&)"), (lexeme) => new AndOperatorToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\&\\&"), (lexeme) => new AndOperatorToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\&"), (lexeme) => new BitwiseOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\|\\|"), (lexeme) => new OrOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G>="), (lexeme) => new GreatThanOrEqualOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G<="), (lexeme) => new LessThanOrEqualOperatorToken(lexeme)),
@@ -54,7 +61,6 @@ namespace Excersize
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G!"), (lexeme) => new NotToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G<"), (lexeme) => new LessThanOperator(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G>"), (lexeme) => new GreaterThanOperator(lexeme)),
-            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G=="), (lexeme) => new EqualOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G="), (lexeme) => new AssignmentOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(\".*?\")"), (lexeme) => new StringLiteralToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(-?\\d+)"), (lexeme) => new NumberLiteralToken(lexeme)),
@@ -88,7 +94,7 @@ namespace Excersize
                     return true;
                 }
             }
-            throw new Exception($"Invalid Token{text.ToString()}");
+            throw new Exception($"Invalid Token{text}");
         }
         public IEnumerable<Token> Tokenize(ReadOnlyMemory<char> t)
         {
