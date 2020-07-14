@@ -911,6 +911,19 @@
         "runtime": {
           "bin/placeholder/Excersize.dll": {}
         }
+      },
+      "ParseTreeProject/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Excersize": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ParseTreeProject.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ParseTreeProject.dll": {}
+        }
       }
     }
   },
@@ -3476,12 +3489,18 @@
       "type": "project",
       "path": "../Excersize/Excersize.csproj",
       "msbuildProject": "../Excersize/Excersize.csproj"
+    },
+    "ParseTreeProject/1.0.0": {
+      "type": "project",
+      "path": "../ParseTreeProjec/ParseTreeProject.csproj",
+      "msbuildProject": "../ParseTreeProjec/ParseTreeProject.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Excersize >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.5.0",
+      "ParseTreeProject >= 1.0.0",
       "coverlet.collector >= 1.2.0",
       "xunit >= 2.4.0",
       "xunit.runner.visualstudio >= 2.4.0"
@@ -3489,24 +3508,23 @@
   },
   "packageFolders": {
     "C:\\Users\\hakop\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\Testing\\Testing.csproj",
+      "projectUniqueName": "D:\\Visual Studio 2019\\Projects\\MakeParse\\Testing\\Testing.csproj",
       "projectName": "Testing",
-      "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Testing\\Testing.csproj",
+      "projectPath": "D:\\Visual Studio 2019\\Projects\\MakeParse\\Testing\\Testing.csproj",
       "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Testing\\obj\\",
+      "outputPath": "D:\\Visual Studio 2019\\Projects\\MakeParse\\Testing\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
         "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -3518,8 +3536,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
-              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj"
+            "D:\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+              "projectPath": "D:\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj"
+            },
+            "D:\\Visual Studio 2019\\Projects\\MakeParse\\ParseTreeProjec\\ParseTreeProject.csproj": {
+              "projectPath": "D:\\Visual Studio 2019\\Projects\\MakeParse\\ParseTreeProjec\\ParseTreeProject.csproj"
             }
           }
         }

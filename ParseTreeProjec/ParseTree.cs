@@ -7,9 +7,10 @@ namespace ParseTreeProjec
 {
     public class Node
     {
-        public Rule Value { get; set; }
-        public List<Token> Children = new List<Token>();
-        public Node(Rule value)
+        public Token Value { get; set; }
+        public List<Node> Children = new List<Node>();
+        public Rule TokenRule { get; set; }
+        public Node(Token value)
         {
             Value = value;
         }
@@ -27,17 +28,21 @@ namespace ParseTreeProjec
         {
             Root = null;
         }
-        public void Add(Rule Value)
+        public void Add(Token Value)
         {
-            if(Root is null)
+            
+        }
+        private void Add(Node current, Token Value)
+        {
+            if(current.Children == null)
             {
-                Root = new Node(Value);
+                current.Children.Add(new Node(Value));
+                return;
             }
-            else
+            for (int i = 0; i < current.Children.Count; i++)
             {
-
+                Add(current.Children[i], Value);
             }
-            Count++;
         }
         
     }

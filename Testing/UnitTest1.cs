@@ -4,11 +4,14 @@ using Excersize;
 using System.IO;
 using System.Collections.Generic;
 using Excersize.Tokens;
+using ParseTreeProjec;
+using ParseTreeProject;
+
 namespace Testing
 {
-    public class UnitTest1
+    public class ParseTreeTest
     {
-        [Fact]
+        [Fact]   
         public void CheckForGreaterThan()
         {
             RegexTokenizer tokenizer = new RegexTokenizer();
@@ -16,6 +19,15 @@ namespace Testing
             List<Token> tokens = new List<Token>(tokenizer.Tokenize(temp));
             
             Assert.Contains(tokens, (x=> x.GetType() == typeof(LessThanOrEqualOperatorToken)));
+        }
+
+        [Fact]
+        public void ParseTreeCheck()
+        {
+            ParseTree tree = new ParseTree();
+            Rule rule = new Rule("E");
+            
+            //rule.AddProduction();
         }
     }
 }

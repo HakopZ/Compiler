@@ -7,7 +7,7 @@ namespace ParseTreeProject
 {
     public class Productions
     {
-        public List<Func<bool>> Expression = new List<Func<bool>>();
+        public List<Func<Token, bool>> Expression = new List<Func<Token, bool>>();
         
     }
 }
