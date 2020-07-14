@@ -11,8 +11,8 @@ namespace Testing
         [Fact]
         public void CheckForGreaterThan()
         {
-            Tokenizer tokenizer = new Tokenizer();
-            ReadOnlySpan<char> temp = "if(x<=3)";//File.ReadAllText("if(x <= 3)");
+            RegexTokenizer tokenizer = new RegexTokenizer();
+            ReadOnlyMemory<char> temp = "if(x<=3)".AsMemory();//File.ReadAllText("if(x <= 3)");
             List<Token> tokens = new List<Token>(tokenizer.Tokenize(temp));
             
             Assert.Contains(tokens, (x=> x.GetType() == typeof(LessThanOrEqualOperatorToken)));
