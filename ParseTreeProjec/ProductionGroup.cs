@@ -15,6 +15,7 @@ namespace ParseTreeProject
         public ProductionGroup(string id)
         { 
            ID = id;
+           productions = new List<Production>();
         }
 
         public bool TryParse(TokenCollection tokens, out IProductionNode node)

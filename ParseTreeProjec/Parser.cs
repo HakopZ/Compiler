@@ -20,9 +20,9 @@ namespace ParseTreeProject
         }
         public Dictionary<string, ProductionGroup> Map = new Dictionary<string, ProductionGroup>()
         {
-            { "E", ProductionGroupDefines.E},
+            { "E",ProductionGroupDefines.E},
             { "EP", ProductionGroupDefines.EP},
-        };
+        };        
         public void Parse(TokenCollection tokens)
         {
             

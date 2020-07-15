@@ -11,6 +11,8 @@ namespace ParseTreeProject
         public string Expression { get; set; }
         public Production(string Ex)
         {
+
+            Nodes = new List<IProductionNode>();
             Expression = Ex;
         }
         public void Add(IProductionNode t)
