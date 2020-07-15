@@ -7,17 +7,13 @@ namespace ParseTreeProject
 {
     public class Rule
     {
-        public List<Func<Token, bool>> ProductionList { get; set; }
+        public List<Func<TokenCollection, (bool Found, int AmountOfTokensUsed)>> ProductionList { get; set; }
         
         public Rule()
-        {   
-        
+        {
+            ProductionList = new List<Func<TokenCollection, (bool, int)>>();
         }
-        //public bool TryParse(List<Token> Text, out )
-        //{
-
-        //}
-        public void AddProduction(Func<Token, bool> func)
+        public void AddProduction(Func<TokenCollection, (bool Found, int AmountOfTokensUsed)> func)
         { 
             ProductionList.Add(func);  
         }    

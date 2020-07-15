@@ -71,10 +71,10 @@ namespace Excersize
 
         };
         int Position { get; set; }
-        public List<Token> tokens;
+        public TokenCollection tokens;
         public RegexTokenizer()
         {
-            tokens = new List<Token>();
+            tokens = new TokenCollection();
             Position = 0;
         }
         public bool MoveNext(ReadOnlyMemory<char> text, out Token token)
@@ -96,7 +96,7 @@ namespace Excersize
             }
             throw new Exception($"Invalid Token{text}");
         }
-        public IEnumerable<Token> Tokenize(ReadOnlyMemory<char> t)
+        public TokenCollection Tokenize(ReadOnlyMemory<char> t)
         {
             while (MoveNext(t, out var token))
             {

@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5QJvEWDm5AvGsAU8YJmo4fkqHpjcs1bhQgqxrfekQl6eufPlUxiuI4waG+XjS3arE5BflsRDZVowrbCV+rpy4w==",
+  "dgSpecHash": "RQZJMRYyRqwto2nYJDPT8M6yrgG/ML3rpGI0ECPP1aMVkvyl83+1ibairw0mwSaujtB2HUCZxpieYE2wBIom+Q==",
   "success": true,
-  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParseTreeProjec\\ParseTreeProject.csproj",
-  "expectedPackageFiles": [
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
-  ],
+  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\Hakop.Zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParseTreeProjec\\ParseTreeProject.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

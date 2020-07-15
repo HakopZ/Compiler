@@ -8,9 +8,9 @@ namespace ParseTreeProject
 {
     public class NonTerminal : ITerminal
     {
-        public List<Token> Equation { get; set; }
+        public TokenCollection Equation { get; set; }
         public List<ITerminal> Children { get; set; } 
-        public NonTerminal(List<Token> Eq, List<ITerminal> kids)
+        public NonTerminal(TokenCollection Eq, List<ITerminal> kids)
         {
             Equation = Eq;
             Children = kids;
