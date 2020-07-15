@@ -28,23 +28,24 @@
   },
   "packageFolders": {
     "C:\\Users\\hakop\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio 2019\\Projects\\MakeParse\\ParseTreeProjec\\ParseTreeProject.csproj",
+      "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParseTreeProjec\\ParseTreeProject.csproj",
       "projectName": "ParseTreeProject",
-      "projectPath": "D:\\Visual Studio 2019\\Projects\\MakeParse\\ParseTreeProjec\\ParseTreeProject.csproj",
+      "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParseTreeProjec\\ParseTreeProject.csproj",
       "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio 2019\\Projects\\MakeParse\\ParseTreeProjec\\obj\\",
+      "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParseTreeProjec\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
         "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.1"
@@ -56,8 +57,8 @@
       "frameworks": {
         "netstandard2.1": {
           "projectReferences": {
-            "D:\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
-              "projectPath": "D:\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj"
+            "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj"
             }
           }
         }

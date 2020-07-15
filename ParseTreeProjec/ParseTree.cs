@@ -5,21 +5,12 @@ using ParseTreeProject;
 
 namespace ParseTreeProjec
 {
-    public class Node
-    {
-        public Token Value { get; set; }
-        public List<Node> Children = new List<Node>();
-        public Rule TokenRule { get; set; }
-        public Node(Token value)
-        {
-            Value = value;
-        }
-    }
+    
     public class ParseTree
     {
-        Node Root;
+        NonTerminal Root;
         public int Count { get; set; }
-
+        List<Rule> Rules { get; set; }
         public ParseTree()
         {
             Clear();
@@ -27,23 +18,37 @@ namespace ParseTreeProjec
         public void Clear()
         {
             Root = null;
+            Count = 0;
+            Rules = new List<Rule>();
         }
-        public void Add(Token Value)
+        public void AddEquation(List<Token> Equation)
         {
-            
+            if(Root is null)
+            {
+                Root = new NonTerminal(Equation, null);
+            }
+            foreach (var token in Equation)
+            {
+                if (!AddToken(token))
+                {
+
+                }    
+
+            }
         }
-        private void Add(Node current, Token Value)
+        public bool AddToken(Token token)
         {
-            if(current.Children == null)
+            foreach(var rule in Rules)
             {
-                current.Children.Add(new Node(Value));
-                return;
+                foreach (var production in rule.ProductionList)
+                {
+                    if (production(token))
+                    {
+                        return true;
+                    }
+                }
             }
-            for (int i = 0; i < current.Children.Count; i++)
-            {
-                Add(current.Children[i], Value);
-            }
+            return false;
         }
-        
     }
 }

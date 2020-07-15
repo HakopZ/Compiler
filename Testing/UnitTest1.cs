@@ -24,9 +24,10 @@ namespace Testing
         [Fact]
         public void ParseTreeCheck()
         {
+            string Check = "3 + 4";
             ParseTree tree = new ParseTree();
-            Rule rule = new Rule("E");
-            
+            Rule rule = new Rule();
+            rule.AddProduction(x => false);
             //rule.AddProduction();
         }
     }
