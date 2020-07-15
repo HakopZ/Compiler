@@ -12,9 +12,10 @@ namespace ParseTreeProjec
     {
         NonTerminal Root;
         public int Count { get; set; }
-        public List<Rule> Rules { get; set; }
+        public List<ProductionGroup> Rules { get; set; }
+        List<Func<TokenCollection, bool>> ProductionsGroupsList { get; set; }
 
-        List<Func<TokenCollection, (bool Found, int AmountOfTokensUsed)>> ProductionsFound { get; set; }
+        List<Func<TokenCollection, bool>> ProductionsFound { get; set; }
         public ParseTree()
         {
             Clear();
@@ -25,8 +26,9 @@ namespace ParseTreeProjec
         {
             Root = null;
             Count = 0;
-            ProductionsFound = new List<Func<TokenCollection, (bool Found, int AmountOfTokensUsed)>>();
-            Rules = new List<Rule>();
+            ProductionsGroupsList = new List<Func<TokenCollection, bool>>();
+            ProductionsFound = new List<Func<TokenCollection, bool>>();
+            Rules = new List<ProductionGroup>();
         }
         public void AddEquation(TokenCollection Equation)
         {
@@ -34,27 +36,23 @@ namespace ParseTreeProjec
             {
                 Root = new NonTerminal(Equation, null);
             }
-                            
-            while (AddExpression(Equation, out int UsedTokens))
+            var TokenByLine = Equation.GroupBy(x => x.Lexeme == ";").ToList();   
+            
+            
+            while (AddExpression(Equation))
             {
-                Equation = (TokenCollection)Equation.Skip(UsedTokens);
+
             }
         }
-        private bool AddExpression(TokenCollection tokens, out int AmountOfTokensUsed)
+        private bool AddExpression(TokenCollection tokens)
         {
             foreach (var rule in Rules)
             {
-                foreach (var production in rule.ProductionList)
+                if(rule.TryParse(tokens, out ITerminal node))
                 {
-                    if (production(tokens).Found)
-                    { 
-                        ProductionsFound.Add(production);
-                        AmountOfTokensUsed = production(tokens).AmountOfTokensUsed;
-                        return true;
-                    }
+
                 }
             }
-            AmountOfTokensUsed = default;
             return false;
         }
     }

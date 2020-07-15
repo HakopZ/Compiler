@@ -7,6 +7,7 @@ using Excersize.Tokens;
 using ParseTreeProjec;
 using ParseTreeProject;
 using System.Text.RegularExpressions;
+
 namespace Testing
 {
     public class ParseTreeTest
@@ -21,19 +22,8 @@ namespace Testing
             TokenCollection tokens = tokenizer.Tokenize(temp);           
 
             ParseTree tree = new ParseTree();
-            Rule rule = new Rule();
-            Rule MDRule = new Rule();
-            rule.AddProduction(x => RuleFunctions.AddRule(x));
-            rule.AddProduction(x => RuleFunctions.SubtractRule(x));
-            rule.AddProduction(x => RuleFunctions.SwitchRules(x));
-            
-            MDRule.AddProduction(x => RuleFunctions.MultiplyRule(x));
-            MDRule.AddProduction(x => RuleFunctions.DivideRule(x));
-            MDRule.AddProduction(x => RuleFunctions.ParenthesisRule(x));
-            MDRule.AddProduction(x => RuleFunctions.ID(x));
-            tree.Rules.Add(rule);
-            tree.Rules.Add(MDRule);
 
+            ProductionGroup EProduction = new ProductionGroup(x => RuleFunctions.AddRule(x));
             tree.AddEquation(tokens);
             
             //rule.AddProduction();

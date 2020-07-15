@@ -2,6 +2,7 @@
 using Excersize.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ParseTreeProject
@@ -9,43 +10,67 @@ namespace ParseTreeProject
     public static class RuleFunctions
     {
         
-        public static (bool, int) AddRule(TokenCollection tokens)
+        public static bool E(TokenCollection token)
         {
-            if (tokens.Contains(new PlusOperatorToken("+")))
+            Token Pointer = 
+            return AddRule(token) && E(token) && E(token)
+                || E(token) && SubtractRule(token) && E(token)
+                || EPrime(token);
+        }
+        public static bool EPrime(TokenCollection token)
+        {
+            return E(token) && MultiplyRule(token) && E(token)
+                || E(token) && DivideRule(token) && E(token)
+                || ParenthesisRule(token)
+                || ID(token.First()); 
+        }
+        public static bool AddRule(TokenCollection tokens)
+        {
+            if(tokens.Contains("+"))
             {
-                return (true, 3);
+                return true;
             }
-            return (false, default);
+            return false;
         }
-        public static (bool, int) SwitchRules(TokenCollection x)
+        public static bool SubtractRule(TokenCollection tokens)
         {
-            return (false, default);
-        }
-
-        public static (bool, int) SubtractRule(TokenCollection x)
-        {
-            return (false, default);
-        }
-
-        public static (bool, int) MultiplyRule(TokenCollection x)
-        {
-
-            return (false, default);
+            if (tokens.Contains("-"))
+            {
+                return true;
+            }
+            return false;
         }
 
-        public static (bool, int) DivideRule(TokenCollection x)
+        public static bool MultiplyRule(TokenCollection tokens)
         {
-            return (false, default);
+            if (tokens.Contains("*"))
+            {
+                return true;
+            }
+            return false;
         }
 
-        public static (bool, int) ParenthesisRule(TokenCollection x)
+        public static bool DivideRule(TokenCollection tokens)
         {
-            return (false, default);
+            if (tokens.Contains("/"))
+            {
+                return true;
+            }
+            return false;
         }
 
-        public static (bool, int) ID(TokenCollection x)
+        public static bool ParenthesisRule(TokenCollection tokens)
         {
-            return (false, default);
+            return false;
+        }
+
+        public static bool ID(Token token)
+        {
+            if(token.GetType() == typeof(IdentifierToken))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

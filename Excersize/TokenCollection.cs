@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Excersize
 {
-    public class TokenCollection : ICollection<Token>
+    public class TokenCollection : ICollection<Token> 
     {
         private static int Size = 0;
         Token[] tokens = new Token[Size];
@@ -15,7 +15,14 @@ namespace Excersize
         public bool IsReadOnly => throw new NotImplementedException();
 
         public int Count => Size;
+        public TokenCollection()
+        {
 
+        }
+        public TokenCollection(IEnumerable<Token> enumerable)
+        {
+            tokens = enumerable.ToArray();
+        }
         public void Add(Token item)
         {
             Size++;
@@ -45,7 +52,14 @@ namespace Excersize
             }
             return false;
         }
-
+        public bool Contains(string Lexeme)
+        {
+            foreach(var token in tokens)
+            {
+                if (token.Lexeme == Lexeme) return true;
+            }
+            return false;
+        }
         public void CopyTo(Token[] array, int arrayIndex)
         {
             throw new NotImplementedException();
@@ -53,12 +67,14 @@ namespace Excersize
 
         public IEnumerator<Token> GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach(var token in tokens)
+            {
+                yield return token;
+            }
         }
 
         public bool Remove(Token item)
         {
-
             Token[] temp = new Token[Size - 1];
             for (int i = 0; i < tokens.Length; i++)
             {
