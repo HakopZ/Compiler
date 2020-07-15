@@ -1,19 +1,23 @@
 ﻿using Excersize;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ParseTreeProject
 {
-    public class ProductionGroup
+    public class ProductionGroup : IEnumerable<Production>
     {
         Func<TokenCollection, bool> Group { get; set; }
-        public ProductionGroup(Func<TokenCollection, bool> func)
-        {
-            Group = func;
+        string ID { get; set; }
+
+        public List<Production> productions { get; set; }
+        public ProductionGroup(string id)
+        { 
+           ID = id;
         }
 
-        public bool TryParse(TokenCollection tokens, out ITerminal node)
+        public bool TryParse(TokenCollection tokens, out IProductionNode node)
         {
             if(Group(tokens))
             {
@@ -22,6 +26,19 @@ namespace ParseTreeProject
             }
             node = default;
             return false;
+        }
+        public void Add(Production p)
+        {
+            productions.Add(p);
+        }
+        public IEnumerator<Production> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }

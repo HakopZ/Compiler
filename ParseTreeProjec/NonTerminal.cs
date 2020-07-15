@@ -6,14 +6,16 @@ using System.Text;
 
 namespace ParseTreeProject
 {
-    public class NonTerminal : ITerminal
+    public class NonTerminal : IProductionNode
     {
         public TokenCollection Equation { get; set; }
-        public List<ITerminal> Children { get; set; } 
-        public NonTerminal(TokenCollection Eq, List<ITerminal> kids)
+        public List<IProductionNode> Children { get; set; } 
+        public string ID { get; set; }
+        public NonTerminal(string id)
         {
-            Equation = Eq;
-            Children = kids;
+            ID = id;
+            Equation = null;
+            Children = null;
         }
     }
 }

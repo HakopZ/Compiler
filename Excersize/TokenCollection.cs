@@ -23,6 +23,17 @@ namespace Excersize
         {
             tokens = enumerable.ToArray();
         }
+        public Token this[int index]
+        {
+            get
+            {
+                return tokens[index];
+            }
+            set
+            {
+                tokens[index] = value;
+            }
+        }
         public void Add(Token item)
         {
             Size++;

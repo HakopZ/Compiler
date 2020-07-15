@@ -21,3 +21,14 @@ D:\Visual Studio 2019 Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.
 D:\Visual Studio 2019 Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.csproj.CopyComplete
 D:\Visual Studio 2019 Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.dll
 D:\Visual Studio 2019 Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.pdb
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.csprojAssemblyReference.cache
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.AssemblyInfoInputs.cache
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.AssemblyInfo.cs
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.dll
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.pdb
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\bin\Debug\netstandard2.1\ParseTreeProject.deps.json
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\bin\Debug\netstandard2.1\ParseTreeProject.dll
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\bin\Debug\netstandard2.1\ParseTreeProject.pdb
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\bin\Debug\netstandard2.1\Excersize.dll
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\bin\Debug\netstandard2.1\Excersize.pdb
+D:\Visual Studio 2019\Projects\MakeParse\ParseTreeProjec\obj\Debug\netstandard2.1\ParseTreeProject.csproj.CopyComplete

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace ParseTreeProject
 {
-    public class Terminal : ITerminal
+    public class Terminal : IProductionNode
     {
-        public int Value { get; set; }
-        public Terminal(int value)
+        public string Value { get; set; }
+        public Terminal(string value)
         {
             Value = value;
         }

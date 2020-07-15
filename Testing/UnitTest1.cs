@@ -22,9 +22,7 @@ namespace Testing
             TokenCollection tokens = tokenizer.Tokenize(temp);           
 
             ParseTree tree = new ParseTree();
-
-            ProductionGroup EProduction = new ProductionGroup(x => RuleFunctions.AddRule(x));
-            tree.AddEquation(tokens);
+           Parser parse = new Parser(tokens);   
             
             //rule.AddProduction();
         }
