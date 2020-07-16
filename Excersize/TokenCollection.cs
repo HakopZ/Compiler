@@ -8,13 +8,16 @@ namespace Excersize
 {
     public class TokenCollection : ICollection<Token> 
     {
-        private static int Size = 0;
-        Token[] tokens = new Token[Size];
+        Token[] tokens = new Token[0];
         //public int Count = 0;
 
         public bool IsReadOnly => throw new NotImplementedException();
 
-        public int Count => Size;
+
+
+        public int Count
+            => tokens.Length;
+            
         public TokenCollection()
         {
 
@@ -36,20 +39,18 @@ namespace Excersize
         }
         public void Add(Token item)
         {
-            Size++;
-            Token[] temp = new Token[Size];
+            Token[] temp = new Token[tokens.Length+1];
             for (int i = 0; i < tokens.Length; i++)
             {
                 temp[i] = tokens[i];
             }
-            temp[Size - 1] = item;
+            temp[temp.Length - 1] = item;
             tokens = temp;
         }
 
         public void Clear()
         {
-            Size = 0;
-            tokens = new Token[Size];
+            tokens = new Token[0];
         }
 
         public bool Contains(Token item)
@@ -86,7 +87,7 @@ namespace Excersize
 
         public bool Remove(Token item)
         {
-            Token[] temp = new Token[Size - 1];
+            Token[] temp = new Token[tokens.Length-1];
             for (int i = 0; i < tokens.Length; i++)
             {
                 if (tokens[i] == item) continue;

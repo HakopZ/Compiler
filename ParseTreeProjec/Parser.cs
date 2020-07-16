@@ -8,7 +8,8 @@ namespace ParseTreeProject
 {
     public class Parser
     {
-        public TokenCollection Tokens;
+        public TokenCollection Tokens { get; set; }
+        
         public Parser(TokenCollection tokens)
         {
             Tokens = new TokenCollection(Filter(tokens));
@@ -20,16 +21,15 @@ namespace ParseTreeProject
         }
         public Dictionary<string, ProductionGroup> Map = new Dictionary<string, ProductionGroup>()
         {
-            { "E",ProductionGroupDefines.E},
-            { "EP", ProductionGroupDefines.EP},
+            { "E",ProductionGroupDefines.Groups[0]},
+            { "EP", ProductionGroupDefines.Groups[1]},
         };        
-        public void Parse(TokenCollection tokens)
+            
+        public bool TryParseProduction(TokenCollection tokens, out IParseTreeNode node)
         {
             
-        }
-        public bool TryParse(ReadOnlySpan<Token> tokens)
-        {
             
+            node = default;
             return false;
         }
     }

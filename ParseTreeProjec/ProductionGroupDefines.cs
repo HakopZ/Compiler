@@ -9,7 +9,9 @@ namespace ParseTreeProject
 {
     public static class ProductionGroupDefines
     {
-        public static ProductionGroup E = new ProductionGroup("E")
+        public static List<ProductionGroup> Groups = new List<ProductionGroup>()
+        {
+            new ProductionGroup("E")
             {
                 new Production("E + E")
                 {
@@ -28,8 +30,8 @@ namespace ParseTreeProject
                 {
                     new NonTerminal("EP")
                 }
-            };
-        public static ProductionGroup EP = new ProductionGroup("E`")
+            },
+            new ProductionGroup("EP")
             {
                 new Production("E * E")
                 {
@@ -53,6 +55,9 @@ namespace ParseTreeProject
                 {
                     new NonTerminal("ID"),
                 },
-            };
+            }
+        };
     }
 }
+
+
