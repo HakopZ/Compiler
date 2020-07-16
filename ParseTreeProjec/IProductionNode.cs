@@ -6,5 +6,6 @@ namespace ParseTreeProject
 {
     public interface IProductionNode
     {
+        public string Value { get; set; }
     }
 }

@@ -22,3 +22,4 @@ D:\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Exce
 D:\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Excersize.AssemblyInfo.cs
 D:\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Excersize.dll
 D:\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Excersize.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Excersize.csprojAssemblyReference.cache

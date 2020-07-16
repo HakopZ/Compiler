@@ -64,6 +64,19 @@ namespace Excersize
             }
             return false;
         }
+        public bool TryGetIndexOf(string Lexeme, out int Position)
+        {
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                if(tokens[i].Lexeme == Lexeme)
+                {
+                    Position = i;
+                    return true;
+                }
+            }
+            Position = default;
+            return false;
+        }
         public bool Contains(string Lexeme)
         {
             foreach(var token in tokens)
