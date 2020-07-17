@@ -13,12 +13,7 @@ namespace ParserProject
         {
             Count = 0;
         }
-        public void Add(TokenCollection tokens)
-        {
-            
-            
-            
-        }
+        
         
     }
 }

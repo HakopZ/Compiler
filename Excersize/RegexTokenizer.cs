@@ -64,7 +64,7 @@ namespace Excersize
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G="), (lexeme) => new AssignmentOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(\".*?\")"), (lexeme) => new StringLiteralToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(-?\\d+)"), (lexeme) => new NumberLiteralToken(lexeme)),
-            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\-"), (lexeme) => new SubtractionToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\-"), (lexeme) => new SubtractionOperatorToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(\\'.?\\')"), (lexeme) => new CharLiteral(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(\\#.*)"), (lexeme) => new CommentToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G[A-Za-z_]\\w*"), (lexeme) => new IdentifierToken(lexeme)),

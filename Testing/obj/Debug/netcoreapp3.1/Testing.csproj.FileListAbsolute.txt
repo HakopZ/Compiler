@@ -92,9 +92,7 @@
 \\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 \\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 \\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\Excersize.dll
-\\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\ParseTreeProject.dll
 \\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\Excersize.pdb
-\\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\ParseTreeProject.pdb
 \\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing.csproj.CopyComplete
 \\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing.dll
 \\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing.pdb
@@ -297,3 +295,5 @@ D:\Visual Studio 2019 Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing
 D:\Visual Studio 2019 Projects\MakeParse\Testing\obj\Debug\netcoreapp3.1\Testing.pdb
 D:\Visual Studio 2019 Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\ParserProject.dll
 D:\Visual Studio 2019 Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\ParserProject.pdb
+\\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\ParserProject.dll
+\\GMRDC1\Folder Redirection\Hakop.Zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Testing\bin\Debug\netcoreapp3.1\ParserProject.pdb

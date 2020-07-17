@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excersize", "Excersize\Exce
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{1E3108C7-620C-497E-9D35-3CFEE7A77D3D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParseTreeProject", "ParseTreeProjec\ParseTreeProject.csproj", "{1D25A487-91CA-4DC6-A094-4F72CA9ED719}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserProject", "ParserProject\ParserProject.csproj", "{ED00801D-69E6-43EC-B426-2393CEAD1709}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParserProject", "ParserProject\ParserProject.csproj", "{ED00801D-69E6-43EC-B426-2393CEAD1709}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{1E3108C7-620C-497E-9D35-3CFEE7A77D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E3108C7-620C-497E-9D35-3CFEE7A77D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E3108C7-620C-497E-9D35-3CFEE7A77D3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D25A487-91CA-4DC6-A094-4F72CA9ED719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D25A487-91CA-4DC6-A094-4F72CA9ED719}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D25A487-91CA-4DC6-A094-4F72CA9ED719}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D25A487-91CA-4DC6-A094-4F72CA9ED719}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED00801D-69E6-43EC-B426-2393CEAD1709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED00801D-69E6-43EC-B426-2393CEAD1709}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED00801D-69E6-43EC-B426-2393CEAD1709}.Release|Any CPU.ActiveCfg = Release|Any CPU

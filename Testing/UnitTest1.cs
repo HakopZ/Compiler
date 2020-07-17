@@ -13,18 +13,21 @@ namespace Testing
     public class ParseTreeTest
     {
         
-       
+        
         [Fact]
         public void ParseTreeCheck()
         {
-            
-            string Check = "3 + 4";
-            RegexTokenizer tokenizer = new RegexTokenizer();
-            ReadOnlyMemory<char> temp = Check.AsMemory();//File.ReadAllText("if(x <= 3)");
-            TokenCollection tokens = tokenizer.Tokenize(temp);           
+            PlusOperatorToken plus = new PlusOperatorToken("+");
+            NumberLiteralToken Three = new NumberLiteralToken("3");
+            NumberLiteralToken Four = new NumberLiteralToken("4");
 
-            ParseTree tree = new ParseTree();
-            Parser parse = new Parser(tokens);   
+            TokenCollection tokens = new TokenCollection();
+            Parser parser = new Parser();
+            tokens.Add(Three);
+            tokens.Add(plus);
+            tokens.Add(Four);
+
+            parser.TryParse(tokens, out ParseTreeNode Tree);
             
             //rule.AddProduction();
         }
