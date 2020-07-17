@@ -10,7 +10,7 @@
         "dependencies": {
           "Excersize": "1.0.0",
           "Microsoft.NET.Test.Sdk": "16.6.1",
-          "ParseTreeProject": "1.0.0",
+          "ParserProject": "1.0.0",
           "coverlet.collector": "1.3.0",
           "xunit": "2.4.1",
           "xunit.runner.visualstudio": "2.4.2"
@@ -1094,12 +1094,12 @@
           "Excersize.dll": {}
         }
       },
-      "ParseTreeProject/1.0.0": {
+      "ParserProject/1.0.0": {
         "dependencies": {
           "Excersize": "1.0.0"
         },
         "runtime": {
-          "ParseTreeProject.dll": {}
+          "ParserProject.dll": {}
         }
       }
     }
@@ -1752,7 +1752,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "ParseTreeProject/1.0.0": {
+    "ParserProject/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

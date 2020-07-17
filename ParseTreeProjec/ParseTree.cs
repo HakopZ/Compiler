@@ -7,10 +7,21 @@ using ParseTreeProject;
 
 namespace ParseTreeProjec
 {
+    public class Node : IParseTreeNode
+    {
+        public string Value { get; set; }
+
+        public List<Node> Children;
+        public bool IsTerminal { get; set; }
+        public Node(string Val)
+        {
+            Children = new List<Node>();
+            Value = Val;
+        }
+    }
 
     public class ParseTree
     {
-        IProductionNode Root;
         public int Count { get; set; }
         
         
@@ -20,10 +31,9 @@ namespace ParseTreeProjec
             
         }
 
-        
+       
         public void Clear()
         {
-            Root = null;
             Count = 0;
          }
         

@@ -8,7 +8,7 @@ namespace ParseTreeProject
 {
     public class ProductionGroup : IEnumerable<Production>
     {
-        string ID { get; set; }
+        public string ID { get; set; }
 
         public List<Production> productions { get; set; }
         public ProductionGroup(string id)

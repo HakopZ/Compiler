@@ -16,10 +16,22 @@ namespace ParseTreeProject
             {
                 Value = value;
             }
-        } 
+        }
+        public List<IProductionNode> Children
+        {
+            get
+            {
+                return Children;
+            }
+            set
+            {
+                Children = value;
+            }
+        }
         public Terminal(string value)
         {
             Value = value;
+            Children = new List<IProductionNode>();
         }
     }
 }

@@ -13,16 +13,19 @@ namespace ParseTreeProject.ProductionClasses
             new Production("E + E")
             {
                 new NonTerminal("E"),
-                new Terminal("+"),
+                new ExactMatch("+"),
                 new NonTerminal("E"),
             },
             new Production("E - E")
             {
                 new NonTerminal("E"),
-                new Terminal("-"),
+                new ExactMatch("-"),
                 new NonTerminal("E")
+            },
+            new Production("EPrime")
+            {
+                new NonTerminal("EPrime")
             }
-
         };
 
 
@@ -33,31 +36,31 @@ namespace ParseTreeProject.ProductionClasses
 
         }
 
-        public bool TryMatchProduction(TokenCollection tokens, out IProductionNode node)
+        
+        public  bool TryExactOperatorCheck(TokenCollection tokens, Production production, out IProductionNode node, out TokenCollection Left, out TokenCollection Right)
         {
-            foreach (var production in Productions)
+            (bool HasLeft, bool HasRight, IProductionNode TNode) = GetTerminal(production);
+            if (tokens.TryGetIndexOf(TNode.Value, out int pos))
             {
-                (bool HasLeft, bool HasRight, IProductionNode TNode) = GetTerminal(production);
-                if (tokens.TryGetIndexOf(TNode.Value, out int Pos))
+
+                node = new ExactMatch(tokens[pos].Lexeme);
+                Left = null;
+                Right = null;
+                if (HasLeft)
                 {
-                    node = new ExactMatch(tokens[Pos].Lexeme);
-                    
-                    if (HasLeft)
-                    {
-                        var LeftSide = new TokenCollection(tokens.Take(Pos));
-                         TryMatchProduction(LeftSide, out IProductionNode LeftNode);
-                    }
-                    if (HasRight)
-                    {
-                        var RightSide = new TokenCollection(tokens.Skip(Pos + 1));
-                        TryMatchProduction(RightSide, out IProductionNode RightNode);
-                    }
+                    Left = new TokenCollection(tokens.Take(pos));
                 }
+                if (HasRight)
+                {
+                    Right = new TokenCollection(tokens.Skip(pos + 1));
+                }
+                return true;
             }
             node = default;
+            Left = Right = default;
             return false;
         }
-        private (bool HasLeft, bool HasRight, IProductionNode) GetTerminal(Production production)
+        private (bool HasLeft, bool HasRight, IProductionNode Node) GetTerminal(Production production)
         {
             for (int i = 0; i < production.Nodes.Count; i++)
             {

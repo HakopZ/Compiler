@@ -9,7 +9,6 @@ namespace ParseTreeProject
     public class NonTerminal : IProductionNode
     {
         public TokenCollection Equation { get; set; }
-        public List<IProductionNode> Children { get; set; }
         public string Value
         {
             get
@@ -21,11 +20,26 @@ namespace ParseTreeProject
                 Value = value;
             }
         }
+
+        public List<IProductionNode> Children
+        {
+            get
+            {
+                return Children;
+            }
+            set
+            {
+                Children = value;
+            }
+        }
+
+        
         public NonTerminal(string id)
         {
+            
             Value = id;
             Equation = null;
-            Children = null;
+            Children = new List<IProductionNode>();
         }
     }
 }

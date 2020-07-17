@@ -37,6 +37,21 @@ namespace Excersize
                 tokens[index] = value;
             }
         }
+        public IEnumerable<Token> Slice(int start, int length = 1)
+        {
+            if(start > length)
+            {
+                throw new ArgumentOutOfRangeException("Why");
+            }
+            Token[] temp = new Token[length];
+            int tempCount = 0;
+            for (int i = start; i < length; i++)
+            {
+                temp[tempCount++] = tokens[i];  
+            }
+            tokens = temp;
+            return tokens;
+        }
         public void Add(Token item)
         {
             Token[] temp = new Token[tokens.Length+1];

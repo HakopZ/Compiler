@@ -16,10 +16,20 @@ namespace ParseTreeProject
                 Value = value;
             }
         }
-        List<IProductionNode> Kids;
+        public List<IProductionNode> Children
+        {
+            get
+            {
+                return Children;
+            }
+            set
+            {
+                Children = value;
+            }
+        }
         public ExactMatch(string ID)
         {
-            Kids = new List<IProductionNode>();
+            Children = new List<IProductionNode>();
             Value = ID;
         }
     }
