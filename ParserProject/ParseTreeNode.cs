@@ -7,12 +7,13 @@ namespace ParserProject
 {
     public class ParseTreeNode
     {
-        public string Value { get; set; }
+        public Token Value { get; set; }
         public List<ParseTreeNode> Children;
         public List<Token> Expression;
+        
         public bool IsTerminal { get; set; }
 
-        public ParseTreeNode(string val, bool isT)
+        public ParseTreeNode(Token val, bool isT)
         {
             Expression = new List<Token>();
             Children = new List<ParseTreeNode>();
@@ -26,6 +27,24 @@ namespace ParserProject
         public void AddExpression(Token node)
         {
             Expression.Add(node);
+        }
+        public void PrintPretty(string indent, bool last)
+        {
+            Console.Write(indent);
+            if (last)
+            {
+                Console.Write("\\:");
+                indent += "  ";
+            }
+            else
+            {
+                Console.Write("|:");
+                indent += "| ";
+            }
+            Console.WriteLine(Value);
+
+            for (int i = 0; i < Children.Count; i++)
+                Children[i].PrintPretty(indent, i == Children.Count - 1);
         }
     }
 }

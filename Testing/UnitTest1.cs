@@ -7,27 +7,31 @@ using Excersize.Tokens;
 using System.Text.RegularExpressions;
 using System.Linq;
 using ParserProject;
+using System.Diagnostics;
 
 namespace Testing
 {
     public class ParseTreeTest
     {
+
+        PlusOperatorToken plus = new PlusOperatorToken("+");
+        SubtractionOperatorToken minus = new SubtractionOperatorToken("-");
+        MultiplierOperatorToken multiplier = new MultiplierOperatorToken("*");
+        DividingOperatorToken divide = new DividingOperatorToken("/");
+        OpenParenthesisToken openParenthesisToken = new OpenParenthesisToken("(");
+        CloseParenthesisToken closeParenthesisToken = new CloseParenthesisToken(")");
+        IdentifierToken a = new IdentifierToken("a");
+        IdentifierToken b = new IdentifierToken("b");
+        IdentifierToken c = new IdentifierToken("c");
+        IdentifierToken d = new IdentifierToken("d");
+        IdentifierToken e = new IdentifierToken("e");
+        IdentifierToken f = new IdentifierToken("f");
         
-        
+
         [Fact]
         public void ParseTreeCheck()
         {
-            PlusOperatorToken plus = new PlusOperatorToken("+");
-            NumberLiteralToken Three = new NumberLiteralToken("3");
-            NumberLiteralToken Four = new NumberLiteralToken("4");
 
-            TokenCollection tokens = new TokenCollection();
-            Parser parser = new Parser();
-            tokens.Add(Three);
-            tokens.Add(plus);
-            tokens.Add(Four);
-
-            parser.TryParse(tokens, out ParseTreeNode Tree);
             
             //rule.AddProduction();
         }

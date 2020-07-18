@@ -1,0 +1,50 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "WriteOutTree/1.0.0": {
+        "dependencies": {
+          "Excersize": "1.0.0",
+          "ParserProject": "1.0.0"
+        },
+        "runtime": {
+          "WriteOutTree.dll": {}
+        }
+      },
+      "Excersize/1.0.0": {
+        "runtime": {
+          "Excersize.dll": {}
+        }
+      },
+      "ParserProject/1.0.0": {
+        "dependencies": {
+          "Excersize": "1.0.0"
+        },
+        "runtime": {
+          "ParserProject.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WriteOutTree/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Excersize/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ParserProject/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

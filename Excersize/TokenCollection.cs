@@ -37,6 +37,9 @@ namespace Excersize
                 tokens[index] = value;
             }
         }
+        public Token FirstToken => tokens[0];
+        public Token LastToken => tokens[Count - 1];
+
         public TokenCollection Slice(int start)
         {
             if(start > Count)
@@ -51,6 +54,7 @@ namespace Excersize
             }
             return new TokenCollection(temp); 
         }
+        
         public TokenCollection Slice(int start, int length)
         {
             if (start > Count)
@@ -145,6 +149,15 @@ namespace Excersize
             return true;
         }
 
+        public string GetTokenString()
+        {
+            string temp = "";
+            foreach (var item in tokens)
+            {
+                temp += item.Lexeme;
+            }
+            return temp;
+        }
         IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();

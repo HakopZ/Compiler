@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class CharLiteral : Token
+    public class CharLiteralToken : Token
     {
-        public CharLiteral(string lexeme) 
+        public CharLiteralToken(string lexeme) 
             : base(lexeme)
         {
         }

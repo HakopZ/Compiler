@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Excersize/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Excersize.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Excersize.dll": {}
+        }
+      },
+      "ParserProject/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Excersize": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ParserProject.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ParserProject.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Excersize/1.0.0": {
+      "type": "project",
+      "path": "../Excersize/Excersize.csproj",
+      "msbuildProject": "../Excersize/Excersize.csproj"
+    },
+    "ParserProject/1.0.0": {
+      "type": "project",
+      "path": "../ParserProject/ParserProject.csproj",
+      "msbuildProject": "../ParserProject/ParserProject.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "Excersize >= 1.0.0",
+      "ParserProject >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\hakop\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
+      "projectName": "WriteOutTree",
+      "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
+      "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
+      "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "projectReferences": {
+            "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj"
+            },
+            "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
+              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

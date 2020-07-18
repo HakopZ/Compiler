@@ -33,6 +33,8 @@ namespace Excersize
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gbool\\b"), (lexeme) => new BoolToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gstring\\b"), (lexeme) => new StringToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gdelegate\\b"), (lexeme) => new DelegateKeyWordToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gsin"), (lexeme) => new SinKeyWordToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gcos"), (lexeme) => new CosineKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\."), (lexeme) => new PeriodToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G{"), (lexeme) => new LeftCurlyBraceToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G}"), (lexeme) => new RightCurlBraceToken(lexeme)),
@@ -65,7 +67,7 @@ namespace Excersize
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(\".*?\")"), (lexeme) => new StringLiteralToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(-?\\d+)"), (lexeme) => new NumberLiteralToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\-"), (lexeme) => new SubtractionOperatorToken(lexeme)),
-            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(\\'.?\\')"), (lexeme) => new CharLiteral(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(\\'.?\\')"), (lexeme) => new CharLiteralToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G(\\#.*)"), (lexeme) => new CommentToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G[A-Za-z_]\\w*"), (lexeme) => new IdentifierToken(lexeme)),
 
