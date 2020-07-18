@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NZfnDIQPcKHU3HntUtdJnNOcZPUV3xaI2/PMFxWC6szp5kgQq3/EEHqPgaNFGEgncXQxSaKNNdDOTlBvf9A2fA==",
+  "dgSpecHash": "xiKtvXo9/aJJUGv1TO2GSUe2AuLnhFqhSQGUfeBXvbZ/nNtXw4YtFQFQC+NG2LMkSTEqQZbD5PkfUnj1ZuM4qA==",
   "success": true,
-  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\Hakop.Zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Testing\\Testing.csproj",
+  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Testing\\Testing.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\coverlet.collector\\1.3.0\\coverlet.collector.1.3.0.nupkg.sha512",
     "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\microsoft.codecoverage\\16.6.1\\microsoft.codecoverage.16.6.1.nupkg.sha512",

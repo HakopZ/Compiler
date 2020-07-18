@@ -28,7 +28,7 @@ namespace ParserProject
         {
             Expression.Add(node);
         }
-        public void PrintPretty(string indent, bool last)
+        public void Print(string indent, bool last)
         {
             Console.Write(indent);
             if (last)
@@ -38,13 +38,14 @@ namespace ParserProject
             }
             else
             {
-                Console.Write("|:");
-                indent += "| ";
+                Console.Write("\\:");
+                indent += "\\ ";
             }
-            Console.WriteLine(Value);
+
+            Console.WriteLine(Value.Lexeme);
 
             for (int i = 0; i < Children.Count; i++)
-                Children[i].PrintPretty(indent, i == Children.Count - 1);
+                Children[i].Print(indent, i == Children.Count - 1);
         }
     }
 }

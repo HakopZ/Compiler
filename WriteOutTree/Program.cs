@@ -8,19 +8,29 @@ namespace WriteOutTree
 {
     class Program
     {
+
+        static SinKeyWordToken sin = new SinKeyWordToken("sin");
         static PlusOperatorToken plus = new PlusOperatorToken("+");
         static SubtractionOperatorToken minus = new SubtractionOperatorToken("-");
         static MultiplierOperatorToken multiplier = new MultiplierOperatorToken("*");
         static DividingOperatorToken divide = new DividingOperatorToken("/");
         static OpenParenthesisToken openParenthesisToken = new OpenParenthesisToken("(");
         static CloseParenthesisToken closeParenthesisToken = new CloseParenthesisToken(")");
+        static AssignmentOperatorToken assign = new AssignmentOperatorToken("=");
+        static GreaterThanOperator greaterThan = new GreaterThanOperator(">");
+        static IntToken _int = new IntToken("int");
+        static StringToken _string = new StringToken("string");
+        static BoolToken _bool = new BoolToken("bool");
+        static SemiColonToken semiColon = new SemiColonToken(";");
         static IdentifierToken a = new IdentifierToken("a");
         static IdentifierToken b = new IdentifierToken("b");
         static IdentifierToken c = new IdentifierToken("c");
         static IdentifierToken d = new IdentifierToken("d");
         static IdentifierToken e = new IdentifierToken("e");
         static IdentifierToken f = new IdentifierToken("f");
-
+        
+        static NumberLiteralToken _3 = new NumberLiteralToken("3");
+        static StringLiteralToken _Name = new StringLiteralToken("\"Name\"");
         static void Main(string[] args)
         {
             List<TokenCollection> tokens = new List<TokenCollection>()
@@ -30,18 +40,23 @@ namespace WriteOutTree
                 new TokenCollection() {a, minus, b, minus, c},
                 new TokenCollection() {a, multiplier, b, minus, c},
                 new TokenCollection() {openParenthesisToken, a, plus, b, closeParenthesisToken, multiplier, c},
-                new TokenCollection() {openParenthesisToken, a, plus, openParenthesisToken, b, plus, c, closeParenthesisToken, closeParenthesisToken}
-
+                new TokenCollection() {openParenthesisToken, a, plus, openParenthesisToken, b, plus, c, closeParenthesisToken, closeParenthesisToken},
+                new TokenCollection() {sin, openParenthesisToken, a, plus, b, closeParenthesisToken},
+                new TokenCollection() {a, multiplier, sin, openParenthesisToken, b, minus, c, closeParenthesisToken, divide, d, plus, e},
+                new TokenCollection() {a, openParenthesisToken, b, closeParenthesisToken},
+                new TokenCollection() {_int, a, assign, _3, plus, _3},
+                new TokenCollection() {_string, b, assign, _Name},
+                new TokenCollection() {_bool, c, assign, d, greaterThan, e}
             };
             Parser parser = new Parser();
-
+            int Test = 1;
             foreach (var tokenC in tokens)
             {
-                Console.WriteLine();
-
+                Console.WriteLine($"Tree {Test++}\n");
                 bool Found = parser.TryParse(tokenC, out ParseTreeNode Tree);
-                Tree.PrintPretty("", true);
-            }
+                Tree?.Print("", true);
+                Console.WriteLine("\n");
+             }
             Console.ReadKey();
         }
     }

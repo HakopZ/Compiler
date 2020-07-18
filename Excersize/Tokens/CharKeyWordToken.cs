@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class CharKeyWordToken : KeywordToken
+    public class CharKeyWordToken : TypeToken
     {
         public CharKeyWordToken(string lexeme) : base(lexeme)
         {
