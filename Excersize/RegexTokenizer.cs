@@ -20,9 +20,12 @@ namespace Excersize
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gfalse\\b"), (lexeme) => new FalseKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gstatic\\b"), (lexeme) => new StaticKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gmethod\\b"), (lexeme) => new FunctionKeyWordToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gvariable\\b"), (lexeme) => new VariableKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gpublic\\b"), (lexeme) => new PublicKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gprivate\\b"), (lexeme) => new PrivateKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gentrypoint\\b"), (lexeme) => new EntryPointKeyWord(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\GPrint\\b"), (lexeme) => new PrintKeyWordToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\GRead\\b"), (lexeme) => new ReadKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gwhile\\b"), (lexeme) => new WhileKeyWord(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Glocal\\b"), (lexeme) => new LocalKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gif\\b"), (lexeme) => new IfKeyWordToken(lexeme)),
@@ -37,8 +40,8 @@ namespace Excersize
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gcos"), (lexeme) => new CosineKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gtan"), (lexeme) => new TangentKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\."), (lexeme) => new PeriodToken(lexeme)),
-            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G{"), (lexeme) => new LeftCurlyBraceToken(lexeme)),
-            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G}"), (lexeme) => new RightCurlBraceToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G{"), (lexeme) => new OpenBraceToken(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G}"), (lexeme) => new CloseBraceToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\("), (lexeme) => new OpenParenthesisToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\)"), (lexeme) => new CloseParenthesisToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\G\\["), (lexeme) => new OpenBracketToken(lexeme)),
@@ -102,6 +105,10 @@ namespace Excersize
         {
             while (MoveNext(t, out var token))
             {
+                if(token is SemiColonToken)
+                {
+                    tokens.LastToken.LastTokenInLine = true;
+                }
                 tokens.Add(token);
             }
             return tokens;

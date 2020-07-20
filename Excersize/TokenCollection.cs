@@ -40,6 +40,7 @@ namespace Excersize
         public Token FirstToken => tokens[0];
         public Token LastToken => tokens[Count - 1];
 
+        
         public TokenCollection Slice(int start)
         {
             if(start > Count)
@@ -54,6 +55,7 @@ namespace Excersize
             }
             return new TokenCollection(temp); 
         }
+        
         
         public TokenCollection Slice(int start, int length)
         {
