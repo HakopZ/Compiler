@@ -1,0 +1,6 @@
+class A{
+  method void Main()
+  {
+     variable int x = "Hello";
+  }
+}

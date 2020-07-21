@@ -27,6 +27,7 @@ namespace Excersize
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\GPrint\\b"), (lexeme) => new PrintKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\GRead\\b"), (lexeme) => new ReadKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gwhile\\b"), (lexeme) => new WhileKeyWord(lexeme)),
+            new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gvoid\\b"), (lexeme) => new VoidKeyWord(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Glocal\\b"), (lexeme) => new LocalKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gif\\b"), (lexeme) => new IfKeyWordToken(lexeme)),
             new KeyValuePair<Regex, Func<string, Token>>(new Regex("\\Gelse\\b"), (lexeme) => new ElseKeywordToken(lexeme)),
