@@ -73,7 +73,7 @@ namespace WriteOutTree
             bool Found = parser.TryParse(tokens, out ParseTreeNode Tree);
             Tree?.Print("", true);
             TypeChecker typeChecker = new TypeChecker();
-            typeChecker.TypeCheck(Tree);
+            typeChecker.CallTypeCheck(Tree);
             Console.ReadKey();
         }
     }

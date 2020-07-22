@@ -12,3 +12,17 @@ D:\Visual Studio 2019 Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\Type
 D:\Visual Studio 2019 Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.csproj.CopyComplete
 D:\Visual Studio 2019 Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.dll
 D:\Visual Studio 2019 Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\bin\Debug\netstandard2.1\TypeCheck.deps.json
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\bin\Debug\netstandard2.1\TypeCheck.dll
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\bin\Debug\netstandard2.1\TypeCheck.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\bin\Debug\netstandard2.1\Excersize.dll
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\bin\Debug\netstandard2.1\ParserProject.dll
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\bin\Debug\netstandard2.1\Excersize.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\bin\Debug\netstandard2.1\ParserProject.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.csprojAssemblyReference.cache
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.AssemblyInfoInputs.cache
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.AssemblyInfo.cs
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.csproj.CoreCompileInputs.cache
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.csproj.CopyComplete
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.dll
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.1\TypeCheck.pdb

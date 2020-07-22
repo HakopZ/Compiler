@@ -24,6 +24,13 @@ namespace ParserProject
         {
             Children.Add(node);
         }
+        public void AddRange(IEnumerable<ParseTreeNode> nodes)
+        {
+            foreach(var node in nodes)
+            {
+                Children.Add(node);
+            }
+        }
         public void AddExpression(Token node)
         {
             Expression.Add(node);

@@ -8,96 +8,64 @@ using System.Net.Sockets;
 namespace TypeCheck
 {
 
-    public struct Scope
-    {
-        private readonly Dictionary<IdentifierToken, TypeToken> scopeMap;
-        public Scope(int capacity = 0)
-        {
-            scopeMap = new Dictionary<IdentifierToken, TypeToken>(capacity);
-        }
-        public bool Add(IdentifierToken id, TypeToken type)
-        {
-            if (scopeMap.ContainsKey(id)) return false;
-
-            scopeMap[id] = type;
-            return true;
-        }
-
-        public bool TryGetType(IdentifierToken id, out TypeToken type)
-            => scopeMap.TryGetValue(id, out type);
-    }
-    public struct ScopeStack
-    {
-        private readonly Stack<Scope> scopes;
-        public ScopeStack(int capacity = 0)
-        {
-            scopes = new Stack<Scope>(capacity);
-        }
-        public void Push(Scope scope)
-            => scopes.Push(scope);
-        public void Pop()
-            => scopes.Pop();
-        public bool Add(IdentifierToken ID, TypeToken Type)
-            => scopes.Peek().Add(ID, Type);
-        public bool TryGetType(IdentifierToken ID, out TypeToken Type)
-        {
-            Type = default;
-            foreach (var scope in scopes)
-            {
-                if (scope.TryGetType(ID, out Type)) return true;
-            }
-            return false;
-        }
-    }
-
     public class TypeChecker
     {
         public ScopeStack scopeStack;
-        private IdentifierToken CurrentID;
-        private TypeToken CurrentType;
-        private bool FoundType;
+
+        
         public TypeChecker()
         {
             scopeStack = new ScopeStack(0);
-            FoundType = false;
         }
-        public void TypeCheck(ParseTreeNode Root)
+        public bool TypeCheck(IdentifierToken ID, ParseTreeNode Root)
         {
+            scopeStack.TryGetType(ID, out TypeToken type);
             
-            Find(Root);
+            return false;
         }
 
-        public void Find(ParseTreeNode node)
+        bool FindAssingment(ParseTreeNode node, out Token Constant)
         {
-
+            Constant = default;
+            return false;
+        }
+        public void CallTypeCheck(ParseTreeNode node)
+        {
             if (node.Value is OpenBraceToken)
             {
-                scopeStack.Push(new Scope(0));
+                scopeStack.AddScope(new Scope(0));
             }
             else if (node.Value is CloseBraceToken)
             {
-                scopeStack.Pop();
+                scopeStack.LeaveScope();
             }
-            
             else if (node.Value is TypeToken)
             {
-                FoundType = true;
-                CurrentType = (TypeToken)node.Value;
-                if(GetID(node, out CurrentID))
+                TypeToken currentType = (node.Value as TypeToken);
+                if(GetID(node, out IdentifierToken id))
                 {
-
-                    scopeStack.Add(CurrentID, CurrentType);
-                    CurrentType = default;
-                    CurrentID = default;
+                    scopeStack.Add(id, currentType);
+                 /*   if(!TypeCheck(id, node))
+                    {
+                        throw new Exception("Wrong type");
+                    }*/
                 }
                 else
                 {
                     throw new Exception("Didn't find ID");
                 }
+
             }
+         /*   else if(node.Value is IdentifierToken)
+            {
+                if(!TypeCheck(node.Value as IdentifierToken, node))
+                {
+                    throw new Exception("Wrong type");
+                }
+            }*/
             foreach (var Kids in node.Children)
             {
-                Find(Kids);
+                CallTypeCheck(Kids);
             }
 
 
@@ -108,13 +76,12 @@ namespace TypeCheck
             ID = default;
             if(node.Value is IdentifierToken)
             {
-                ID = (IdentifierToken)node.Value;
+                ID = (node.Value as IdentifierToken);
                 return true;
             }
             foreach (var Kid in node.Children)
             {
                 return GetID(Kid, out ID);
-                
             }
             return false;
 

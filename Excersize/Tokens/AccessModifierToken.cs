@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class PrivateKeyWordToken : AccessModifierToken
+    public abstract class AccessModifierToken : Token
     {
-        public PrivateKeyWordToken(string lexeme) 
+        public AccessModifierToken(string lexeme) 
             : base(lexeme)
         {
         }

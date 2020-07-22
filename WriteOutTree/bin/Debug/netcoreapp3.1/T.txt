@@ -2,5 +2,11 @@ class A{
   method void Main()
   {
      variable int x = "Hello";
+     variable int y = 3;
+     variable int b = y;
+  }
+  method void Temp()
+  {
+     variable string z = "2";
   }
 }
