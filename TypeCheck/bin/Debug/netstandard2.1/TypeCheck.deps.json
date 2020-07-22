@@ -1,19 +1,19 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v3.1",
+    "name": ".NETStandard,Version=v2.1/",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
-      "WriteOutTree/1.0.0": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/": {
+      "TypeCheck/1.0.0": {
         "dependencies": {
           "Excersize": "1.0.0",
-          "ParserProject": "1.0.0",
-          "TypeCheck": "1.0.0"
+          "ParserProject": "1.0.0"
         },
         "runtime": {
-          "WriteOutTree.dll": {}
+          "TypeCheck.dll": {}
         }
       },
       "Excersize/1.0.0": {
@@ -28,20 +28,11 @@
         "runtime": {
           "ParserProject.dll": {}
         }
-      },
-      "TypeCheck/1.0.0": {
-        "dependencies": {
-          "Excersize": "1.0.0",
-          "ParserProject": "1.0.0"
-        },
-        "runtime": {
-          "TypeCheck.dll": {}
-        }
       }
     }
   },
   "libraries": {
-    "WriteOutTree/1.0.0": {
+    "TypeCheck/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -52,11 +43,6 @@
       "sha512": ""
     },
     "ParserProject/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "TypeCheck/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

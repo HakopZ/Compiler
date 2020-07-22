@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using TypeCheck;
 
 namespace WriteOutTree
 {
@@ -71,7 +72,9 @@ namespace WriteOutTree
 
             bool Found = parser.TryParse(tokens, out ParseTreeNode Tree);
             Tree?.Print("", true);
-
+            TypeChecker typeChecker = new TypeChecker();
+            typeChecker.TypeCheck(Tree);
+            Console.ReadKey();
         }
     }
 }

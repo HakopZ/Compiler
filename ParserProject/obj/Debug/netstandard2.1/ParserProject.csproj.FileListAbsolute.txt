@@ -21,3 +21,4 @@ D:\Visual Studio 2019 Projects\MakeParse\ParserProject\obj\Debug\netstandard2.1\
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\ParserProject\obj\Debug\netstandard2.1\ParserProject.csproj.CopyComplete
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\ParserProject\obj\Debug\netstandard2.1\ParserProject.dll
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\ParserProject\obj\Debug\netstandard2.1\ParserProject.pdb
+D:\Visual Studio 2019 Projects\MakeParse\ParserProject\obj\Debug\netstandard2.1\ParserProject.csproj.CoreCompileInputs.cache

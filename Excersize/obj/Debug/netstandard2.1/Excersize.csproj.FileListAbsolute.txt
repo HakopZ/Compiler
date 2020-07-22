@@ -23,3 +23,4 @@ D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Exce
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Excersize.csproj.CoreCompileInputs.cache
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Excersize.dll
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Excersize.pdb
+D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netstandard2.1\Excersize.csproj.CoreCompileInputs.cache

@@ -24,6 +24,20 @@
         "runtime": {
           "bin/placeholder/ParserProject.dll": {}
         }
+      },
+      "TypeCheck/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Excersize": "1.0.0",
+          "ParserProject": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TypeCheck.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TypeCheck.dll": {}
+        }
       }
     }
   },
@@ -37,34 +51,38 @@
       "type": "project",
       "path": "../ParserProject/ParserProject.csproj",
       "msbuildProject": "../ParserProject/ParserProject.csproj"
+    },
+    "TypeCheck/1.0.0": {
+      "type": "project",
+      "path": "../TypeCheck/TypeCheck.csproj",
+      "msbuildProject": "../TypeCheck/TypeCheck.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Excersize >= 1.0.0",
-      "ParserProject >= 1.0.0"
+      "ParserProject >= 1.0.0",
+      "TypeCheck >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\hakop\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
+      "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
       "projectName": "WriteOutTree",
-      "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
-      "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
-      "outputPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\WriteOutTree\\obj\\",
+      "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
+      "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
+      "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -78,11 +96,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
-              "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj"
+            "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj"
             },
-            "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
-              "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj"
+            "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
+              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj"
+            },
+            "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeCheck.csproj": {
+              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeCheck.csproj"
             }
           }
         }
