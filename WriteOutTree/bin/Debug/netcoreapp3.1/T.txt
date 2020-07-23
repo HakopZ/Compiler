@@ -1,5 +1,6 @@
-class A{
-  method void Main()
+static class A{
+  static variable int w = 2;
+  static method void Main()
   {
      variable int x = "Hello";
      variable int y = 3;
@@ -10,7 +11,7 @@ class A{
      variable string z = "2";
      z = 3;
   }
-  method int A()
+  method int A(int i)
   {
      variable int l = 1;
   }
@@ -18,5 +19,11 @@ class A{
 {
   variable string b = 1;
   variable int r = b - 2;
+}
+}
+class B{
+ method void ok()
+{
+ variable int n = 2;
 }
 }

@@ -10,6 +10,7 @@ namespace TypeCheck
         Dictionary<IdentifierToken, ClassInformation> Map = new Dictionary<IdentifierToken, ClassInformation>();
         ScopeStack scopeStack = new ScopeStack();
 
+        public ClassInformation CurrentClass { get; set; }
         public bool AddInfo(IdentifierToken ID, ClassInformation Info)
         {
             if (Map.ContainsKey(ID)) return false;

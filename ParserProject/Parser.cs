@@ -18,24 +18,52 @@ namespace ParserProject
 
         public IEnumerable<Token> Filter(TokenCollection tokens)
         {
-            return tokens.Where(x => x.GetType() != typeof(WhitespaceToken) && x.GetType() != typeof(NewLineToken) && x.GetType() != typeof(CommentToken) && x.GetType() != typeof(CommaToken));
+            return tokens.Where(x => x.GetType() != typeof(WhitespaceToken) && x.GetType() != typeof(NewLineToken) && x.GetType() != typeof(CommentToken));
         }
         bool IsE(TokenCollection tokens, out ParseTreeNode node)
-            => IsClass(tokens, out node);
+        {
+            node = default;
+            if (IsClass(tokens, out List<ParseTreeNode> classNodes))
+            {
+                node = new ParseTreeNode(new StartToken("START"), false);
+                node.AddRange(classNodes);
+                return true;
+            }
+            return false;
+        }
 
         bool IsInClass(TokenCollection tokens, out List<ParseTreeNode> node)
             => IsDeclaration(tokens, out node);
-        bool IsClass(TokenCollection tokens, out ParseTreeNode node)
+        bool IsClass(TokenCollection tokens, out List<ParseTreeNode> node)
         {
-            node = default;
+            node = new List<ParseTreeNode>();
             if (tokens.Count < 4)
             {
                 return false;
             }
+
             bool FoundAMT = false;
-            if (tokens.FirstToken is AccessModifierToken)
+            bool Found = false;
+            ParseTreeNode AMTnode = default;
+            ParseTreeNode AMTnodeSpecified = default;
+            if (tokens.FirstToken is AccessModifierToken && !(tokens.FirstToken is StaticKeyWordToken))
             {
-                node = new ParseTreeNode(tokens.FirstToken, false);
+                AMTnode = new ParseTreeNode(tokens.FirstToken, false);
+                if (tokens[1] is StaticKeyWordToken)
+                {
+                    AMTnodeSpecified = new ParseTreeNode(tokens[1], false);
+                    Found = true;
+                }
+                else if (tokens[1] is AccessModifierToken)
+                {
+                    throw new Exception("Cant have");
+                }
+                FoundAMT = true;
+                tokens = tokens.Slice(Found ? 2 : 1);
+            }
+            else if (tokens.FirstToken is StaticKeyWordToken)
+            {
+                AMTnode = new ParseTreeNode(tokens.FirstToken, false);
                 FoundAMT = true;
                 tokens = tokens.Slice(1);
             }
@@ -69,25 +97,26 @@ namespace ParserProject
 
                                 ParseTreeNode ClassNode = new ParseTreeNode(tokens.FirstToken, false);
 
+                                if (FoundAMT)
+                                {
+                                    ClassNode.Add(AMTnode);
+                                    if (Found)
+                                    {
+                                        ClassNode.Add(AMTnodeSpecified);
+                                    }
+                                }
+                                node.Add(ClassNode);
                                 ClassNode.Add(IDNode);
-
                                 IDNode.Add(new ParseTreeNode(new OpenBraceToken("{"), false));
                                 foreach (var Nodes in Inside)
                                 {
                                     IDNode.Children[0].Add(Nodes);
                                 }
                                 IDNode.Add(new ParseTreeNode(new CloseBraceToken("}"), true));
-                                if (!FoundAMT)
+
+                                if (IsClass(tokens.Slice(i + 1), out List<ParseTreeNode> RestOfCode))
                                 {
-                                    node = ClassNode;
-                                }
-                                else
-                                {
-                                    node.Add(ClassNode);
-                                }
-                                if (IsE(tokens.Slice(i + 1), out ParseTreeNode RestOfCode))
-                                {
-                                    node.Add(RestOfCode);
+                                    node.AddRange(RestOfCode);
                                 }
                                 return true;
 
@@ -100,14 +129,18 @@ namespace ParserProject
             return false;
         }
         bool IsOther(TokenCollection tokens, out List<ParseTreeNode> node)
+            => isCall(tokens, out node);
+
+        bool isCall(TokenCollection tokens, out List<ParseTreeNode> node)
             => IsVariableCall(tokens, out node);
         bool IsVariableCall(TokenCollection tokens, out List<ParseTreeNode> node)
         {
             node = new List<ParseTreeNode>();
-            if(tokens.Count == 0)
+            if (tokens.Count == 0)
             {
                 return false;
             }
+
             if (tokens.FirstToken is IdentifierToken)
             {
                 for (int i = 0; i < tokens.Count; i++)
@@ -126,7 +159,6 @@ namespace ParserProject
                     }
                 }
             }
-
             return false;
         }
         bool IsInFunc(TokenCollection tokens, out List<ParseTreeNode> node)
@@ -145,7 +177,7 @@ namespace ParserProject
                 {
                     if (tokens[i] is OpenBraceToken)
                     {
-                        if (IsEParenthesis(tokens.Slice(1, i - 1), true, out ParseTreeNode ParenthesisChild))
+                        if (IsEParenthesis(tokens.Slice(1, i - 1), out List<ParseTreeNode> ParenthesisChild))
                         {
                             int SliceSpot = i;
                             int count = 1;
@@ -165,7 +197,7 @@ namespace ParserProject
                             if (IsInFunc(tokens.Slice(SliceSpot + 1, i - SliceSpot - 1), out List<ParseTreeNode> Inside))
                             {
                                 ParseTreeNode InsideNode = new ParseTreeNode(tokens.FirstToken, false);
-                                InsideNode.Add(ParenthesisChild);
+                                InsideNode.AddRange(ParenthesisChild);
                                 InsideNode.Add(new ParseTreeNode(new OpenBraceToken("{"), false));
                                 InsideNode.Children[1].AddRange(Inside);
                                 InsideNode.Add(new ParseTreeNode(new CloseBraceToken("}"), true));
@@ -192,11 +224,30 @@ namespace ParserProject
             {
                 return false;
             }
+            bool FoundAMT = false;
+            bool Found = false;
             ParseTreeNode AMTnode = default;
-            if (tokens.FirstToken is AccessModifierToken)
+            ParseTreeNode AMTnodeSpecified = default;
+            if (tokens.FirstToken is AccessModifierToken && !(tokens.FirstToken is StaticKeyWordToken))
             {
                 AMTnode = new ParseTreeNode(tokens.FirstToken, false);
-                tokens.Slice(1);
+                if (tokens[1] is StaticKeyWordToken)
+                {
+                    AMTnodeSpecified = new ParseTreeNode(tokens[1], false);
+                    Found = true;
+                }
+                else if (tokens[1] is AccessModifierToken)
+                {
+                    throw new Exception("Cant have");
+                }
+                FoundAMT = true;
+                tokens = tokens.Slice(Found ? 2 : 1);
+            }
+            else if (tokens.FirstToken is StaticKeyWordToken)
+            {
+                AMTnode = new ParseTreeNode(tokens.FirstToken, false);
+                FoundAMT = true;
+                tokens = tokens.Slice(1);
             }
             if (tokens.FirstToken is FunctionKeyWordToken)
             {
@@ -226,16 +277,17 @@ namespace ParserProject
                 if (IsFuncType(tokens.Slice(1, i), out List<ParseTreeNode> child))
                 {
                     ParseTreeNode FuncNode = new ParseTreeNode(tokens.FirstToken, false);
+
+                    if (FoundAMT)
+                    {
+                        FuncNode.Add(AMTnode);
+                        if (Found)
+                        {
+                            FuncNode.Add(AMTnodeSpecified);
+                        }
+                    }
                     FuncNode.AddRange(child);
-                    if (AMTnode is null)
-                    {
-                        node.Add(FuncNode);
-                    }
-                    else
-                    {
-                        AMTnode.Add(FuncNode);
-                        node.Add(AMTnode);
-                    }
+                    node.Add(FuncNode);
                     if (IsInClass(tokens.Slice(i + 1), out List<ParseTreeNode> kids))
                     {
                         node.AddRange(kids);
@@ -264,7 +316,7 @@ namespace ParserProject
         bool isInFunctionVariable(TokenCollection tokens, out List<ParseTreeNode> node)
         {
             node = new List<ParseTreeNode>();
-            if (tokens.Count < 3)
+            if (tokens.Count == 0)
             {
                 return false;
             }
@@ -275,7 +327,7 @@ namespace ParserProject
                 {
                     if (tokens[i] is SemiColonToken)
                     {
-                        if (VariableCheck(tokens.Slice(start, i - start + 1), out ParseTreeNode n))
+                        if (VariableCheck(tokens.Slice(start, i - start + 1), true, out ParseTreeNode n))
                         {
                             ParseTreeNode Anode = new ParseTreeNode(tokens.FirstToken, false);
                             Anode.Add(n);
@@ -302,10 +354,30 @@ namespace ParserProject
             {
                 return false;
             }
-            ParseTreeNode AMTNode = default;
-            if (tokens.FirstToken is AccessModifierToken)
+            bool FoundAMT = false;
+            bool Found = false;
+            ParseTreeNode AMTnode = default;
+            ParseTreeNode AMTnodeSpecified = default;
+            if (tokens.FirstToken is AccessModifierToken && !(tokens.FirstToken is StaticKeyWordToken))
             {
-                AMTNode = new ParseTreeNode(tokens.FirstToken, false);
+                AMTnode = new ParseTreeNode(tokens.FirstToken, false);
+                if (tokens[1] is StaticKeyWordToken)
+                {
+                    AMTnodeSpecified = new ParseTreeNode(tokens[1], false);
+                    Found = true;
+                }
+                else if (tokens[1] is AccessModifierToken)
+                {
+                    throw new Exception("Cant have");
+                }
+                FoundAMT = true;
+                tokens = tokens.Slice(Found ? 2 : 1);
+            }
+            else if (tokens.FirstToken is StaticKeyWordToken)
+            {
+                AMTnode = new ParseTreeNode(tokens.FirstToken, false);
+                FoundAMT = true;
+                tokens = tokens.Slice(1);
             }
             if (tokens.FirstToken is VariableKeyWordToken)
             {
@@ -314,19 +386,19 @@ namespace ParserProject
                 {
                     if (tokens[i] is SemiColonToken)
                     {
-                        if (VariableCheck(tokens.Slice(start, i - start + 1), out ParseTreeNode n))
+                        if (VariableCheck(tokens.Slice(start, i - start + 1), true, out ParseTreeNode n))
                         {
                             ParseTreeNode Anode = new ParseTreeNode(tokens.FirstToken, false);
+                            if (FoundAMT)
+                            {
+                                Anode.Add(AMTnode);
+                                if(Found)
+                                {
+                                    Anode.Add(AMTnodeSpecified);
+                                }
+                            }
                             Anode.Add(n);
-                            if (AMTNode is null)
-                            {
-                                node.Add(Anode);
-                            }
-                            else
-                            {
-                                AMTNode.Add(Anode);
-                                node.Add(AMTNode);
-                            }
+                            node.Add(Anode);
                             if (i + 1 < tokens.Count)
                             {
                                 if (IsDeclaration(tokens.Slice(i + 1), out List<ParseTreeNode> OtherNodes))
@@ -342,12 +414,12 @@ namespace ParserProject
             }
             return false;
         }
-        bool VariableCheck(TokenCollection tokens, out ParseTreeNode node)
+        bool VariableCheck(TokenCollection tokens, bool Declare, out ParseTreeNode node)
         {
             node = default;
             if (tokens.FirstToken is TypeToken)
             {
-                if (IsVariableIdentifier(tokens.Slice(1), out ParseTreeNode VariableNode))
+                if (IsVariableIdentifier(tokens.Slice(1), Declare, out ParseTreeNode VariableNode))
                 {
 
                     node = new ParseTreeNode(tokens.FirstToken, false);
@@ -366,7 +438,7 @@ namespace ParserProject
             => IsEMultiplication(tokens, out node)
             || IsEDivision(tokens, out node)
             || IsMod(tokens, out node)
-            || IsEParenthesis(tokens, false, out node)
+            || IsEParenthesisArithemetic(tokens, out node)
             || IsBaseCase(tokens, out node);
 
         bool IsArithmeticPlus(TokenCollection tokens, out ParseTreeNode node)
@@ -433,28 +505,35 @@ namespace ParserProject
 
         bool IsEDivision(TokenCollection tokens, out ParseTreeNode node)
             => GetExactOperator<DividingOperatorToken>(tokens, out node);
-        bool IsVariableIdentifier(TokenCollection tokens, out ParseTreeNode node)
+        bool IsVariableIdentifier(TokenCollection tokens, bool Declare, out ParseTreeNode node)
         {
             node = default;
-            if (tokens.Count < 2)
+            if (tokens.Count == 0)
             {
                 return false;
             }
             if (tokens.FirstToken is IdentifierToken)
             {
-
-                if (tokens[1] is SemiColonToken)
+                if (Declare)
                 {
-                    node = new ParseTreeNode(tokens.FirstToken, false);
-                    return true;
+                    if (tokens[1] is SemiColonToken)
+                    {
+                        node = new ParseTreeNode(tokens.FirstToken, false);
+                        return true;
+                    }
+                    else
+                    {
+                        if (GetExactOperator<AssignmentOperatorToken>(tokens, out ParseTreeNode child))
+                        {
+                            node = child;
+                            return true;
+                        }
+                    }
                 }
                 else
                 {
-                    if (GetExactOperator<AssignmentOperatorToken>(tokens, out ParseTreeNode child))
-                    {
-                        node = child;
-                        return true;
-                    }
+                    node = new ParseTreeNode(tokens.FirstToken, true);
+                    return true;
                 }
             }
             return false;
@@ -472,10 +551,10 @@ namespace ParserProject
 
                 if (tokens[i] is T)
                 {
-                    if (IsEParenthesis(tokens.Slice(1), false, out ParseTreeNode Kids))
+                    if (IsEParenthesis(tokens.Slice(1), out List<ParseTreeNode> Kids))
                     {
                         node = new ParseTreeNode(tokens[i], false);
-                        node.Add(Kids);
+                        node.AddRange(Kids);
                         foreach (var t in tokens)
                         {
                             node.AddExpression(t);
@@ -518,7 +597,53 @@ namespace ParserProject
             return false;
 
         }
-        bool IsEParenthesis(TokenCollection tokens, bool Params, out ParseTreeNode node)
+        bool IsEParenthesis(TokenCollection tokens, out List<ParseTreeNode> node)
+        {
+            node = new List<ParseTreeNode>();
+            if (tokens.Count < 2)
+            {
+                return false;
+            }
+            if (tokens.FirstToken is OpenParenthesisToken)
+            {
+                if (tokens.Count == 2 && tokens.LastToken is CloseParenthesisToken)
+                {
+                    node.Add(new ParseTreeNode(new EmptyToken("No Parameters"), false));
+                    return true;
+                }
+                var e = tokens.Slice(1, tokens.Count - 2);
+                /*if (Params)
+                {
+                    return IsParams(e, out node);
+                }*/
+                int st = 0;
+                for (int i = 0; i < e.Count; i++)
+                {
+                    if (e[i] is CommaToken)
+                    {
+                        var temp = e.SliceTo(st, i - 1);
+                        st = i + 1;
+                        if (VariableCheck(temp, false, out ParseTreeNode n))
+                        {
+                            node.Add(n);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    }
+                }
+                if (VariableCheck(e.Slice(st), false, out ParseTreeNode Tn))
+                {
+                    node.Add(Tn);
+                    return true;
+                }
+
+            }
+            return false;
+        }
+        bool IsEParenthesisArithemetic(TokenCollection tokens, out ParseTreeNode node)
         {
             node = default;
             if (tokens.Count < 2)
@@ -529,46 +654,20 @@ namespace ParserProject
             {
                 if (tokens.Count == 2 && tokens.LastToken is CloseParenthesisToken)
                 {
-                    node = new ParseTreeNode(new EmptyToken("No Parameters"), false);
+                    node.Add(new ParseTreeNode(new EmptyToken("No Parameters"), false));
                     return true;
                 }
-                var e = tokens.Slice(1, tokens.Count - 3);
-                /*if (Params)
-                {
-                    return IsParams(e, out node);
-                }*/
-                return IsE(e, out node);
+                var e = tokens.Slice(1, tokens.Count - 2);
+                return IsArithmetic(tokens, out node);
 
             }
             return false;
         }
-
-        bool IsParams(TokenCollection e, out ParseTreeNode node)
+        bool IsEParenthesisLogic(TokenCollection tokens, out ParseTreeNode node)
         {
             node = default;
-            TokenCollection temp = e;
-            ParseTreeNode VNode = default;
-            ParseTreeNode IDNode = default;
-            while (temp.Count > 0)
-            {
-                if (temp.FirstToken is TypeToken)
-                {
-                    temp = temp.Slice(1);
-                    if (IsType<VariableKeyWordToken>(temp.Slice(1, 1), out VNode))
-                    {
-                        if (IsType<IdentifierToken>(temp.Slice(1, 1), out IDNode))
-                        {
-                            temp = temp.Slice(1);
-                        }
-                    }
-                }
-            }
-            node = new ParseTreeNode(temp.FirstToken, false);
             return false;
-
-
         }
-
         bool GetExactOperator<T>(TokenCollection tokens, out ParseTreeNode ExactNode)
             where T : OperatorToken
         {

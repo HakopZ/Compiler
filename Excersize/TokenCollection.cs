@@ -55,8 +55,9 @@ namespace Excersize
             }
             return new TokenCollection(temp); 
         }
-        
-        
+
+        public TokenCollection SliceTo(int start, int end)
+            => Slice(start, end - start + 1);
         public TokenCollection Slice(int start, int length)
         {
             if (start > Count)
