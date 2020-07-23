@@ -8,9 +8,9 @@ namespace TypeCheck
     public class Scope
     {
         private readonly Dictionary<IdentifierToken, TypeToken> scopeMap;
-        public Scope(int capacity = 0)
+        public Scope()
         {
-            scopeMap = new Dictionary<IdentifierToken, TypeToken>(capacity);
+            scopeMap = new Dictionary<IdentifierToken, TypeToken>();
         }
         public bool Add(IdentifierToken id, TypeToken type)
         {

@@ -8,9 +8,9 @@ namespace TypeCheck
     public class ScopeStack
     {
         private readonly Stack<Scope> scopes;
-        public ScopeStack(int capacity = 0)
+        public ScopeStack()
         {
-            scopes = new Stack<Scope>(capacity);
+            scopes = new Stack<Scope>();
         }
         public void AddScope(Scope scope)
             => scopes.Push(scope);

@@ -8,5 +8,15 @@ class A{
   method void Temp()
   {
      variable string z = "2";
+     z = 3;
   }
+  method int A()
+  {
+     variable int l = 1;
+  }
+  method string o()
+{
+  variable string b = 1;
+  variable int r = b - 2;
+}
 }

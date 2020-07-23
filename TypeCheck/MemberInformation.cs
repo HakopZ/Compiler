@@ -7,8 +7,8 @@ namespace TypeCheck
 {
     public abstract class MemberInformation
     {
-        string Name { get; set; }
-        TypeToken Type { get; set; }
-        bool isStatic { get; set; }
+        public IdentifierToken ID { get; set; }
+        public TypeToken Type { get; set; }
+        public bool isStatic { get; set; }
     }
 }
