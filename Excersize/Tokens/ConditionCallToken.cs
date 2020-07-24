@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class WhileKeyWord : ConditionCallToken
+    public class ConditionCallToken : Token
     {
-        public WhileKeyWord(string lexeme) 
-            : base(lexeme)
+        public ConditionCallToken(string lexeme) : base(lexeme)
         {
         }
     }

@@ -5,6 +5,17 @@ static class A{
      variable int x = "Hello";
      variable int y = 3;
      variable int b = y;
+     if(b == 2)
+     {
+       variable int ro = 1;
+     }
+     while(c == 2)
+     {
+       if(y >= 1)
+       {
+       variable int aa = 4;
+       }
+     }
   }
   method void Temp()
   {

@@ -14,10 +14,16 @@ namespace TypeCheck
 
         public TypeChecker()
         {
-
+            symbolTable = new SymbolTable();
         }
 
-        public void Scan(ParseTreeNode Root)
+        public void DoProcess(ParseTreeNode Root)
+        {
+            ScanClasses(Root);
+            TypeCheck(Root);
+            //CheckReturnStatements
+        }
+        public void TypeCheck(ParseTreeNode Start)
         {
 
         }
@@ -66,11 +72,48 @@ namespace TypeCheck
             {
                 if(Node.Value is VariableKeyWordToken)
                 {
-                    
+                   if(GetFieldInfo(Node, out FieldInformation FieldInfo))
+                   {
+                        info.Add(FieldInfo);
+                   }
+                       
+                }
+                else if(Node.Value is FunctionKeyWordToken)
+                {
+                    if(GetMethodInfo(Node, out MethodInformation MethodInfo))
+                    {
+                        info.Add(MethodInfo);
+                    }
                 }
             }
             return true;
         }
+
+        bool GetMethodInfo(ParseTreeNode Start, out MethodInformation methodInfo)
+        {
+            methodInfo = new MethodInformation();
+
+            foreach (var Node in Start.Children)
+            {
+                if (Node.Value is StaticKeyWordToken)
+                {
+                    methodInfo.isStatic = true;
+                }
+                else if (Node.Value is TypeToken)
+                {
+                    methodInfo.Type = Node.Value as TypeToken;
+                    IdentifierToken ID;
+                    if (GetID(Node, out ID))
+                    {
+                        methodInfo.ID = ID;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         bool GetFieldInfo(ParseTreeNode Start, out FieldInformation fieldInfo)
         {
             fieldInfo = new FieldInformation();
@@ -84,10 +127,33 @@ namespace TypeCheck
                 else if(Node.Value is TypeToken)
                 {
                     fieldInfo.Type = Node.Value as TypeToken;
-                    
+                    IdentifierToken ID;
+                    if(GetID(Node, out ID))
+                    {
+                        fieldInfo.ID = ID;
+                        return true;
+                    }
+                   // fieldI
                 }
             }
 
+            return false;
+        }
+        bool GetID(ParseTreeNode Start, out IdentifierToken ID)
+        {
+            ID = default;
+            if (Start.Value is IdentifierToken)
+            {
+                ID = Start.Value as IdentifierToken;
+                return true;
+            }
+            foreach(var node in Start.Children)
+            {
+                if(GetID(node, out ID))
+                {
+                    return true;
+                }
+            }
             return false;
         }
         private void ScanTree(ParseTreeNode node)

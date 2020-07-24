@@ -129,8 +129,64 @@ namespace ParserProject
             return false;
         }
         bool IsOther(TokenCollection tokens, out List<ParseTreeNode> node)
-            => isCall(tokens, out node);
+            => isCall(tokens, out node)
+            || isConditionCall<IfKeyWordToken>(tokens, out node)
+            || isConditionCall<WhileKeyWord>(tokens, out node);
 
+
+        bool isConditionCall<T>(TokenCollection tokens, out List<ParseTreeNode> node)
+            where T : ConditionCallToken
+        {
+            node = new List<ParseTreeNode>();
+            if(tokens.Count == 0)
+            {
+                return false;
+            }
+            if (tokens.FirstToken is T)
+            {
+                for (int i = 0; i < tokens.Count; i++)
+                {
+                    if (tokens[i] is OpenBraceToken)
+                    {
+                        if (IsEParenthesisLogic(tokens.Slice(1, i - 1), out List<ParseTreeNode> ParenthesisChild))
+                        {
+                            int SliceSpot = i;
+                            int count = 1;
+                            while (count != 0)
+                            {
+                                i++;
+                                if (tokens[i] is OpenBraceToken)
+                                {
+                                    count++;
+                                }
+                                else if (tokens[i] is CloseBraceToken)
+                                {
+                                    count--;
+                                }
+
+                            }
+                            if(IsInFunc(tokens.SliceTo(SliceSpot + 1, i - 1), out List<ParseTreeNode> CodeInCall))
+                            {
+                                ParseTreeNode temp = new ParseTreeNode(tokens.FirstToken, false);
+                                temp.AddRange(ParenthesisChild);
+                                ParseTreeNode OpenBrace = new ParseTreeNode(new OpenBraceToken("{"), false);
+                                OpenBrace.AddRange(CodeInCall);
+                                temp.Add(OpenBrace);
+                                temp.Add(new ParseTreeNode(new OpenBraceToken("}"), false));
+                                node.Add(temp);
+                            }
+                            if (i < tokens.Count - 1 && IsInFunc(tokens.Slice(i + 1), out var NodeList))
+                            {
+                                node.AddRange(NodeList);
+                            }
+
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
         bool isCall(TokenCollection tokens, out List<ParseTreeNode> node)
             => IsVariableCall(tokens, out node);
         bool IsVariableCall(TokenCollection tokens, out List<ParseTreeNode> node)
@@ -467,8 +523,7 @@ namespace ParserProject
           || GetExactOperator<GreatThanOrEqualOperatorToken>(tokens, out node)
           || GetExactOperator<LessThanOperator>(tokens, out node)
           || GetExactOperator<LessThanOrEqualOperatorToken>(tokens, out node);
-        bool IsEPrime(TokenCollection tokens, out ParseTreeNode node)
-            => IsBaseCase(tokens, out node);
+        
 
         bool IsUserMade(TokenCollection tokens, out ParseTreeNode node)
             => IsFunction<IdentifierToken>(tokens, out node);
@@ -482,7 +537,9 @@ namespace ParserProject
             => IsType<NumberLiteralToken>(tokens, out node)
             || IsType<StringLiteralToken>(tokens, out node)
             || IsType<CharLiteralToken>(tokens, out node)
-            || IsType<IdentifierToken>(tokens, out node);
+            || IsType<IdentifierToken>(tokens, out node)
+            || IsType<TrueKeyWordToken>(tokens, out node)
+            || IsType<FalseKeyWordToken>(tokens, out node);
 
 
         bool IsTan(TokenCollection tokens, out ParseTreeNode node)
@@ -663,9 +720,36 @@ namespace ParserProject
             }
             return false;
         }
-        bool IsEParenthesisLogic(TokenCollection tokens, out ParseTreeNode node)
+        bool IsEParenthesisLogic(TokenCollection tokens, out List<ParseTreeNode> Conditions)
         {
-            node = default;
+            Conditions = new List<ParseTreeNode>();
+            if(tokens.Count < 3)
+            {
+                return false;
+            }
+            tokens = tokens.Slice(1, tokens.Count - 2);
+            int pos = 0;
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                if(tokens[i] is AndOperatorToken || tokens[i] is OrOperatorToken)
+                {
+                    
+                    if(IsComparison(tokens.SliceTo(pos, i - 1), out ParseTreeNode condition))
+                    {
+                        Conditions.Add(condition);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    pos = i + 1;
+                }
+            }
+            if(IsComparison(tokens.Slice(pos), out ParseTreeNode AnotherCondtion))
+            {
+                Conditions.Add(AnotherCondtion);
+                return true;
+            }
             return false;
         }
         bool GetExactOperator<T>(TokenCollection tokens, out ParseTreeNode ExactNode)
