@@ -1,10 +1,12 @@
 static class A{
-  static variable int w = 2;
+  static variable int w = 2 + 1;
   static method void Main()
   {
      variable int x = "Hello";
      variable int y = 3;
      variable int b = y;
+     variable B c;
+     variable int temporary = Temp();
      if(b == 2)
      {
        variable int ro = 1;

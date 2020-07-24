@@ -1,0 +1,51 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.1/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/": {
+      "TypeChecker/1.0.0": {
+        "dependencies": {
+          "Excersize": "1.0.0",
+          "ParserProject": "1.0.0"
+        },
+        "runtime": {
+          "TypeChecker.dll": {}
+        }
+      },
+      "Excersize/1.0.0": {
+        "runtime": {
+          "Excersize.dll": {}
+        }
+      },
+      "ParserProject/1.0.0": {
+        "dependencies": {
+          "Excersize": "1.0.0"
+        },
+        "runtime": {
+          "ParserProject.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TypeChecker/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Excersize/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ParserProject/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

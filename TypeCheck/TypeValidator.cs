@@ -8,11 +8,10 @@ using System.Net.Sockets;
 namespace TypeCheck
 {
 
-    public class TypeChecker
+    public class TypeValidator
     {
         public SymbolTable symbolTable;
-
-        public TypeChecker()
+        public TypeValidator()
         {
             symbolTable = new SymbolTable();
         }
@@ -23,10 +22,93 @@ namespace TypeCheck
             TypeCheck(Root);
             //CheckReturnStatements
         }
-        public void TypeCheck(ParseTreeNode Start)
+        public bool TypeCheck(ParseTreeNode node)
         {
+            foreach(var ClassNode in node.Children)
+            {
+                foreach(var CNodes in ClassNode.Children)
+                {
+                    if(CNodes.Value is IdentifierToken)
+                    {
+                        IdentifierToken ID = CNodes.Value as IdentifierToken;
+                        if(symbolTable.TryGetInfo(ID, out ClassInformation Cinfo))
+                        {
+                            if(GoThroughClass(CNodes.Children[0], Cinfo))
+                            {
 
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            return false;
         }
+        bool GoThroughClass(ParseTreeNode start, ClassInformation info)
+        {
+            //????Confused
+            /*if(start.Value is OpenBraceToken)
+            {
+                symbolTable.EnterScope();
+            }*/
+            
+            foreach(var Nodes in start.Children)
+            {
+                if(Nodes.Value is VariableKeyWordToken)
+                {
+                    if(!CheckVariableType(Nodes))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+        bool CheckVariableType(ParseTreeNode node)
+        {
+            if(node.Value is OperatorToken)
+            {
+                Evaluate(node, out IdentifierToken ID);
+            }
+            foreach (var kid in node.Children)
+            {
+                CheckVariableType(kid);
+            }
+            return false;
+        }
+        bool Evaluate(ParseTreeNode node, out IdentifierToken ID)
+        {
+            ID = default;
+            TypeToken type = default;
+            for (int i = 1; i < node.Children.Count; i++)
+            {
+                if (node.Children[i].Value is NumberLiteralToken)
+                {
+                    type = node.Children[i].Value as IntToken;
+                }
+                else if (node.Children[i].Value is StringLiteralToken)
+                {
+                    type = node.Children[i].Value as StringToken;
+                }
+                else if (node.Children[i].Value is TrueKeyWordToken || node.Children[i].Value is FalseKeyWordToken)
+                {
+                    type = node.Children[i].Value as BoolToken;
+                }
+                else if (node.Children[i].Value is CharLiteralToken)
+                {
+                    type = node.Children[i].Value as CharKeyWordToken;
+                }
+                else if(node.Children[i].Value is OperatorToken)
+                {
+                    
+                }
+            }
+            
+
+            return false;
+        }
+
         public void ScanClasses(ParseTreeNode Start)
         {
             foreach (var Node in Start.Children)

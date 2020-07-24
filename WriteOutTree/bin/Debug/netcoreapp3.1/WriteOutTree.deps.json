@@ -10,7 +10,7 @@
         "dependencies": {
           "Excersize": "1.0.0",
           "ParserProject": "1.0.0",
-          "TypeCheck": "1.0.0"
+          "TypeChecker": "1.0.0"
         },
         "runtime": {
           "WriteOutTree.dll": {}
@@ -29,13 +29,13 @@
           "ParserProject.dll": {}
         }
       },
-      "TypeCheck/1.0.0": {
+      "TypeChecker/1.0.0": {
         "dependencies": {
           "Excersize": "1.0.0",
           "ParserProject": "1.0.0"
         },
         "runtime": {
-          "TypeCheck.dll": {}
+          "TypeChecker.dll": {}
         }
       }
     }
@@ -56,7 +56,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "TypeCheck/1.0.0": {
+    "TypeChecker/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

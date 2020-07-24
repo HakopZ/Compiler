@@ -1,0 +1,190 @@
+{
+  "format": 1,
+  "restore": {
+    "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj": {}
+  },
+  "projects": {
+    "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj",
+        "projectName": "Excersize",
+        "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj",
+        "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
+        "outputPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj",
+        "projectName": "ParserProject",
+        "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj",
+        "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
+        "outputPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+                "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj",
+        "projectName": "TypeChecker",
+        "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj",
+        "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
+        "outputPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+                "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj"
+              },
+              "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
+                "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -23,7 +23,9 @@ namespace TypeCheck
             => scopeStack.AddScope(new Scope());
         public void ExitScope()
             => scopeStack.LeaveScope();
-
+        public bool AddInScope(IdentifierToken ID, TypeToken Type)
+            => scopeStack.Add(ID, Type);
+        
 
         
     }

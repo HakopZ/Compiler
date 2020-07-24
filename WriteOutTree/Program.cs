@@ -22,7 +22,7 @@ namespace WriteOutTree
 
             bool Found = parser.TryParse(tokens, out ParseTreeNode Tree);
             Tree?.Print("", true);
-            TypeChecker typeChecker = new TypeChecker();
+            TypeValidator typeChecker = new TypeValidator();
             typeChecker.DoProcess(Tree);
             Console.ReadKey();
         }

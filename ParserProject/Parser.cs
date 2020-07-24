@@ -138,7 +138,7 @@ namespace ParserProject
             where T : ConditionCallToken
         {
             node = new List<ParseTreeNode>();
-            if(tokens.Count == 0)
+            if (tokens.Count == 0)
             {
                 return false;
             }
@@ -165,7 +165,7 @@ namespace ParserProject
                                 }
 
                             }
-                            if(IsInFunc(tokens.SliceTo(SliceSpot + 1, i - 1), out List<ParseTreeNode> CodeInCall))
+                            if (IsInFunc(tokens.SliceTo(SliceSpot + 1, i - 1), out List<ParseTreeNode> CodeInCall))
                             {
                                 ParseTreeNode temp = new ParseTreeNode(tokens.FirstToken, false);
                                 temp.AddRange(ParenthesisChild);
@@ -188,7 +188,15 @@ namespace ParserProject
             return false;
         }
         bool isCall(TokenCollection tokens, out List<ParseTreeNode> node)
-            => IsVariableCall(tokens, out node);
+        {
+            node = new List<ParseTreeNode>();
+            if (IsEFuncCall(tokens, true, out List<ParseTreeNode> x))
+            {
+                node.AddRange(x);
+                return true;
+            }
+            return IsVariableCall(tokens, out node);
+        }
         bool IsVariableCall(TokenCollection tokens, out List<ParseTreeNode> node)
         {
             node = new List<ParseTreeNode>();
@@ -448,7 +456,7 @@ namespace ParserProject
                             if (FoundAMT)
                             {
                                 Anode.Add(AMTnode);
-                                if(Found)
+                                if (Found)
                                 {
                                     Anode.Add(AMTnodeSpecified);
                                 }
@@ -473,7 +481,7 @@ namespace ParserProject
         bool VariableCheck(TokenCollection tokens, bool Declare, out ParseTreeNode node)
         {
             node = default;
-            if (tokens.FirstToken is TypeToken)
+            if (tokens.FirstToken is TypeToken || tokens.FirstToken is IdentifierToken)
             {
                 if (IsVariableIdentifier(tokens.Slice(1), Declare, out ParseTreeNode VariableNode))
                 {
@@ -503,27 +511,93 @@ namespace ParserProject
         bool IsArithmeticMinus(TokenCollection tokens, out ParseTreeNode node)
             => GetExactOperator<SubtractionOperatorToken>(tokens, out node);
 
+        bool IsEFuncCall(TokenCollection tokens, bool SemiColon, out ParseTreeNode node)
+        {
+            node = default;
+            if (IsEFuncCall(tokens, SemiColon, out List<ParseTreeNode> x))
+            {
+                if(x.Count == 1)
+                {
+                    node = x[0];
+                    return true;
+                }
+            }
+            return false;
+        }
+        bool IsEFuncCall(TokenCollection tokens, bool SemiColon, out List<ParseTreeNode> node)
+        {
+            node = new List<ParseTreeNode>();
+            if (tokens.Count < 3) return false;
+            if (tokens.FirstToken is KeywordToken)
+            {
+                int x = 1;
+                if (tokens[x] is OpenParenthesisToken)
+                {
+                    int count = 1;
+                    while (count != 0)
+                    {
+                        x++;
+                        if (tokens[x] is OpenParenthesisToken) count++;
+                        else if (tokens[x] is CloseParenthesisToken) count--;
+                    }
+                    if (IsBuiltIn(tokens.SliceTo(0, x), out ParseTreeNode temp))
+                    {
+                        ParseTreeNode Tnode = new ParseTreeNode(tokens.FirstToken, false);
 
-        bool IsEFuncCall(TokenCollection tokens, out ParseTreeNode node)
-            => IsBuiltIn(tokens, out node)
-            || IsUserMade(tokens, out node);
+                        Tnode.Add(temp);
+
+
+                    }
+                    if (SemiColon && x == tokens.Count - 1 && tokens[x] is SemiColonToken)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (tokens.FirstToken is IdentifierToken)
+            {
+                int x = 1;
+                if (tokens[x] is OpenParenthesisToken)
+                {
+                    int count = 1;
+                    while (count != 0)
+                    {
+                        x++;
+                        if (tokens[x] is OpenParenthesisToken) count++;
+                        else if (tokens[x] is CloseParenthesisToken) count--;
+                    }
+                    if (IsUserMade(tokens.SliceTo(0, x), out ParseTreeNode Tnode))
+                    {
+                        node.Add(Tnode);
+                        if (SemiColon && tokens[x+1] is SemiColonToken)
+                        {
+                            if (IsInFunc(tokens.Slice(x + 2), out var nodes))
+                            {
+                                node.AddRange(nodes);
+                            }
+                            return true;
+                        }
+                    }
+
+                }
+            }
+            return false;
+        }
 
         bool IsBuiltIn(TokenCollection tokens, out ParseTreeNode node)
             => IsSin(tokens, out node)
             || IsCos(tokens, out node)
             || IsTan(tokens, out node)
             || IsPrint(tokens, out node)
-            || IsRead(tokens, out node)
-            || IsIf(tokens, out node);
-        bool IsIf(TokenCollection tokens, out ParseTreeNode node)
-            => IsFunction<IfKeyWordToken>(tokens, out node);
+            || IsRead(tokens, out node);
+
         bool IsComparison(TokenCollection tokens, out ParseTreeNode node)
           => GetExactOperator<EqualOperatorToken>(tokens, out node)
           || GetExactOperator<GreaterThanOperator>(tokens, out node)
           || GetExactOperator<GreatThanOrEqualOperatorToken>(tokens, out node)
           || GetExactOperator<LessThanOperator>(tokens, out node)
           || GetExactOperator<LessThanOrEqualOperatorToken>(tokens, out node);
-        
+
 
         bool IsUserMade(TokenCollection tokens, out ParseTreeNode node)
             => IsFunction<IdentifierToken>(tokens, out node);
@@ -534,12 +608,14 @@ namespace ParserProject
             || GetExactOperator<MultiplyWithOperatorToken>(tokens, out node)
             || GetExactOperator<DivideWithOperatorToken>(tokens, out node);
         bool IsBaseCase(TokenCollection tokens, out ParseTreeNode node)
-            => IsType<NumberLiteralToken>(tokens, out node)
-            || IsType<StringLiteralToken>(tokens, out node)
-            || IsType<CharLiteralToken>(tokens, out node)
-            || IsType<IdentifierToken>(tokens, out node)
-            || IsType<TrueKeyWordToken>(tokens, out node)
-            || IsType<FalseKeyWordToken>(tokens, out node);
+        => IsType<NumberLiteralToken>(tokens, out node)
+              || IsType<StringLiteralToken>(tokens, out node)
+              || IsType<CharLiteralToken>(tokens, out node)
+              || IsType<IdentifierToken>(tokens, out node)
+              || IsType<TrueKeyWordToken>(tokens, out node)
+              || IsType<FalseKeyWordToken>(tokens, out node)
+              || IsEFuncCall(tokens, true, out node);
+
 
 
         bool IsTan(TokenCollection tokens, out ParseTreeNode node)
@@ -648,7 +724,6 @@ namespace ParserProject
             {
                 node = new ParseTreeNode(tokens.FirstToken, true);
                 node.AddExpression(tokens.FirstToken);
-
                 return true;
             }
             return false;
@@ -723,7 +798,7 @@ namespace ParserProject
         bool IsEParenthesisLogic(TokenCollection tokens, out List<ParseTreeNode> Conditions)
         {
             Conditions = new List<ParseTreeNode>();
-            if(tokens.Count < 3)
+            if (tokens.Count < 3)
             {
                 return false;
             }
@@ -731,10 +806,10 @@ namespace ParserProject
             int pos = 0;
             for (int i = 0; i < tokens.Count; i++)
             {
-                if(tokens[i] is AndOperatorToken || tokens[i] is OrOperatorToken)
+                if (tokens[i] is AndOperatorToken || tokens[i] is OrOperatorToken)
                 {
-                    
-                    if(IsComparison(tokens.SliceTo(pos, i - 1), out ParseTreeNode condition))
+
+                    if (IsComparison(tokens.SliceTo(pos, i - 1), out ParseTreeNode condition))
                     {
                         Conditions.Add(condition);
                     }
@@ -745,7 +820,7 @@ namespace ParserProject
                     pos = i + 1;
                 }
             }
-            if(IsComparison(tokens.Slice(pos), out ParseTreeNode AnotherCondtion))
+            if (IsComparison(tokens.Slice(pos), out ParseTreeNode AnotherCondtion))
             {
                 Conditions.Add(AnotherCondtion);
                 return true;
@@ -753,7 +828,7 @@ namespace ParserProject
             return false;
         }
         bool GetExactOperator<T>(TokenCollection tokens, out ParseTreeNode ExactNode)
-            where T : OperatorToken
+            where T : Token
         {
             ExactNode = default;
 

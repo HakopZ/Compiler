@@ -36,5 +36,5 @@ D:\Visual Studio 2019 Projects\MakeParse\WriteOutTree\obj\Debug\netcoreapp3.1\Wr
 D:\Visual Studio 2019 Projects\MakeParse\WriteOutTree\obj\Debug\netcoreapp3.1\WriteOutTree.genruntimeconfig.cache
 D:\Visual Studio 2019 Projects\MakeParse\WriteOutTree\bin\Debug\netcoreapp3.1\TypeCheck.dll
 D:\Visual Studio 2019 Projects\MakeParse\WriteOutTree\bin\Debug\netcoreapp3.1\TypeCheck.pdb
-\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\WriteOutTree\bin\Debug\netcoreapp3.1\TypeCheck.dll
-\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\WriteOutTree\bin\Debug\netcoreapp3.1\TypeCheck.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\WriteOutTree\bin\Debug\netcoreapp3.1\TypeChecker.dll
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\WriteOutTree\bin\Debug\netcoreapp3.1\TypeChecker.pdb

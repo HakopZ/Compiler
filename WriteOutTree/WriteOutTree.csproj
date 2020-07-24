@@ -8,7 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Excersize\Excersize.csproj" />
     <ProjectReference Include="..\ParserProject\ParserProject.csproj" />
-    <ProjectReference Include="..\TypeCheck\TypeCheck.csproj" />
+    <ProjectReference Include="..\TypeCheck\TypeChecker.csproj" />
   </ItemGroup>
 
 </Project>
