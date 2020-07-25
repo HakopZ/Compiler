@@ -16,29 +16,32 @@ namespace TypeCheck
             symbolTable = new SymbolTable();
         }
 
-        public void DoProcess(ParseTreeNode Root)
+        public bool DoProcess(ParseTreeNode Root)
         {
-            ScanClasses(Root);
-            TypeCheck(Root);
+            if (!ScanClasses(Root)) return false;
+            if(!TypeCheck(Root)) return false;
+
+
+            return true;
             //CheckReturnStatements
         }
         public bool TypeCheck(ParseTreeNode node)
         {
-            foreach(var ClassNode in node.Children)
+            foreach (var ClassNode in node.Children)
             {
-                foreach(var CNodes in ClassNode.Children)
+                foreach (var CNodes in ClassNode.Children)
                 {
-                    if(CNodes.Value is IdentifierToken)
+                    if (CNodes.Value is IdentifierToken)
                     {
                         IdentifierToken ID = CNodes.Value as IdentifierToken;
-                        if(symbolTable.TryGetInfo(ID, out ClassInformation Cinfo))
+                        if (symbolTable.TryGetInfo(ID, out ClassInformation Cinfo))
                         {
-                            if(GoThroughClass(CNodes.Children[0], Cinfo))
+                            if (!GoThroughClass(CNodes.Children[0], Cinfo))
                             {
-
+                                return false;
                             }
                         }
-                        
+
                     }
                 }
             }
@@ -46,17 +49,11 @@ namespace TypeCheck
         }
         bool GoThroughClass(ParseTreeNode start, ClassInformation info)
         {
-            //????Confused
-            /*if(start.Value is OpenBraceToken)
+            foreach (var Nodes in start.Children)
             {
-                symbolTable.EnterScope();
-            }*/
-            
-            foreach(var Nodes in start.Children)
-            {
-                if(Nodes.Value is VariableKeyWordToken)
+                if (Nodes.Value is VariableKeyWordToken)
                 {
-                    if(!CheckVariableType(Nodes))
+                    if (!CheckVariableType(Nodes, info))
                     {
                         return false;
                     }
@@ -65,61 +62,87 @@ namespace TypeCheck
 
             return true;
         }
-        bool CheckVariableType(ParseTreeNode node)
+        bool CheckVariableType(ParseTreeNode node, ClassInformation info)
         {
-            if(node.Value is OperatorToken)
+            if (node.Value is OperatorToken)
             {
-                Evaluate(node, out IdentifierToken ID);
+                IdentifierToken ID = node.Children[0].Value as IdentifierToken;
+                if (node.Children.Count == 1)
+                {
+                    return true;
+                }
+                if (!info.TryGetMember(ID, out MemberInformation Minfo))
+                {
+                    return false;
+                }
+                if (Evaluate(node, Minfo))
+                {
+                    return true;
+                }
+                if (node.Children[1].Value is OperatorToken)
+                {
+                    EvaluateOperator(node, Minfo);
+                }
+
             }
             foreach (var kid in node.Children)
             {
-                CheckVariableType(kid);
+                if(!CheckVariableType(kid, info))
+                {
+                    return false;
+                }
             }
-            return false;
+            return true;
+
         }
-        bool Evaluate(ParseTreeNode node, out IdentifierToken ID)
+        TypeToken GetTokenConversion(Token x)
         {
-            ID = default;
-            TypeToken type = default;
-            for (int i = 1; i < node.Children.Count; i++)
-            {
-                if (node.Children[i].Value is NumberLiteralToken)
-                {
-                    type = node.Children[i].Value as IntToken;
-                }
-                else if (node.Children[i].Value is StringLiteralToken)
-                {
-                    type = node.Children[i].Value as StringToken;
-                }
-                else if (node.Children[i].Value is TrueKeyWordToken || node.Children[i].Value is FalseKeyWordToken)
-                {
-                    type = node.Children[i].Value as BoolToken;
-                }
-                else if (node.Children[i].Value is CharLiteralToken)
-                {
-                    type = node.Children[i].Value as CharKeyWordToken;
-                }
-                else if(node.Children[i].Value is OperatorToken)
-                {
-                    
-                }
-            }
+
+            return default;
+        }
+        bool Evaluate(ParseTreeNode node, MemberInformation Minfo)
+        {
+            
+            if (node.Children[1].Value is NumberLiteralToken) return Minfo.Type is IntToken;
+            if (node.Children[1].Value is StringLiteralToken) return Minfo.Type is StringToken;
+            else if (node.Children[1].Value is TrueKeyWordToken || node.Children[1].Value is FalseKeyWordToken) return Minfo.Type is BoolToken;
+            else if (node.Children[1].Value is CharLiteralToken) return Minfo.Type is CharKeyWordToken;
             
 
             return false;
         }
 
-        public void ScanClasses(ParseTreeNode Start)
+
+        bool EvaluateOperator(ParseTreeNode node, MemberInformation minfo)
+        {
+            foreach(var N in node.Children)
+            {
+                if(!EvaluateOperator(N, minfo))
+                {
+                    return false;
+                }
+            }
+            return true;
+        
+        }
+        
+        
+
+        public bool ScanClasses(ParseTreeNode Start)
         {
             foreach (var Node in Start.Children)
             {
                 if (GetClassInfo(Node, out ClassInformation info))
                 {
-                    symbolTable.AddInfo(info.ID, info);
+                    if(!symbolTable.AddInfo(info.ID, info))
+                    {
+                        return false;
+                    }
                 }
             }
+            return true;
         }
-        bool GetClassInfo(ParseTreeNode node,  out ClassInformation Info)
+        bool GetClassInfo(ParseTreeNode node, out ClassInformation Info)
         {
             Info = new ClassInformation();
 
@@ -152,17 +175,17 @@ namespace TypeCheck
             info = new List<MemberInformation>();
             foreach (var Node in ClassIDStart.Children)
             {
-                if(Node.Value is VariableKeyWordToken)
+                if (Node.Value is VariableKeyWordToken)
                 {
-                   if(GetFieldInfo(Node, out FieldInformation FieldInfo))
-                   {
+                    if (GetFieldInfo(Node, out FieldInformation FieldInfo))
+                    {
                         info.Add(FieldInfo);
-                   }
-                       
+                    }
+
                 }
-                else if(Node.Value is FunctionKeyWordToken)
+                else if (Node.Value is FunctionKeyWordToken)
                 {
-                    if(GetMethodInfo(Node, out MethodInformation MethodInfo))
+                    if (GetMethodInfo(Node, out MethodInformation MethodInfo))
                     {
                         info.Add(MethodInfo);
                     }
@@ -184,10 +207,27 @@ namespace TypeCheck
                 else if (Node.Value is TypeToken)
                 {
                     methodInfo.Type = Node.Value as TypeToken;
-                    IdentifierToken ID;
-                    if (GetID(Node, out ID))
+                    ParseTreeNode IDNode;
+
+                    if (GetID(Node, out IDNode))
                     {
-                        methodInfo.ID = ID;
+                        methodInfo.ID = IDNode.Value as IdentifierToken;
+                        if (IDNode.Children[0].Value is EmptyToken)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            int x = 0;
+                            while (!(IDNode.Children[x].Value is OpenBraceToken))
+                            {
+                                if (GetParameterInfo(IDNode.Children[x], out Parameter param))
+                                {
+                                    if (!methodInfo.TryAddParameter(param)) return false;
+                                    x++;
+                                }
+                            }
+                        }
                         return true;
                     }
                 }
@@ -196,42 +236,52 @@ namespace TypeCheck
             return false;
         }
 
+        bool GetParameterInfo(ParseTreeNode Start, out Parameter param)
+        {
+            param = default;
+            if (Start.Value is TypeToken && Start.Children[0].Value is IdentifierToken)
+            {
+                param = new Parameter() { Type = Start.Value as TypeToken, ID = Start.Children[0].Value as IdentifierToken };
+                return true;
+            }
+            return false;
+        }
         bool GetFieldInfo(ParseTreeNode Start, out FieldInformation fieldInfo)
         {
             fieldInfo = new FieldInformation();
 
-            foreach(var Node in Start.Children)
+            foreach (var Node in Start.Children)
             {
-                if(Node.Value is StaticKeyWordToken)
+                if (Node.Value is StaticKeyWordToken)
                 {
                     fieldInfo.isStatic = true;
                 }
-                else if(Node.Value is TypeToken)
+                else if (Node.Value is TypeToken)
                 {
                     fieldInfo.Type = Node.Value as TypeToken;
-                    IdentifierToken ID;
-                    if(GetID(Node, out ID))
+                    ParseTreeNode IDNode;
+                    if (GetID(Node, out IDNode))
                     {
-                        fieldInfo.ID = ID;
+                        fieldInfo.ID = IDNode.Value as IdentifierToken;
                         return true;
                     }
-                   // fieldI
+                    // fieldI
                 }
             }
 
             return false;
         }
-        bool GetID(ParseTreeNode Start, out IdentifierToken ID)
+        bool GetID(ParseTreeNode Start, out ParseTreeNode IDNode)
         {
-            ID = default;
+            IDNode = default;
             if (Start.Value is IdentifierToken)
             {
-                ID = Start.Value as IdentifierToken;
+                IDNode = Start;
                 return true;
             }
-            foreach(var node in Start.Children)
+            foreach (var node in Start.Children)
             {
-                if(GetID(node, out ID))
+                if (GetID(node, out IDNode))
                 {
                     return true;
                 }

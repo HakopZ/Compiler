@@ -262,8 +262,9 @@ namespace ParserProject
                             {
                                 ParseTreeNode InsideNode = new ParseTreeNode(tokens.FirstToken, false);
                                 InsideNode.AddRange(ParenthesisChild);
-                                InsideNode.Add(new ParseTreeNode(new OpenBraceToken("{"), false));
-                                InsideNode.Children[1].AddRange(Inside);
+                                ParseTreeNode OpenB = new ParseTreeNode(new OpenBraceToken("{"), false);
+                                OpenB.AddRange(Inside);
+                                InsideNode.Add(OpenB);
                                 InsideNode.Add(new ParseTreeNode(new CloseBraceToken("}"), true));
                                 node.Add(InsideNode);
                                 return true;

@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj": {}
+    "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj": {}
   },
   "projects": {
-    "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+    "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj",
+        "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj",
         "projectName": "Excersize",
-        "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj",
-        "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
-        "outputPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\obj\\",
+        "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj",
+        "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -61,21 +60,20 @@
         }
       }
     },
-    "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
+    "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj",
+        "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj",
         "projectName": "ParserProject",
-        "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj",
-        "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
-        "outputPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\obj\\",
+        "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj",
+        "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -89,8 +87,8 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
-                "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj"
+              "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+                "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj"
               }
             }
           }
@@ -122,21 +120,20 @@
         }
       }
     },
-    "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj": {
+    "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj",
+        "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj",
         "projectName": "TypeChecker",
-        "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj",
-        "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
-        "outputPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\obj\\",
+        "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj",
+        "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -150,11 +147,11 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
-                "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj"
+              "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+                "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj"
               },
-              "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
-                "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj"
+              "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
+                "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj"
               }
             }
           }
