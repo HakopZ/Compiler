@@ -1,5 +1,10 @@
 static class A{
-  static variable int w = 2;
+  
+  public method A()
+  {
+   
+  }
+  static variable int w = "Hello";
   static method void Main()
   {
      variable int x = "Hello";
@@ -27,6 +32,7 @@ static class A{
   method int A(int i, int z)
   {
      variable int l = 1;
+     return l; 
   }
   method string o()
 {

@@ -17,6 +17,8 @@ namespace TypeCheck
             Map[ID] = Info;
             return true;
         }
+        public bool TryGetTypeInScope(IdentifierToken ID, out TypeToken type)
+            => scopeStack.TryGetType(ID, out type);
         public bool TryGetInfo(IdentifierToken ID, out ClassInformation classInfo)
             => Map.TryGetValue(ID, out classInfo);
         public void EnterScope()

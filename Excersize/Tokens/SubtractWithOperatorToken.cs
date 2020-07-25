@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class SubtractWithOperatorToken : OperatorToken
+    public class SubtractWithOperatorToken : AssigningOperators
     {
         public SubtractWithOperatorToken(string lexeme) : base(lexeme)
         {

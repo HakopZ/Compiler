@@ -9,6 +9,7 @@ namespace TypeCheck
     {
         public IdentifierToken ID { get; set; }
         public bool IsStatic { get; set; }
+        public bool IsPublic { get; set; }
         Dictionary<IdentifierToken, MemberInformation> Members = new Dictionary<IdentifierToken, MemberInformation>();
        
         public bool AddMember(IdentifierToken id, MemberInformation member)

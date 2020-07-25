@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class MultiplyWithOperatorToken : OperatorToken
+    public class MultiplyWithOperatorToken : AssigningOperators
     {
         public MultiplyWithOperatorToken(string lexeme) : base(lexeme)
         {

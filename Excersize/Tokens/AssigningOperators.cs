@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class AddWithOperatorToken : AssigningOperators
+    public class AssigningOperators : Token
     {
-        public AddWithOperatorToken(string lexeme) : base(lexeme)
+        public AssigningOperators(string lexeme) : base(lexeme)
         {
         }
     }

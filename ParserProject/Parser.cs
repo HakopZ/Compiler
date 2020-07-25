@@ -131,9 +131,30 @@ namespace ParserProject
         bool IsOther(TokenCollection tokens, out List<ParseTreeNode> node)
             => isCall(tokens, out node)
             || isConditionCall<IfKeyWordToken>(tokens, out node)
-            || isConditionCall<WhileKeyWord>(tokens, out node);
+            || isConditionCall<WhileKeyWord>(tokens, out node)
+            || IsReturnCall(tokens, out node);
 
 
+
+        bool IsReturnCall(TokenCollection tokens, out List<ParseTreeNode> node)
+        {
+            node = new List<ParseTreeNode>();
+            if (tokens.Count == 0)
+            {
+                return false;
+            }
+            if (tokens.FirstToken is ReturnKeyWordToken)
+            {
+                ParseTreeNode n = new ParseTreeNode(tokens.FirstToken as ReturnKeyWordToken, false);
+                if (IsArithmetic(tokens.Slice(1), out ParseTreeNode x))
+                {
+                    node.Add(n);
+                    node.Add(x);
+                    return true;
+                }
+            }
+            return false;
+        }
         bool isConditionCall<T>(TokenCollection tokens, out List<ParseTreeNode> node)
             where T : ConditionCallToken
         {
@@ -235,13 +256,14 @@ namespace ParserProject
             {
                 return false;
             }
-            if (tokens.FirstToken is IdentifierToken)
+            bool Constructor = tokens.FirstToken is OpenParenthesisToken;
+            if (tokens.FirstToken is IdentifierToken || Constructor)
             {
                 for (int i = 0; i < tokens.Count; i++)
                 {
                     if (tokens[i] is OpenBraceToken)
                     {
-                        if (IsEParenthesis(tokens.Slice(1, i - 1), out List<ParseTreeNode> ParenthesisChild))
+                        if (IsEParenthesisParmaterDeclare(tokens.SliceTo(Constructor ? 0 : 1, i - 1), out List<ParseTreeNode> ParenthesisChild))
                         {
                             int SliceSpot = i;
                             int count = 1;
@@ -258,18 +280,30 @@ namespace ParserProject
                                 }
 
                             }
-                            if (IsInFunc(tokens.Slice(SliceSpot + 1, i - SliceSpot - 1), out List<ParseTreeNode> Inside))
+                            ParseTreeNode OpenB;
+                            if (!Constructor)
                             {
                                 ParseTreeNode InsideNode = new ParseTreeNode(tokens.FirstToken, false);
                                 InsideNode.AddRange(ParenthesisChild);
-                                ParseTreeNode OpenB = new ParseTreeNode(new OpenBraceToken("{"), false);
-                                OpenB.AddRange(Inside);
+                                OpenB = new ParseTreeNode(new OpenBraceToken("{"), false);
                                 InsideNode.Add(OpenB);
                                 InsideNode.Add(new ParseTreeNode(new CloseBraceToken("}"), true));
                                 node.Add(InsideNode);
-                                return true;
+                            }
+                            else 
+                            {
+                                node.AddRange(ParenthesisChild);
+                                OpenB = new ParseTreeNode(new OpenBraceToken("{"), false);
+                                node.Add(OpenB);
+                                node.Add(new ParseTreeNode(new CloseBraceToken("}"), true));
+                            }
+
+                            if (IsInFunc(tokens.Slice(SliceSpot + 1, i - SliceSpot - 1), out List<ParseTreeNode> Inside))
+                            {
+                                OpenB.AddRange(Inside);
 
                             }
+                            return true;
                         }
                     }
                 }
@@ -366,7 +400,7 @@ namespace ParserProject
         bool IsFuncType(TokenCollection tokens, out List<ParseTreeNode> node)
         {
             node = new List<ParseTreeNode>();
-            if (tokens.FirstToken is TypeToken)
+            if (tokens.FirstToken is TypeToken || tokens.FirstToken is IdentifierToken)
             {
                 if (IsEFunc(tokens.Slice(1), out List<ParseTreeNode> FunctionNode))
                 {
@@ -517,7 +551,7 @@ namespace ParserProject
             node = default;
             if (IsEFuncCall(tokens, SemiColon, out List<ParseTreeNode> x))
             {
-                if(x.Count == 1)
+                if (x.Count == 1)
                 {
                     node = x[0];
                     return true;
@@ -570,7 +604,7 @@ namespace ParserProject
                     if (IsUserMade(tokens.SliceTo(0, x), out ParseTreeNode Tnode))
                     {
                         node.Add(Tnode);
-                        if (SemiColon && tokens[x+1] is SemiColonToken)
+                        if (SemiColon && tokens[x + 1] is SemiColonToken)
                         {
                             if (IsInFunc(tokens.Slice(x + 2), out var nodes))
                             {
@@ -685,7 +719,7 @@ namespace ParserProject
 
                 if (tokens[i] is T)
                 {
-                    if (IsEParenthesis(tokens.Slice(1), out List<ParseTreeNode> Kids))
+                    if (isEParenthesisParameterCalled(tokens.Slice(1), out List<ParseTreeNode> Kids))
                     {
                         node = new ParseTreeNode(tokens[i], false);
                         node.AddRange(Kids);
@@ -730,7 +764,51 @@ namespace ParserProject
             return false;
 
         }
-        bool IsEParenthesis(TokenCollection tokens, out List<ParseTreeNode> node)
+        bool isEParenthesisParameterCalled(TokenCollection tokens, out List<ParseTreeNode> node)
+        {
+            node = new List<ParseTreeNode>();
+            if (tokens.Count < 2)
+            {
+                return false;
+            }
+            if (tokens.FirstToken is OpenParenthesisToken)
+            {
+                if (tokens.Count == 2 && tokens.LastToken is CloseParenthesisToken)
+                {
+                    node.Add(new ParseTreeNode(new EmptyToken("No Parameters"), false));
+                    return true;
+                }
+                var e = tokens.Slice(1, tokens.Count - 2);
+
+                int st = 0;
+                for (int i = 0; i < e.Count; i++)
+                {
+                    if (e[i] is CommaToken)
+                    {
+                        var temp = e.SliceTo(st, i - 1);
+                        st = i + 1;
+                        if (IsArithmetic(temp, out ParseTreeNode n))
+                        {
+                            node.Add(n);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    }
+                }
+                if (IsArithmetic(e.Slice(st), out ParseTreeNode Tn))
+                {
+                    node.Add(Tn);
+                    return true;
+                }
+
+            }
+            return false;
+
+        }
+        bool IsEParenthesisParmaterDeclare(TokenCollection tokens, out List<ParseTreeNode> node)
         {
             node = new List<ParseTreeNode>();
             if (tokens.Count < 2)

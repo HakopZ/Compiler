@@ -10,5 +10,6 @@ namespace TypeCheck
         public IdentifierToken ID { get; set; }
         public TypeToken Type { get; set; }
         public bool isStatic { get; set; }
+        public bool isPublic { get; set; }
     }
 }

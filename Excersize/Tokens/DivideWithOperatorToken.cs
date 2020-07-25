@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class DivideWithOperatorToken : OperatorToken
+    public class DivideWithOperatorToken : AssigningOperators
     {
         public DivideWithOperatorToken(string lexeme) : base(lexeme)
         {
