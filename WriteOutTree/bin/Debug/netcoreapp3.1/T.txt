@@ -1,48 +1,34 @@
-static class A{
-  
-  public method A()
-  {
-   
-  }
-  static variable int w = "Hello";
-  static method void Main()
-  {
-     variable int x = "Hello";
-     variable int y = 3;
-     variable int b = y;
-     variable B c;
-     variable int temporary = Temp(c, a);
-     if(b == 2)
-     {
-       variable int ro = 1;
-     }
-     while(c == 2)
-     {
-       if(y >= 1)
-       {
-       variable int aa = 4;
-       }
-     }
-  }
-  method void Temp()
-  {
-     variable string z = "2";
-     z = 3;
-  }
-  method int A(int i, int z)
-  {
-     variable int l = 1;
-     return l; 
-  }
-  method string o()
+class B
 {
-  variable string b = 1;
-  variable int r = b - 2;
+ method constructor B()
+ {
+ }
+ variable int Length;
 }
-}
-class B{
- method void ok()
+class Program
 {
- variable int n = 2;
-}
+   method int Add(int a, int b)
+   {
+	return a + b;
+   }
+  # method B GetB()
+ #  {
+  #      variable B b;
+ #	return b;
+  # }  
+   method void Main()
+   {
+	variable int x = 3;
+	x = 2 + 4;
+	variable B s = new B();
+	if(x == 2)
+	{
+	   variable int r = x + 2;
+	}
+
+ 	variable int o = s.Length;
+        variable int y = Add(1, x);
+	variable bool z = y == x;
+	PrintInt(y);  
+  }
 }

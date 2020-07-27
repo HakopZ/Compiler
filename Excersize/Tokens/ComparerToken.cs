@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class GreaterThanOperator : ComparerToken
+    public class ComparerToken : Token
     {
-        public GreaterThanOperator(string lexeme) 
-            : base(lexeme)
+        public ComparerToken(string lexeme) : base(lexeme)
         {
         }
     }

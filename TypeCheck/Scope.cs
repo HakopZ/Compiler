@@ -19,7 +19,8 @@ namespace TypeCheck
             scopeMap[id] = type;
             return true;
         }
-
+        public bool Contains(IdentifierToken ID)
+            => scopeMap.ContainsKey(ID);
         public bool TryGetType(IdentifierToken id, out TypeToken type)
             => scopeMap.TryGetValue(id, out type);
     }

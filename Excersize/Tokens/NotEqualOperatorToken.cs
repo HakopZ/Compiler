@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class NotEqualOperatorToken : OperatorToken
+    public class NotEqualOperatorToken : ComparerToken
     {
         public NotEqualOperatorToken(string lexeme) 
             : base(lexeme)

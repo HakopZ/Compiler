@@ -1,6 +1,7 @@
 ﻿using Excersize;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace TypeCheck
@@ -25,6 +26,39 @@ namespace TypeCheck
             => scopeStack.AddScope(new Scope());
         public void ExitScope()
             => scopeStack.LeaveScope();
+        public bool TryGetMemberInClass(IdentifierToken ID, out MemberInformation info)
+        {
+            info = default;
+            foreach(var m in Map)
+            {
+                foreach(var member in m.Value.Members)
+                {
+                    if(member.Key.Lexeme == ID.Lexeme)
+                    {
+                        info = member.Value;
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+        public bool ContainsAtAll(IdentifierToken ID)
+        {
+            foreach (var m in Map)
+            {
+                foreach (var member in m.Value.Members)
+                {
+                    if (member.Key.Lexeme == ID.Lexeme)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public bool AddInScope(IdentifierToken ID, TypeToken Type)
             => scopeStack.Add(ID, Type);
         

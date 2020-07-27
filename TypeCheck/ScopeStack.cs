@@ -18,6 +18,15 @@ namespace TypeCheck
             => scopes.Pop();
         public bool Add(IdentifierToken ID, TypeToken Type)
             => scopes.Peek().Add(ID, Type);
+
+        public bool Contains(IdentifierToken ID)
+        {
+            foreach(var scope in scopes)
+            {
+                if (scope.Contains(ID)) return true;
+            }
+            return false;
+        }
         public bool TryGetType(IdentifierToken ID, out TypeToken Type)
         {
             Type = default;

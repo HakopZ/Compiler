@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class PrintKeyWordToken : KeywordToken
+    public class ConstructorToken : TypeToken
     {
-        public PrintKeyWordToken(string lexeme) 
+        public ConstructorToken(string lexeme) 
             : base(lexeme)
         {
         }

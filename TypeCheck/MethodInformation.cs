@@ -6,17 +6,22 @@ namespace TypeCheck
 {
     public class MethodInformation : MemberInformation
     {
-        Stack<Parameter> parameters;
+        Queue<Parameter> parameters;
         public MethodInformation()
         {
-            parameters = new Stack<Parameter>();
+            parameters = new Queue<Parameter>();
         }
         
         public bool TryAddParameter(Parameter param)
         {
             if (parameters.Contains(param)) return false;
-            parameters.Push(param);
+            parameters.Enqueue(param);
             return true;
+        }
+        public void PopIt()
+        {
+            if (parameters.Count == 0) return;
+            parameters.Dequeue();
         }
         public bool TryGetParameter(out Parameter param)
         {
@@ -25,7 +30,7 @@ namespace TypeCheck
             {
                 return false;
             }
-            param = parameters.Pop();
+            param = parameters.Dequeue();
             return true;
         }
 

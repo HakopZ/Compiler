@@ -13,7 +13,7 @@ namespace WriteOutTree
     {
         static void Main(string[] args)
         {
-            
+
 
             RegexTokenizer tokenzier = new RegexTokenizer();
             ReadOnlyMemory<char> readOnlyMemory = File.ReadAllText(@"T.txt").AsMemory();
@@ -23,7 +23,10 @@ namespace WriteOutTree
             bool Found = parser.TryParse(tokens, out ParseTreeNode Tree);
             Tree?.Print("", true);
             TypeValidator typeChecker = new TypeValidator();
-            typeChecker.DoProcess(Tree);
+            if (!typeChecker.DoProcess(Tree))
+            {
+                Console.WriteLine("\n\n\n\nFailed");
+            }
             Console.ReadKey();
         }
     }
