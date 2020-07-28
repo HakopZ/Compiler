@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "FGYC6xVLQLR6I0M+ScljgDkWV//NN1beslmXMML5/ub0HmcyzLlHZrOp2MZjPCXAL0+2WJaqTmuS/0gkl4pY3A==",
+  "success": true,
+  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\CodeGen\\CodeGen.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}

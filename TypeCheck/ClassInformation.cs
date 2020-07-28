@@ -10,21 +10,20 @@ namespace TypeCheck
     {
         public IdentifierToken ID { get; set; }
         public bool IsStatic { get; set; }
-        public bool IsPublic { get; set; }
         public Dictionary<IdentifierToken, MemberInformation> Members = new Dictionary<IdentifierToken, MemberInformation>();
 
-        List<(Type, string)> types = new List<(Type, string)>()
+        List<(TypeToken, string)> types = new List<(TypeToken, string)>()
         {
-            {(typeof(IntToken), "Int")},
-            {(typeof(StringToken), "String") },
-            {(typeof(CharKeyWordToken), "Char") },
-            {(typeof(BoolToken), "Bool") },
+            {(new IntToken("int"), "Int")},
+            {(new StringToken("string"), "String") },
+            {(new CharKeyWordToken("char"), "Char") },
+            {(new BoolToken("bool"), "Bool") },
         };
         void AddPrints()
         {
             foreach (var t in types)
             {
-                var Print = new MethodInformation() { ID = new IdentifierToken("Print"), isPublic = true, isStatic = true, Type = new VoidKeyWord("void") };
+                var Print = new MethodInformation() { ID = new IdentifierToken("Print"),  isStatic = true, Type = new VoidKeyWord("void") };
                 Print.TryAddParameter(new Parameter() { TypeOf = t.Item1, ID = new IdentifierToken("value") });
                 Members.Add(new IdentifierToken($"Print{ t.Item2 }"), Print);
             }
@@ -36,7 +35,7 @@ namespace TypeCheck
 
             AddPrints();
 
-            Members.Add(new IdentifierToken("Read"), new MethodInformation() { ID = new IdentifierToken("Read"), isPublic = true, isStatic = true, Type = new StringToken("string") });
+            Members.Add(new IdentifierToken("Read"), new MethodInformation() { ID = new IdentifierToken("Read"),  isStatic = true, Type = new StringToken("string") });
 
             
         }

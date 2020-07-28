@@ -16,7 +16,11 @@
           "WriteOutTree.dll": {}
         }
       },
+      "System.Memory/4.5.4": {},
       "Excersize/1.0.0": {
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
         "runtime": {
           "Excersize.dll": {}
         }
@@ -45,6 +49,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "System.Memory/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
     },
     "Excersize/1.0.0": {
       "type": "project",

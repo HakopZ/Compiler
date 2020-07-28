@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "ZALqKjnOhBWa+5PTGhlAbVcUIHR/3+FqbvC/hrFjrV2IyWiyzj0avkoD15kLECyUFHnpjBXXwNJ2z9nLIpfrYA==",
+  "dgSpecHash": "ly+VOLns1/zBMYiyDueNQdTC8HV640H+XWpiLRA27h3ndFvNTOpZsNoDme+Tzi5a2XoTSH/5yTw14yYlxHgBvQ==",
   "success": true,
-  "projectFilePath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+  ],
   "logs": []
 }

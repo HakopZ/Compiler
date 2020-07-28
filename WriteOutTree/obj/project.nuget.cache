@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "+WOiBMlEtVRUs2OnU1mpk1RFKLqdssiRGTGNXmxu9m6dqZIsQBTy+cJoC/Yx4kOAnsRa78Tvicva8Z6FX3fCNg==",
+  "dgSpecHash": "o8UsFMW8BfD7Sd+jSUNxikbs0YJbqYpaFhvNcW70/LXCoaSoOlVMpf5nQHmSqZ41Y6nZ1Mx4zDkHUpSc3SpUvw==",
   "success": true,
-  "projectFilePath": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512"
+  ],
   "logs": []
 }

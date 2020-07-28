@@ -1,21 +1,10 @@
-class B
-{
- method constructor B()
- {
- }
- variable int Length;
-}
+
 class Program
 {
    method int Add(int a, int b)
    {
 	return a + b;
    }
-  # method B GetB()
- #  {
-  #      variable B b;
- #	return b;
-  # }  
    method void Main()
    {
 	variable int x = 3;

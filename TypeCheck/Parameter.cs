@@ -8,7 +8,7 @@ namespace TypeCheck
     public class Parameter
     {
         public IdentifierToken ID { get; set; }
-        public Type TypeOf { get; set; }
+        public TypeToken TypeOf { get; set; }
         
     }
 }

@@ -90,12 +90,13 @@ namespace Excersize
                 token = default;
                 return false;
             }
-            foreach (var (regex, createToken) in PatternList)
+            foreach (var temp in PatternList)
             {
-                var match = regex.Match(text.ToString(), Position);
+                
+                var match = temp.Key.Match(text.ToString(), Position);
                 if (match.Success)
                 {
-                    token = createToken(match.Value);
+                    token = temp.Value(match.Value);
                     Position += match.Length;
                     return true;
                 }

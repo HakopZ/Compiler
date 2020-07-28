@@ -2,9 +2,21 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "Excersize/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.1",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
         "compile": {
           "bin/placeholder/Excersize.dll": {}
         },
@@ -14,7 +26,7 @@
       },
       "ParserProject/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.1",
+        "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Excersize": "1.0.0"
         },
@@ -42,6 +54,29 @@
     }
   },
   "libraries": {
+    "System.Memory/4.5.4": {
+      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "type": "package",
+      "path": "system.memory/4.5.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Memory.dll",
+        "lib/net461/System.Memory.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.4.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "Excersize/1.0.0": {
       "type": "project",
       "path": "../Excersize/Excersize.csproj",
@@ -66,23 +101,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hakop\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
+      "projectUniqueName": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
       "projectName": "WriteOutTree",
-      "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
-      "packagesPath": "C:\\Users\\hakop\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\WriteOutTree\\obj\\",
+      "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\WriteOutTree\\WriteOutTree.csproj",
+      "packagesPath": "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\",
+      "outputPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\WriteOutTree\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\hakop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hakop.zarikyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -96,14 +133,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj": {
-              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\Excersize\\Excersize.csproj"
+            "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj": {
+              "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\Excersize\\Excersize.csproj"
             },
-            "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
-              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\ParserProject\\ParserProject.csproj"
+            "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj": {
+              "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\ParserProject\\ParserProject.csproj"
             },
-            "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj": {
-              "projectPath": "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj"
+            "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj": {
+              "projectPath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj"
             }
           }
         }

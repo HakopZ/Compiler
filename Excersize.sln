@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteOutTree", "WriteOutTre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeChecker", "TypeCheck\TypeChecker.csproj", "{3BDB84D7-54C7-460D-95CA-D925D0E3955B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "CodeGen\CodeGen.csproj", "{DF8D7A00-45F6-4C0C-BD74-3425724F03A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3BDB84D7-54C7-460D-95CA-D925D0E3955B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BDB84D7-54C7-460D-95CA-D925D0E3955B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BDB84D7-54C7-460D-95CA-D925D0E3955B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF8D7A00-45F6-4C0C-BD74-3425724F03A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8D7A00-45F6-4C0C-BD74-3425724F03A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8D7A00-45F6-4C0C-BD74-3425724F03A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8D7A00-45F6-4C0C-BD74-3425724F03A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

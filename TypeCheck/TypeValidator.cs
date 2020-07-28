@@ -60,9 +60,9 @@ namespace TypeCheck
                                 {
                                     foreach (var EachLine in EachNode.Children)
                                     {
-                                        if(CheckReturn(EachLine, Type))
+                                        if(!CheckReturn(EachLine, Type))
                                         {
-                                            return true;
+                                            return false;
                                         }
                                     }
                                 }
@@ -72,7 +72,7 @@ namespace TypeCheck
                     }
                 }
             }
-            return false;
+            return true;
         }
 
         public bool TypeCheck(ParseTreeNode node)
@@ -135,14 +135,51 @@ namespace TypeCheck
             }
             if (!symbolTable.CurrentClass.TryGetMember(IDNode.Value as IdentifierToken, out MemberInformation currentMember)) return false;
 
-            return GoThroughScope(nodes.Children[0].Children[0]);
+            var Method = currentMember as MethodInformation;
+            
+            return GoThroughParams(IDNode, Method);
 
         }
 
-        bool GoThroughScope(ParseTreeNode node)
+        bool GoThroughParams(ParseTreeNode IDNode, MethodInformation method)
+        {
+            foreach (var Node in IDNode.Children)
+            {
+                if (Node.Value is OpenBraceToken)
+                {
+                    if (Node.Children.Count == 0) break;
+                    symbolTable.EnterScope();
+                    while(method.TryGetParameter(out Parameter param))
+                    {
+                        symbolTable.AddInScope(param.ID, param.TypeOf);
+                    }
+                    foreach (var InScopeNode in Node.Children)
+                    {
+
+                        if (CheckVariableInFunction(InScopeNode)) continue;
+
+                        else if (CheckConditionDeclare(InScopeNode, method.Type)) continue;
+
+                        else if (CheckIfFuncCall(InScopeNode)) continue;
+                        else if (CheckReturn(InScopeNode, method.Type)) continue;
+                        else return false;
+
+                    }
+                }
+                else if (Node.Value is CloseBraceToken)
+                {
+                    symbolTable.ExitScope();
+                }
+            }
+
+            return true;
+        }
+
+        bool GoThroughScope(ParseTreeNode node, TypeToken t)
         {
             foreach (var Node in node.Children)
             {
+                
                 if (Node.Value is OpenBraceToken)
                 {
                     if (Node.Children.Count == 0) break;
@@ -152,14 +189,11 @@ namespace TypeCheck
 
                         if (CheckVariableInFunction(InScopeNode)) continue;
 
-                        else if (CheckConditionDeclare(InScopeNode)) continue;
+                        else if (CheckConditionDeclare(InScopeNode, t)) continue;
 
                         else if (CheckIfFuncCall(InScopeNode)) continue;
-                        else
-                        {
-                            if (InScopeNode.Value is ReturnKeyWordToken) continue;
-                            return false;
-                        }
+                        else if (CheckReturn(InScopeNode, t)) continue;
+                        else return false;
 
                     }
                 }
@@ -204,12 +238,19 @@ namespace TypeCheck
                 {
                     return EvaluateOperator(temp, type.GetType());
                 }
+                else if(type is BoolToken)
+                {
+                    if (GetExpressionType(inScopeNode, out Type t))
+                    {
+                        if (EvaluateOperator(inScopeNode, t)) return true;
+                    }
+                }
                 else if (CheckType(temp, type.GetType())) return true;
                 return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
@@ -245,7 +286,7 @@ namespace TypeCheck
         }
 
 
-        bool CheckConditionDeclare(ParseTreeNode inScopeNode)
+        bool CheckConditionDeclare(ParseTreeNode inScopeNode, TypeToken type)
         {
             if (inScopeNode.Value is ConditionCallToken)
             {
@@ -265,7 +306,7 @@ namespace TypeCheck
                     }
                     else if (inCond.Value is OpenBraceToken)
                     {
-                        if (!GoThroughScope(inScopeNode))
+                        if (!GoThroughScope(inScopeNode, type))
                         {
                             return false;
                         }
@@ -462,19 +503,19 @@ namespace TypeCheck
                 {
                     if (Parameters.Value is IdentifierToken)
                     {
-                        if (!CheckIDType(Parameters, param.TypeOf))
+                        if (!CheckIDType(Parameters, param.TypeOf.GetType()))
                         {
                             return false;
                         }
                     }
                     else if (Parameters.Value is OperatorToken)
                     {
-                        if (!EvaluateOperator(Parameters, param.TypeOf))
+                        if (!EvaluateOperator(Parameters, param.TypeOf.GetType()))
                         {
                             return false;
                         }
                     }
-                    else if (!CheckType(Parameters, param.TypeOf))
+                    else if (!CheckType(Parameters, param.TypeOf.GetType()))
                     {
                         return false;
                     }
@@ -621,10 +662,6 @@ namespace TypeCheck
                 {
                     Info.IsStatic = true;
                 }
-                else if (TypeNode.Value is PublicKeyWordToken)
-                {
-                    Info.IsPublic = true;
-                }
                 else if (TypeNode.Value is IdentifierToken)
                 {
                     Info.ID = TypeNode.Value as IdentifierToken;
@@ -684,10 +721,6 @@ namespace TypeCheck
                 {
                     methodInfo.isStatic = true;
                 }
-                else if (Node.Value is PublicKeyWordToken)
-                {
-                    methodInfo.isPublic = true;
-                }
                 else if (Node.Value is TypeToken)
                 {
                     methodInfo.Type = Node.Value as TypeToken;
@@ -725,7 +758,7 @@ namespace TypeCheck
             param = default;
             if (Start.Value is TypeToken && Start.Children[0].Value is IdentifierToken)
             {
-                param = new Parameter() { TypeOf = Start.Value.GetType(), ID = Start.Children[0].Value as IdentifierToken };
+                param = new Parameter() { TypeOf = Start.Value as TypeToken, ID = Start.Children[0].Value as IdentifierToken };
                 return true;
             }
             return false;
@@ -739,10 +772,6 @@ namespace TypeCheck
                 if (Node.Value is StaticKeyWordToken)
                 {
                     fieldInfo.isStatic = true;
-                }
-                else if (Node.Value is PublicKeyWordToken)
-                {
-                    fieldInfo.isPublic = true;
                 }
                 else if (Node.Value is TypeToken)
                 {
