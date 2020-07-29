@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "EPX/4VZxJk2BIheBeJcuZbVAvglsfZj3Oy3HBgh6Me64G2wRcFPpqGTATiuddTHOd8wM3AqXFaEC+NWdy2qtmw==",
+  "dgSpecHash": "YwXvxsM58K75zJsUOnz+XJk+tvAQO3BuOJL0ARlZMiWXERpA3BjY8iW/WPA9Bk3TkD4Y4W6YmBCidAZs0kYWgQ==",
   "success": true,
-  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj",
+  "projectFilePath": "D:\\Visual Studio 2019 Projects\\MakeParse\\TypeCheck\\TypeChecker.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
-    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
-    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
-    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+    "C:\\Users\\hakop\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }

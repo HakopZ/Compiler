@@ -47,29 +47,39 @@ namespace TypeCheck
             {
                 foreach (var classN in node.Children)
                 {
-                    foreach (var member in classN.Children[0].Children)
+                    if (classN.Value is IdentifierToken)
                     {
-                        if (member.Value is FunctionKeyWordToken)
+                        foreach (var member in classN.Children[0].Children)
                         {
-                            var Type = member.Children[0].Value as TypeToken;
-                            if (Type is VoidKeyWord) continue;
-                            var IDNode = member.Children[0].Children[0];
-                            foreach (var EachNode in IDNode.Children)
+                            if (member.Value is FunctionKeyWordToken)
                             {
-                                if (EachNode.Value is OpenBraceToken)
+                                GetNode<TypeToken>(member, out ParseTreeNode TypeNode, true);
+                                if (TypeNode.Value is VoidKeyWord) continue;
+                                if (GetNode<IdentifierToken>(member.Children[0], out ParseTreeNode IDNode, true))
                                 {
-                                    foreach (var EachLine in EachNode.Children)
+                                    foreach (var EachNode in IDNode.Children)
                                     {
-                                        if(!CheckReturn(EachLine, Type))
+                                        if (EachNode.Value is OpenBraceToken)
                                         {
-                                            return false;
+                                            foreach (var EachLine in EachNode.Children)
+                                            {
+                                                if (!CheckReturn(EachLine, TypeNode.Value as TypeToken))
+                                                {
+                                                    return false;
+                                                }
+                                            }
                                         }
                                     }
                                 }
+                                else
+                                {
+                                    return false;
+                                }
+                                //  CheckReturn( Type)
                             }
-                            //  CheckReturn( Type)
                         }
                     }
+
                 }
             }
             return true;
@@ -136,7 +146,7 @@ namespace TypeCheck
             if (!symbolTable.CurrentClass.TryGetMember(IDNode.Value as IdentifierToken, out MemberInformation currentMember)) return false;
 
             var Method = currentMember as MethodInformation;
-            
+
             return GoThroughParams(IDNode, Method);
 
         }
@@ -149,7 +159,7 @@ namespace TypeCheck
                 {
                     if (Node.Children.Count == 0) break;
                     symbolTable.EnterScope();
-                    while(method.TryGetParameter(out Parameter param))
+                    while (method.TryGetParameter(out Parameter param))
                     {
                         symbolTable.AddInScope(param.ID, param.TypeOf);
                     }
@@ -179,7 +189,7 @@ namespace TypeCheck
         {
             foreach (var Node in node.Children)
             {
-                
+
                 if (Node.Value is OpenBraceToken)
                 {
                     if (Node.Children.Count == 0) break;
@@ -219,13 +229,13 @@ namespace TypeCheck
 
             return false;
         }
-       
+
         bool CheckReturn(ParseTreeNode inScopeNode, TypeToken type)
         {
-            
+
             if (inScopeNode.Value is ReturnKeyWordToken)
             {
-                if(type is VoidKeyWord)
+                if (type is VoidKeyWord)
                 {
                     return inScopeNode.Children.Count == 0;
                 }
@@ -238,7 +248,7 @@ namespace TypeCheck
                 {
                     return EvaluateOperator(temp, type.GetType());
                 }
-                else if(type is BoolToken)
+                else if (type is BoolToken)
                 {
                     if (GetExpressionType(inScopeNode, out Type t))
                     {
@@ -552,7 +562,7 @@ namespace TypeCheck
                 {
                     if (node.Children.Count != 0)
                     {
-                       // if (!symbolTable.ContainsAtAll(node.Value as IdentifierToken)) return false;
+                        // if (!symbolTable.ContainsAtAll(node.Value as IdentifierToken)) return false;
                         return CheckIDType(node.Children[0], type, true);
                     }
 
@@ -721,6 +731,12 @@ namespace TypeCheck
                 {
                     methodInfo.isStatic = true;
                 }
+                else if(Node.Value is EntryPointKeyWord)
+                {
+                    if (FoundOtherEntryPoint()) throw new Exception("Too many entrypoint");
+                    methodInfo.IsEntryPoint = true;
+                    
+                }
                 else if (Node.Value is TypeToken)
                 {
                     methodInfo.Type = Node.Value as TypeToken;
@@ -753,6 +769,20 @@ namespace TypeCheck
             return false;
         }
 
+        bool FoundOtherEntryPoint()
+        {
+            foreach(var classInfo in symbolTable.Map)
+            {
+                foreach(var member in classInfo.Value.Members)
+                {
+                    if(member.Value is MethodInformation)
+                    {
+                        if ((member.Value as MethodInformation).IsEntryPoint) return true;
+                    }
+                }
+            }
+            return false;
+        }
         bool GetParameterInfo(ParseTreeNode Start, out Parameter param)
         {
             param = default;

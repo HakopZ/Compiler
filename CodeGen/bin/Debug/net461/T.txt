@@ -1,0 +1,8 @@
+
+class Program
+{
+   static entrypoint method void Main()
+   {
+	 
+  }
+}

@@ -319,6 +319,8 @@ namespace ParserProject
             }
             bool FoundAMT = false;
             bool Found = false;
+            bool isEntryPoint = false;
+            ParseTreeNode EntryPointNode = default;
             ParseTreeNode AMTnode = default;
             ParseTreeNode AMTnodeSpecified = default;
             if (tokens.FirstToken is AccessModifierToken && !(tokens.FirstToken is StaticKeyWordToken))
@@ -327,6 +329,7 @@ namespace ParserProject
                 if (tokens[1] is StaticKeyWordToken)
                 {
                     AMTnodeSpecified = new ParseTreeNode(tokens[1], false);
+                    
                     Found = true;
                 }
                 else if (tokens[1] is AccessModifierToken)
@@ -340,6 +343,12 @@ namespace ParserProject
             {
                 AMTnode = new ParseTreeNode(tokens.FirstToken, false);
                 FoundAMT = true;
+                tokens = tokens.Slice(1);
+            }
+            if(tokens.FirstToken is EntryPointKeyWord)
+            {
+                isEntryPoint = true;
+                EntryPointNode = new ParseTreeNode(tokens.FirstToken, false);
                 tokens = tokens.Slice(1);
             }
             if (tokens.FirstToken is FunctionKeyWordToken)
@@ -378,6 +387,10 @@ namespace ParserProject
                         {
                             FuncNode.Add(AMTnodeSpecified);
                         }
+                    }
+                    if(isEntryPoint)
+                    {
+                        FuncNode.Add(EntryPointNode);
                     }
                     FuncNode.AddRange(child);
                     node.Add(FuncNode);

@@ -1,7 +1,10 @@
-﻿using ParserProject;
+﻿using Excersize;
+using ParserProject;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
+using TypeCheck;
 
 namespace CodeGen
 {
@@ -9,9 +12,16 @@ namespace CodeGen
     {
         static void Main(string[] args)
         {
-            var assemblyName = new AssemblyName("MyAssembly");
+            Generator.GenerateFromText("T.txt");
+
+
+
+           /* var assemblyName = new AssemblyName("MyAssembly");
             var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule", "MyCode.exe");
+           
+            
+            
             var typeBuilder = moduleBuilder.DefineType("Program");
             var methodBuilder = typeBuilder.DefineMethod("Main", MethodAttributes.Static);
             
@@ -44,7 +54,7 @@ namespace CodeGen
             typeBuilder.CreateType();
 
             assemblyBuilder.SetEntryPoint(methodBuilder);
-            assemblyBuilder.Save("MyCode.exe");
+            assemblyBuilder.Save("MyCode.exe");*/
         }
     }
 }

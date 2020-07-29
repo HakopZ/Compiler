@@ -7,6 +7,7 @@ namespace TypeCheck
     public class MethodInformation : MemberInformation
     {
         Queue<Parameter> parameters;
+        public bool IsEntryPoint { get; set; }
         public MethodInformation()
         {
             parameters = new Queue<Parameter>();

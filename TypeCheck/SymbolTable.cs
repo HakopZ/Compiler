@@ -8,7 +8,7 @@ namespace TypeCheck
 {
     public class SymbolTable
     {
-        Dictionary<IdentifierToken, ClassInformation> Map = new Dictionary<IdentifierToken, ClassInformation>();
+        public Dictionary<IdentifierToken, ClassInformation> Map = new Dictionary<IdentifierToken, ClassInformation>();
         ScopeStack scopeStack = new ScopeStack();
 
         public ClassInformation CurrentClass { get; set; }
