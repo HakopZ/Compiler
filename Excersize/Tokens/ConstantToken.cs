@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class FalseKeyWordToken : ConstantToken
+    public abstract class ConstantToken : Token
     {
-        public FalseKeyWordToken(string lexeme) : base(lexeme)
+        protected ConstantToken(string lexeme) : base(lexeme)
         {
         }
     }

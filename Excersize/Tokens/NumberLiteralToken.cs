@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Excersize.Tokens
 {
-    public class NumberLiteralToken : Token
+    public class NumberLiteralToken : ConstantToken
     {
         public NumberLiteralToken(string lexeme) : base(lexeme)
         {

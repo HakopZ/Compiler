@@ -1,8 +1,8 @@
 
 class Program
 {
-   static entrypoint method void Main()
+   static entrypoint method void Main(int x)
    {
-	 
-  }
+ 	variable int x = a + b - c * a;
+   }
 }

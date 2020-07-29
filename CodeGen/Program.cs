@@ -12,11 +12,11 @@ namespace CodeGen
     {
         static void Main(string[] args)
         {
-            Generator.GenerateFromText("T.txt");
+     //       Generator.GenerateFromText("T.txt");
 
 
 
-           /* var assemblyName = new AssemblyName("MyAssembly");
+            var assemblyName = new AssemblyName("MyAssembly");
             var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule", "MyCode.exe");
            
@@ -54,7 +54,7 @@ namespace CodeGen
             typeBuilder.CreateType();
 
             assemblyBuilder.SetEntryPoint(methodBuilder);
-            assemblyBuilder.Save("MyCode.exe");*/
+            assemblyBuilder.Save("MyCode.exe");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TypeCheck
@@ -8,6 +9,7 @@ namespace TypeCheck
     {
         Queue<Parameter> parameters;
         public bool IsEntryPoint { get; set; }
+        public  List<Parameter> AllParameters { get; set; }
         public MethodInformation()
         {
             parameters = new Queue<Parameter>();
@@ -17,6 +19,7 @@ namespace TypeCheck
         {
             if (parameters.Contains(param)) return false;
             parameters.Enqueue(param);
+            AllParameters = parameters.ToList();
             return true;
         }
         public void PopIt()
@@ -24,6 +27,9 @@ namespace TypeCheck
             if (parameters.Count == 0) return;
             parameters.Dequeue();
         }
+       
+        public int ParameterCount
+            => parameters.Count;
         public bool TryGetParameter(out Parameter param)
         {
             param = default;

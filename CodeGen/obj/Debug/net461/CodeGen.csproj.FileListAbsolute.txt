@@ -230,3 +230,5 @@ D:\Visual Studio 2019 Projects\MakeParse\CodeGen\obj\Debug\net461\CodeGen.csproj
 D:\Visual Studio 2019 Projects\MakeParse\CodeGen\obj\Debug\net461\CodeGen.csproj.CopyComplete
 D:\Visual Studio 2019 Projects\MakeParse\CodeGen\obj\Debug\net461\CodeGen.exe
 D:\Visual Studio 2019 Projects\MakeParse\CodeGen\obj\Debug\net461\CodeGen.pdb
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\CodeGen\bin\Debug\net461\TypeChecker.dll
+\\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\CodeGen\bin\Debug\net461\TypeChecker.pdb
