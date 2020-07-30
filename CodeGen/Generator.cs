@@ -21,13 +21,7 @@ namespace CodeGen
         Bool,
         Identifier
     };
-    public enum OperatorsEnum
-    { 
-        Add,
-        Subract,
-        Multiplier,
-        Divide
-    };
+
 
     public static class Generator
     {
@@ -37,6 +31,8 @@ namespace CodeGen
         public static RegexTokenizer tokenizer = new RegexTokenizer();
         public static Parser parser = new Parser();
         public static TypeValidator typeValidator = new TypeValidator();
+        public static int LocalVariableList = 0;
+
         static Dictionary<Type, Type> TokenToType = new Dictionary<Type, Type>()
         {
             {typeof(IntToken), typeof(int) },
@@ -45,22 +41,26 @@ namespace CodeGen
             {typeof(BoolToken), typeof(bool) },
             {typeof(IdentifierToken), typeof(IdentifierToken) }
         };
-        static Dictionary<Type, TokenTypeEnum> MapToType = new Dictionary<Type, TokenTypeEnum>()
+        static readonly Dictionary<Type, TokenTypeEnum> MapToType = new Dictionary<Type, TokenTypeEnum>()
         {
             {typeof(IntToken), TokenTypeEnum.Int },
             {typeof(Excersize.Tokens.StringToken), TokenTypeEnum.String },
             {typeof(CharKeyWordToken), TokenTypeEnum.Char },
             { typeof(BoolToken), TokenTypeEnum.Bool }
         };
-        static Dictionary<Type, OperatorsEnum> MapToOperator = new Dictionary<Type, OperatorsEnum>()
+        static readonly Dictionary<Type, OpCode> SimpleInstructions = new Dictionary<Type, OpCode>()
         {
-            {typeof(PlusOperatorToken), OperatorsEnum.Add },
-            {typeof(SubtractionOperatorToken), OperatorsEnum.Subract },
-            {typeof(MultiplierOperatorToken), OperatorsEnum.Multiplier },
-            {typeof(DividingOperatorToken), OperatorsEnum.Divide }
+            {typeof(PlusOperatorToken), OpCodes.Add},
+            {typeof(SubtractionOperatorToken), OpCodes.Sub },
+            {typeof(MultiplierOperatorToken), OpCodes.Mul },
+            {typeof(DividingOperatorToken), OpCodes.Div },
+            {typeof(ModOperatorToken), OpCodes.Rem },
+            
         };
+
         public static void GenerateFromText(string Filename)
         {
+
             ReadOnlyMemory<char> text = File.ReadAllText(Filename).AsMemory();
             tokenizer.Tokenize(text);
 
@@ -76,9 +76,12 @@ namespace CodeGen
                         {
                             foreach (var Member in IDNode.Children)
                             {
-                                if (GetMethodBuilder(Member, typeBuilder, out MethodBuilder methodBuilder))
+                                if (GetMethodBuilder(Member, typeBuilder, out MethodBuilder methodBuilder, out ParseTreeNode Node))
                                 {
-                                    
+                                    if(EmitFunctionCode(Node, methodBuilder))
+                                    {
+
+                                    }
                                 }
                             }
                         }
@@ -116,10 +119,41 @@ namespace CodeGen
         }
         static bool EmitCode(ParseTreeNode node, ILGenerator iLGenerator)
         {
-            if(node.Value is ConstantToken)
+
+            if(isConstant(node, iLGenerator))
+            {
+                return true;
+            }
+            bool FailedEmit = false;
+            for (int i = node.Children.Count - 1; i >= 0; i--)
+            {
+                if (!EmitCode(node.Children[i], iLGenerator))
+                {
+                    FailedEmit = true;
+                }
+            }
+            
+            if (SimpleInstructions.TryGetValue(node.Value.GetType(), out OpCode opCode))
+            {
+                iLGenerator.Emit(opCode);
+            }
+            else if(node.Value is VariableKeyWordToken)
+            {
+
+            }
+            else if (node.Value is AssigningOperators)
+            {
+                iLGenerator.Emit(OpCodes.Stloc, LocalVariableList);
+            }
+
+            return !FailedEmit;
+        }
+        static bool isConstant(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is ConstantToken)
             {
                 var TypeOfConstant = MapToType[typeValidator.TokenTypeMap[node.Value.GetType()]];
-                
+
                 switch (TypeOfConstant)
                 {
                     case TokenTypeEnum.Int:
@@ -132,49 +166,17 @@ namespace CodeGen
                         iLGenerator.Emit(node.Value is TrueKeyWordToken ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
                         break;
                     case TokenTypeEnum.Char:
-                        //iLGenerator.Emit(OpCodes.lds)
+                        iLGenerator.Emit(OpCodes.Ldc_I4, Convert.ToInt32(node.Value.Lexeme));
                         break;
                 }
                 return true;
             }
-            bool FailedEmit = false;
-            for (int i = 0; i < node.Children.Count; i++)
-            {
-                if(!EmitCode(node.Children[i], iLGenerator))
-                {
-                    FailedEmit = true;
-                }
-            }
-            if (node.Value is OperatorToken)
-            {
-                var TypeOfOperator = MapToOperator[node.Value.GetType()];
-                switch (TypeOfOperator)
-                {
-                    case OperatorsEnum.Add:
-                        iLGenerator.Emit(OpCodes.Add);
-                        break;
-                    case OperatorsEnum.Subract:
-                        iLGenerator.Emit(OpCodes.Sub);
-                        break;
-                    case OperatorsEnum.Multiplier:
-                        iLGenerator.Emit(OpCodes.Mul);
-                        break;
-                    case OperatorsEnum.Divide:
-                        iLGenerator.Emit(OpCodes.Div);
-                        break;
-                }
-            }
-            else if(node.Value is AssigningOperators)
-            {
-                iLGenerator.Emit(OpCodes.Stloc);
-            }
-
-            return !FailedEmit;
+            return false;
         }
-        static bool GetMethodBuilder(ParseTreeNode Node, TypeBuilder typeBuilder, out MethodBuilder methodBuilder)
+        static bool GetMethodBuilder(ParseTreeNode Node, TypeBuilder typeBuilder, out MethodBuilder methodBuilder, out ParseTreeNode IDNode)
         {
             methodBuilder = default;
-
+            IDNode = default;
             if (Node.Value is FunctionKeyWordToken)
             {
                 foreach (var TypeNode in Node.Children)
@@ -185,6 +187,7 @@ namespace CodeGen
                         {
                             if (Info.Value is IdentifierToken)
                             {
+                                IDNode = Info;
                                 typeValidator.symbolTable.CurrentClass.TryGetMember(Info.Value as IdentifierToken, out MemberInformation member);
                                 var methodInformation = member as MethodInformation;
                                 Type[] parameterTypes = new Type[methodInformation.ParameterCount];
@@ -193,7 +196,6 @@ namespace CodeGen
                                     parameterTypes[i] = methodInformation.AllParameters[i].TypeOf.GetType();
                                 }
                                 methodBuilder = typeBuilder.DefineMethod(methodInformation.ID.Lexeme, methodInformation.isStatic ? MethodAttributes.Static : MethodAttributes.Public, TokenToType[methodInformation.Type.GetType()], parameterTypes);
-                                
                                 return true;
                             }
                         }
