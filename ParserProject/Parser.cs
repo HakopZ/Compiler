@@ -628,9 +628,17 @@ namespace ParserProject
         }
 
         bool IsBuiltIn(TokenCollection tokens, out ParseTreeNode node)
-            => IsSin(tokens, out node)
+            => IsPrint(tokens, out node)
+            || IsRead(tokens, out node)
+            || IsSin(tokens, out node)
             || IsCos(tokens, out node)
             || IsTan(tokens, out node);
+
+        bool IsPrint(TokenCollection tokens, out ParseTreeNode node)
+            => IsFunction<PrintKeywordToken>(tokens, out node);
+
+        bool IsRead(TokenCollection tokens, out ParseTreeNode node)
+            => IsFunction<ReadKeywordToken>(tokens, out node);
 
         bool IsComparison(TokenCollection tokens, out ParseTreeNode node)
           => GetExactOperator<EqualOperatorToken>(tokens, out node)

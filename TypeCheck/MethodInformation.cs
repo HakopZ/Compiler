@@ -12,6 +12,7 @@ namespace TypeCheck
         public  List<Parameter> AllParameters { get; set; }
         public MethodInformation()
         {
+            AllParameters = new List<Parameter>();
             parameters = new Queue<Parameter>();
         }
         
@@ -29,7 +30,7 @@ namespace TypeCheck
         }
        
         public int ParameterCount
-            => parameters.Count;
+            => AllParameters.Count;
         public bool TryGetParameter(out Parameter param)
         {
             param = default;

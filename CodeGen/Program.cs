@@ -12,7 +12,7 @@ namespace CodeGen
     {
         static void Main(string[] args)
         {
-     //       Generator.GenerateFromText("T.txt");
+            Generator.GenerateFromText("T.txt");
 
 
 

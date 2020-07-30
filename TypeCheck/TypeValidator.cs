@@ -818,7 +818,7 @@ namespace TypeCheck
 
             return false;
         }
-        bool GetNode<T>(ParseTreeNode Start, out ParseTreeNode IDNode, bool S = false, bool isT = true)
+        public bool GetNode<T>(ParseTreeNode Start, out ParseTreeNode IDNode, bool S = false, bool isT = true)
             where T : Token
         {
 

@@ -31,7 +31,7 @@ namespace CodeGen
         public static RegexTokenizer tokenizer = new RegexTokenizer();
         public static Parser parser = new Parser();
         public static TypeValidator typeValidator = new TypeValidator();
-        public static int LocalVariableList = 0;
+        static readonly List<IdentifierToken> LocalsIndex = new List<IdentifierToken>();
 
         static Dictionary<Type, Type> TokenToType = new Dictionary<Type, Type>()
         {
@@ -39,7 +39,8 @@ namespace CodeGen
             {typeof(Excersize.Tokens.StringToken), typeof(string) },
             {typeof(CharKeyWordToken), typeof(char) },
             {typeof(BoolToken), typeof(bool) },
-            {typeof(IdentifierToken), typeof(IdentifierToken) }
+            {typeof(IdentifierToken), typeof(IdentifierToken) },
+            {typeof(VoidKeyWord), typeof(void) }
         };
         static readonly Dictionary<Type, TokenTypeEnum> MapToType = new Dictionary<Type, TokenTypeEnum>()
         {
@@ -48,6 +49,7 @@ namespace CodeGen
             {typeof(CharKeyWordToken), TokenTypeEnum.Char },
             { typeof(BoolToken), TokenTypeEnum.Bool }
         };
+
         static readonly Dictionary<Type, OpCode> SimpleInstructions = new Dictionary<Type, OpCode>()
         {
             {typeof(PlusOperatorToken), OpCodes.Add},
@@ -55,9 +57,20 @@ namespace CodeGen
             {typeof(MultiplierOperatorToken), OpCodes.Mul },
             {typeof(DividingOperatorToken), OpCodes.Div },
             {typeof(ModOperatorToken), OpCodes.Rem },
-            
-        };
 
+        };
+        static readonly Dictionary<Type, Func<ParseTreeNode, ILGenerator, bool>> ToFuncs = new Dictionary<Type, Func<ParseTreeNode, ILGenerator, bool>>()
+        {
+            { typeof(IdentifierToken), (node, iLGenerator) => isCall(node, iLGenerator) },
+            { typeof(OperatorToken), (node, iLGenerator) => IsSimpleInstruction(node, iLGenerator) },
+            { typeof(ConstantToken), (node, iLGenerator) => isConstant(node, iLGenerator) },
+            { typeof(AssigningOperators), (node, iLGenerator) => IsAssignment(node, iLGenerator) },
+            { typeof(VariableKeyWordToken), (node, iLGenerator) => isVariableDeclare(ref node, iLGenerator) }
+        };
+        static readonly Dictionary<IdentifierToken, TypeBuilder> IDToType = new Dictionary<IdentifierToken, TypeBuilder>();
+        static readonly Dictionary<IdentifierToken, MethodBuilder> IDToMethod = new Dictionary<IdentifierToken, MethodBuilder>();
+
+        static readonly Dictionary<ParseTreeNode, IdentifierToken> FunctionStarts = new Dictionary<ParseTreeNode, IdentifierToken>();
         public static void GenerateFromText(string Filename)
         {
 
@@ -74,16 +87,34 @@ namespace CodeGen
                     {
                         if (GetClassType(ClassNode, out TypeBuilder typeBuilder, out ParseTreeNode IDNode))
                         {
-                            foreach (var Member in IDNode.Children)
+                            foreach (var Member in IDNode.Children[0].Children)
                             {
-                                if (GetMethodBuilder(Member, typeBuilder, out MethodBuilder methodBuilder, out ParseTreeNode Node))
+                                if (!GetMethodBuilder(Member, typeBuilder, out MethodBuilder methodBuilder, out ParseTreeNode Node))
                                 {
-                                    if(EmitFunctionCode(Node, methodBuilder))
-                                    {
-
-                                    }
+                                    throw new Exception("Could not get method");
                                 }
                             }
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Failed TypeCheck");
+                }
+            }
+            else
+            {
+                throw new Exception("Failed Parse");
+            }
+            foreach (var Node in FunctionStarts)
+            {
+                if (IDToMethod.TryGetValue(Node.Value, out MethodBuilder methodBuilder))
+                {
+                    if (typeValidator.GetNode<OpenBraceToken>(Node.Key, out ParseTreeNode OpenBraceNode, true))
+                    {
+                        if(!EmitFunctionCode(OpenBraceNode, methodBuilder))
+                        {
+                            throw new Exception("Something wrong");
                         }
                     }
                 }
@@ -102,6 +133,7 @@ namespace CodeGen
                         IDNode = Info;
                         typeValidator.symbolTable.CurrentClass = classInfo;
                         typeBuilder = moduleBuilder.DefineType(classInfo.ID.Lexeme);
+                        IDToType[Info.Value as IdentifierToken] = typeBuilder;
                         return true;
                     }
 
@@ -117,12 +149,20 @@ namespace CodeGen
 
             return EmitCode(node, iLGenerator);
         }
+
+        static bool isPrint(ParseTreeNode Node, ILGenerator iLGenerator)
+        {
+            if(Node.Value is )
+            return false;
+        }
         static bool EmitCode(ParseTreeNode node, ILGenerator iLGenerator)
         {
-
-            if(isConstant(node, iLGenerator))
+            if(ToFuncs.TryGetValue(node.Value.GetType(), out var FuncCall))
             {
-                return true;
+                if(FuncCall(node, iLGenerator))
+                {
+                    return true;
+                }
             }
             bool FailedEmit = false;
             for (int i = node.Children.Count - 1; i >= 0; i--)
@@ -133,27 +173,81 @@ namespace CodeGen
                 }
             }
             
+            
+            return !FailedEmit;
+        }
+        static bool IsSimpleInstruction(ParseTreeNode node, ILGenerator iLGenerator)
+        {
             if (SimpleInstructions.TryGetValue(node.Value.GetType(), out OpCode opCode))
             {
+                if (!EmitCode(node.Children[0], iLGenerator)) return false;
+                if (!EmitCode(node.Children[1], iLGenerator)) return false;
                 iLGenerator.Emit(opCode);
+                return true;
             }
-            else if(node.Value is VariableKeyWordToken)
+            return false;
+        }
+        static bool IsAssignment(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is AssigningOperators)
             {
+                if (!EmitCode(node.Children[1], iLGenerator)) return false;
+                int index = LocalsIndex.IndexOf(node.Children[0].Value as IdentifierToken);
+                if (index == -1) return false;
+                iLGenerator.Emit(OpCodes.Stloc_S, index);
+                return true;
+            }
+            return false;
+        }
+        static bool isCall(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if(node.Value is IdentifierToken)
+            {
+                if(typeValidator.symbolTable.CurrentClass.TryGetMember(node.Value as IdentifierToken, out MemberInformation member))
+                {
+                    if(member is MethodInformation)
+                    {
+                        //Implement later;
+                    }
+                }
+
+                int index = LocalsIndex.IndexOf(node.Value as IdentifierToken);
+                if (index == -1) return false;
+                iLGenerator.Emit(OpCodes.Ldloc_S, index);
 
             }
-            else if (node.Value is AssigningOperators)
+            return false;
+        }
+
+        static bool isVariableDeclare(ref ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is VariableKeyWordToken)
             {
-                iLGenerator.Emit(OpCodes.Stloc, LocalVariableList);
+                Excersize.TypeToken type = node.Children[0].Value as Excersize.TypeToken;
+                
+                if(TokenToType.TryGetValue(type.GetType(), out Type value))
+                {
+                    iLGenerator.DeclareLocal(value);
+                    if(typeValidator.GetNode<IdentifierToken>(node.Children[0], out ParseTreeNode IDNode, true))
+                    {
+                        LocalsIndex.Add(IDNode.Value as IdentifierToken);
+                    }
+                    node = node.Children[0];
+                    return true;
+                }
             }
 
-            return !FailedEmit;
+
+            return false;
         }
         static bool isConstant(ParseTreeNode node, ILGenerator iLGenerator)
         {
             if (node.Value is ConstantToken)
             {
-                var TypeOfConstant = MapToType[typeValidator.TokenTypeMap[node.Value.GetType()]];
-
+                var FoundMapToken = typeValidator.TokenTypeMap.TryGetValue(node.Value.GetType(), out Type val);
+                if (!FoundMapToken) throw new Exception($"Not found {node.Value.GetType()}");
+                var Success = MapToType.TryGetValue(val, out TokenTypeEnum TypeOfConstant);
+                if (!Success) throw new Exception($"Can't find TypeEnum{val}");
                 switch (TypeOfConstant)
                 {
                     case TokenTypeEnum.Int:
@@ -189,13 +283,35 @@ namespace CodeGen
                             {
                                 IDNode = Info;
                                 typeValidator.symbolTable.CurrentClass.TryGetMember(Info.Value as IdentifierToken, out MemberInformation member);
-                                var methodInformation = member as MethodInformation;
-                                Type[] parameterTypes = new Type[methodInformation.ParameterCount];
-                                for (int i = 0; i < parameterTypes.Length; i++)
+                                if (member is MethodInformation)
                                 {
-                                    parameterTypes[i] = methodInformation.AllParameters[i].TypeOf.GetType();
+                                    var methodInformation = member as MethodInformation;
+
+                                    Type[] parameterTypes = new Type[methodInformation.ParameterCount];
+                                    for (int i = 0; i < parameterTypes.Length; i++)
+                                    {
+                                        if (TokenToType.TryGetValue(methodInformation.AllParameters[i].TypeOf.GetType(), out Type t))
+                                        {
+                                            parameterTypes[i] = t;
+                                        }
+                                        else return false;
+                                    }
+                                    
+                                    if (!TokenToType.TryGetValue(methodInformation.Type.GetType(), out Type ReturnValue)) return false;
+                                    methodBuilder = typeBuilder.DefineMethod(methodInformation.ID.Lexeme, methodInformation.isStatic ? MethodAttributes.Static : MethodAttributes.Public, ReturnValue, parameterTypes);
+                                    if(methodInformation.IsEntryPoint)
+                                    {
+                                        assemblyBuilder.SetEntryPoint(methodBuilder);
+                                    }
+                                    IDToMethod[Info.Value as IdentifierToken] = methodBuilder;
+                                    FunctionStarts[Info] = Info.Value as IdentifierToken;
                                 }
-                                methodBuilder = typeBuilder.DefineMethod(methodInformation.ID.Lexeme, methodInformation.isStatic ? MethodAttributes.Static : MethodAttributes.Public, TokenToType[methodInformation.Type.GetType()], parameterTypes);
+                                else if (member is FieldInformation)
+                                {
+                                    var typeInformation = member as FieldInformation;
+
+                                    typeBuilder.DefineField(Info.Value.Lexeme, TokenToType[typeInformation.Type.GetType()], typeInformation.isStatic ? FieldAttributes.Static : FieldAttributes.Public);
+                                }
                                 return true;
                             }
                         }
