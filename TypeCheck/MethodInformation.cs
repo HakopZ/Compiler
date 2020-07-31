@@ -9,6 +9,7 @@ namespace TypeCheck
     {
         Queue<Parameter> parameters;
         public bool IsEntryPoint { get; set; }
+        private int Index = 0;
         public  List<Parameter> AllParameters { get; set; }
         public MethodInformation()
         {
@@ -31,14 +32,17 @@ namespace TypeCheck
        
         public int ParameterCount
             => AllParameters.Count;
+        public void ResetParamCount()
+            => Index = 0;
         public bool TryGetParameter(out Parameter param)
         {
             param = default;
-            if(parameters.Count == 0)
+            if(parameters.Count == 0 || Index >= AllParameters.Count)
             {
                 return false;
             }
-            param = parameters.Dequeue();
+            param = AllParameters.ElementAt(Index);
+            Index++;
             return true;
         }
 

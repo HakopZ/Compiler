@@ -152,7 +152,13 @@ namespace ParserProject
             if (tokens.FirstToken is ReturnKeyWordToken)
             {
                 ParseTreeNode n = new ParseTreeNode(tokens.FirstToken as ReturnKeyWordToken, false);
-                if (IsArithmetic(tokens.Slice(1), out ParseTreeNode x))
+                var temp = tokens.Slice(1);
+                if(temp.Count == 1 && temp[0] is SemiColonToken)
+                {
+                    node.Add(n);
+                    return true;
+                }
+                if (IsArithmetic(temp, out ParseTreeNode x))
                 {
                     n.Add(x);
                     node.Add(n);
@@ -575,7 +581,7 @@ namespace ParserProject
         {
             node = new List<ParseTreeNode>();
             if (tokens.Count < 3) return false;
-            if (tokens.FirstToken is KeywordToken)
+            if (tokens.FirstToken is PrintKeywordToken || tokens.FirstToken is ReadKeywordToken)
             {
                 int x = 1;
                 if (tokens[x] is OpenParenthesisToken)
@@ -591,8 +597,16 @@ namespace ParserProject
                     {
                         node.Add(temp);
                     }
-                    if (SemiColon && x == tokens.Count - 2 && tokens[x + 1] is SemiColonToken)
+                    if (SemiColon && tokens[x + 1] is SemiColonToken)
                     {
+                        if(x + 2 < tokens.Count)
+                        {
+                            if(IsInFunc(tokens.Slice(x+2), out List<ParseTreeNode> n))
+                            {
+                                node.AddRange(n);
+                            }
+                                
+                        }
                         return true;
                     }
                 }

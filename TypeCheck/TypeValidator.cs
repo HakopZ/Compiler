@@ -54,8 +54,7 @@ namespace TypeCheck
                             if (member.Value is FunctionKeyWordToken)
                             {
                                 GetNode<TypeToken>(member, out ParseTreeNode TypeNode, true);
-                                if (TypeNode.Value is VoidKeyWord) continue;
-                                if (GetNode<IdentifierToken>(member.Children[0], out ParseTreeNode IDNode, true))
+                                if (GetNode<IdentifierToken>(TypeNode, out ParseTreeNode IDNode, true))
                                 {
                                     foreach (var EachNode in IDNode.Children)
                                     {
@@ -239,6 +238,8 @@ namespace TypeCheck
                 {
                     return inScopeNode.Children.Count == 0;
                 }
+                if (inScopeNode.Children.Count == 0)
+                    throw new Exception("No return value");
                 var temp = inScopeNode.Children[0];
                 if (temp.Value is IdentifierToken)
                 {
@@ -506,6 +507,7 @@ namespace TypeCheck
 
         bool FunctionCheck(ParseTreeNode IDCall, MethodInformation methodInfo)
         {
+            methodInfo.ResetParamCount();
             foreach (var Parameters in IDCall.Children)
             {
                 if (Parameters.Value is EmptyToken) continue;

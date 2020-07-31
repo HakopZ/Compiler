@@ -32,7 +32,7 @@ namespace CodeGen
         public static Parser parser = new Parser();
         public static TypeValidator typeValidator = new TypeValidator();
         static readonly List<IdentifierToken> LocalsIndex = new List<IdentifierToken>();
-
+        static readonly Dictionary<IdentifierToken, Type> IDToType = new Dictionary<IdentifierToken, Type>();
         static Dictionary<Type, Type> TokenToType = new Dictionary<Type, Type>()
         {
             {typeof(IntToken), typeof(int) },
@@ -59,7 +59,7 @@ namespace CodeGen
             {typeof(ModOperatorToken), OpCodes.Rem },
 
         };
-        static readonly Dictionary<Type, MethodInfo> ToBuiltInFunction = new Dictionary<Type, MethodInfo>()
+        static readonly Dictionary<Type, MethodInfo> ToPrint = new Dictionary<Type, MethodInfo>()
         {
             {typeof(int), typeof(Console).GetMethod("WriteLine", new [] {typeof(int) }) },
             {typeof(string), typeof(Console).GetMethod("WriteLine", new [] {typeof(string)}) },
@@ -80,16 +80,19 @@ namespace CodeGen
             { typeof(FalseKeyWordToken), (node, iLGenerator) => isConstant(node, iLGenerator) },
             { typeof(AssignmentOperatorToken), (node, iLGenerator) => IsAssignment(node, iLGenerator) },
             { typeof(PrintKeywordToken), (node, iLGenerator) => isPrint(node, iLGenerator) },
+            { typeof(ReturnKeyWordToken), (node, iLGenerator) => isReturn(node, iLGenerator) },
             { typeof(VariableKeyWordToken), (node, iLGenerator) => isVariableDeclare(ref node, iLGenerator) }
-            
+
         };
+
+
         static readonly List<TypeBuilder> typeBuilders = new List<TypeBuilder>();
         static readonly Dictionary<IdentifierToken, MethodBuilder> IDToMethod = new Dictionary<IdentifierToken, MethodBuilder>();
 
-        
+
 
         static readonly Dictionary<ParseTreeNode, IdentifierToken> FunctionStarts = new Dictionary<ParseTreeNode, IdentifierToken>();
-
+        static List<Parameter> parameterInfos = new List<Parameter>();
         public static void GenerateFromText(string Filename)
         {
 
@@ -128,7 +131,7 @@ namespace CodeGen
             foreach (var Node in FunctionStarts)
             {
                 if (IDToMethod.TryGetValue(Node.Value, out MethodBuilder methodBuilder))
-                { 
+                {
                     if (typeValidator.GetNode<OpenBraceToken>(Node.Key, out ParseTreeNode OpenBraceNode, true))
                     {
                         if (!EmitFunctionCode(OpenBraceNode, methodBuilder))
@@ -138,7 +141,7 @@ namespace CodeGen
                     }
                 }
             }
-            foreach(var tBuilder in typeBuilders)
+            foreach (var tBuilder in typeBuilders)
             {
                 tBuilder.CreateType();
             }
@@ -171,7 +174,19 @@ namespace CodeGen
         static bool EmitFunctionCode(ParseTreeNode node, MethodBuilder methodBuilder)
         {
             var iLGenerator = methodBuilder.GetILGenerator();
-
+            parameterInfos.Clear();
+            LocalsIndex.Clear();
+            if (typeValidator.symbolTable.CurrentClass.TryGetMember(new IdentifierToken(methodBuilder.Name), out MemberInformation member))
+            {
+                if(member is MethodInformation)
+                {
+                    var method = member as MethodInformation;
+                    if(method.ParameterCount != 0)
+                    {
+                        parameterInfos = method.AllParameters;
+                    }
+                }
+            }
             return EmitCode(node, iLGenerator);
         }
 
@@ -179,21 +194,61 @@ namespace CodeGen
         {
             if (Node.Value is PrintKeywordToken)
             {
-                if (isConstant(Node, iLGenerator))
+                if (EmitCode(Node.Children[0], iLGenerator))
                 {
-                    if (typeValidator.TokenTypeMap.TryGetValue(Node.Value.GetType(), out Type val))
-                        if (TokenToType.TryGetValue(val, out Type tokenType))
+                    if (GetNodeType(Node.Children[0], out Type PrintType))
+                    {
+
+                        if (ToPrint.TryGetValue(PrintType, out MethodInfo methodInfo))
                         {
-                            if (ToBuiltInFunction.TryGetValue(tokenType, out MethodInfo methodInfo))
-                            {
-                                iLGenerator.Emit(OpCodes.Call, methodInfo);
-                            }
+                            iLGenerator.Emit(OpCodes.Call, methodInfo);
+                            return true;
                         }
+
+                    }
                 }
 
             }
             return false;
         }
+        static bool GetNodeType(ParseTreeNode node, out Type x)
+        {
+            x = default;
+            if (typeValidator.TokenTypeMap.TryGetValue(node.Value.GetType(), out Type TokenT))
+            {
+                
+                return TokenToType.TryGetValue(TokenT, out x);
+            }
+            else if (node.Value is IdentifierToken)
+            {
+                if (IDToType.TryGetValue(node.Value as IdentifierToken, out x))
+                {
+                    return true;
+                }
+                return false;
+            }
+            foreach (var n in node.Children)
+            {
+                if (GetNodeType(n, out x))
+                    return true;
+            }
+            return false;
+        }
+        static bool isReturn(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is ReturnKeyWordToken)
+            {
+                if (node.Children.Count != 0)
+                {
+                    if (!EmitCode(node.Children[0], iLGenerator))
+                        return false;
+                }
+                iLGenerator.Emit(OpCodes.Ret);
+                return true;
+            }
+            return false;
+        }
+
         static bool EmitCode(ParseTreeNode node, ILGenerator iLGenerator)
         {
             if (ToFuncs.TryGetValue(node.Value.GetType(), out var FuncCall))
@@ -208,7 +263,7 @@ namespace CodeGen
                 }
             }
             bool FailedEmit = false;
-            for (int i = node.Children.Count - 1; i >= 0; i--)
+            for (int i = 0; i < node.Children.Count; i++)
             {
                 if (!EmitCode(node.Children[i], iLGenerator))
                 {
@@ -226,7 +281,7 @@ namespace CodeGen
                 if (!EmitCode(node.Children[0], iLGenerator)) return false;
                 if (!EmitCode(node.Children[1], iLGenerator)) return false;
                 iLGenerator.Emit(opCode);
-                
+
                 return true;
             }
             return false;
@@ -247,18 +302,26 @@ namespace CodeGen
         {
             if (node.Value is IdentifierToken)
             {
-                if (typeValidator.symbolTable.CurrentClass.TryGetMember(node.Value as IdentifierToken, out MemberInformation member))
+                if (IDToMethod.TryGetValue(node.Value as IdentifierToken, out MethodBuilder value))
                 {
-                    if (member is MethodInformation)
-                    {
-                        //Implement later;
-                    }
+                    
+                    //DO STUFF
                 }
-
-                int index = LocalsIndex.IndexOf(node.Value as IdentifierToken);
-                if (index == -1) return false;
-                iLGenerator.Emit(OpCodes.Ldloc_S, index);
-
+                else
+                {
+                    for (int i = 0; i < parameterInfos.Count; i++)
+                    {
+                        if(parameterInfos[i].ID.Lexeme == node.Value.Lexeme)
+                        {
+                            iLGenerator.Emit(OpCodes.Ldarg_S, i);
+                            return true;
+                        }
+                    }
+                    int index = LocalsIndex.IndexOf(node.Value as IdentifierToken);
+                    if (index == -1) return false;
+                    iLGenerator.Emit(OpCodes.Ldloc_S, index);
+                    return true;
+                }
             }
             return false;
         }
@@ -275,9 +338,10 @@ namespace CodeGen
                     if (typeValidator.GetNode<IdentifierToken>(node.Children[0], out ParseTreeNode IDNode, true))
                     {
                         LocalsIndex.Add(IDNode.Value as IdentifierToken);
+                        IDToType[IDNode.Value as IdentifierToken] = value;
                     }
                     return EmitCode(node.Children[0], iLGenerator);
-                    
+
                 }
             }
 
@@ -298,7 +362,7 @@ namespace CodeGen
                         iLGenerator.Emit(OpCodes.Ldc_I4, int.Parse(node.Value.Lexeme));
                         break;
                     case TokenTypeEnum.String:
-                        iLGenerator.Emit(OpCodes.Ldstr, node.Value.Lexeme.Remove(1).Remove(node.Value.Lexeme.Length - 1));
+                        iLGenerator.Emit(OpCodes.Ldstr, node.Value.Lexeme.Substring(1, node.Value.Lexeme.Length - 2));
                         break;
                     case TokenTypeEnum.Bool:
                         iLGenerator.Emit(node.Value is TrueKeyWordToken ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
@@ -342,6 +406,7 @@ namespace CodeGen
                                     }
 
                                     if (!TokenToType.TryGetValue(methodInformation.Type.GetType(), out Type ReturnValue)) return false;
+                                    
                                     methodBuilder = typeBuilder.DefineMethod(methodInformation.ID.Lexeme, methodInformation.isStatic ? MethodAttributes.Static : MethodAttributes.Public, ReturnValue, parameterTypes);
                                     if (methodInformation.IsEntryPoint)
                                     {
