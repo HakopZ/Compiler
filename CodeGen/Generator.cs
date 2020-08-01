@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using TypeCheck;
@@ -81,9 +82,12 @@ namespace CodeGen
             { typeof(FalseKeyWordToken), (node, iLGenerator) => isConstant(node, iLGenerator) },
             { typeof(AssignmentOperatorToken), (node, iLGenerator) => IsAssignment(node, iLGenerator) },
             { typeof(PrintKeywordToken), (node, iLGenerator) => isPrint(node, iLGenerator) },
+            { typeof(ReadKeywordToken), (node, iLGenerator) => isRead(node, iLGenerator) },
+            { typeof(Parse), (node, iLGenerator) => isParse(node, iLGenerator) },
             { typeof(ReturnKeyWordToken), (node, iLGenerator) => isReturn(node, iLGenerator) },
             { typeof(VariableKeyWordToken), (node, iLGenerator) => isVariableDeclare(ref node, iLGenerator) },
-            {typeof(IfKeyWordToken), (node, iLGenerator) => isIf(node, iLGenerator) }
+            { typeof(IfKeyWordToken), (node, iLGenerator) => isIf(node, iLGenerator) },
+            { typeof(WhileKeyWord), (node, iLGenerator) => isWhile(node, iLGenerator) }
 
         };
 
@@ -95,6 +99,7 @@ namespace CodeGen
 
         static readonly Dictionary<ParseTreeNode, IdentifierToken> FunctionStarts = new Dictionary<ParseTreeNode, IdentifierToken>();
         static List<Parameter> parameterInfos = new List<Parameter>();
+        static List<Label> labels = new List<Label>();
         public static void GenerateFromText(string Filename)
         {
 
@@ -180,10 +185,10 @@ namespace CodeGen
             LocalsIndex.Clear();
             if (typeValidator.symbolTable.CurrentClass.TryGetMember(new IdentifierToken(methodBuilder.Name), out MemberInformation member))
             {
-                if(member is MethodInformation)
+                if (member is MethodInformation)
                 {
                     var method = member as MethodInformation;
-                    if(method.ParameterCount != 0)
+                    if (method.ParameterCount != 0)
                     {
                         parameterInfos = method.AllParameters;
                     }
@@ -191,21 +196,215 @@ namespace CodeGen
             }
             return EmitCode(node, iLGenerator);
         }
-        static bool isEq(ParseTreeNode node, ILGenerator iLGenerator)
+        static bool isWhile(ParseTreeNode node, ILGenerator iLGenerator)
         {
-            if(node.Value is EqualOperatorToken)
+            if (node.Value is WhileKeyWord)
+            {
+                var EndOf = iLGenerator.DefineLabel();
+                var Start = iLGenerator.DefineLabel();
+                labels.Add(EndOf);
+                labels.Add(Start);
+                iLGenerator.MarkLabel(Start);
+                foreach (var kids in node.Children)
+                {
+                    if (isAndOrisOr(kids, iLGenerator) || IsComparison(kids, iLGenerator))
+                    {
+                        iLGenerator.DeclareLocal(typeof(bool));
+                        LocalsIndex.Add(new IdentifierToken());
+
+                        iLGenerator.Emit(OpCodes.Stloc_S, LocalsIndex.Count - 1);
+                        iLGenerator.Emit(OpCodes.Ldloc_S, LocalsIndex.Count - 1);
+                        iLGenerator.Emit(OpCodes.Brfalse, EndOf);
+                    }
+                    else if (kids.Value is OpenBraceToken)
+                    {
+                        EmitCode(kids, iLGenerator);
+                        iLGenerator.Emit(OpCodes.Br, Start);
+                    }
+                    else if (kids.Value is CloseBraceToken)
+                    {
+                        iLGenerator.MarkLabel(EndOf);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            return false;
+        }
+        static bool IsComparison(ParseTreeNode node, ILGenerator iLGenerator)
+            => isEq(node, iLGenerator)
+            || isNotEq(node, iLGenerator)
+            || isLessThan(node, iLGenerator)
+            || isGreaterThan(node, iLGenerator)
+            || isLessThanOrEqual(node, iLGenerator)
+            || isGreaterThanOrEqual(node, iLGenerator);
+
+        static bool isNotEq(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is EqualOperatorToken)
             {
                 EmitCode(node.Children[0], iLGenerator);
                 EmitCode(node.Children[1], iLGenerator);
                 iLGenerator.Emit(OpCodes.Ceq);
+                iLGenerator.Emit(OpCodes.Ldc_I4_0);
+                iLGenerator.Emit(OpCodes.Ceq);
+                return true;
+            }
+            return false;
+        }
+
+        static bool isGreaterThanOrEqual(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is GreatThanOrEqualOperatorToken)
+            {
+                EmitCode(node.Children[0], iLGenerator);
+                EmitCode(node.Children[1], iLGenerator);
+                iLGenerator.Emit(OpCodes.Clt);
+                iLGenerator.Emit(OpCodes.Ldc_I4_0);
+                iLGenerator.Emit(OpCodes.Ceq);
+                return true;
+            }
+            return false;
+        }
+
+        private static bool isLessThanOrEqual(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is LessThanOrEqualOperatorToken)
+            {
+                EmitCode(node.Children[0], iLGenerator);
+                EmitCode(node.Children[1], iLGenerator);
+                iLGenerator.Emit(OpCodes.Cgt);
+                iLGenerator.Emit(OpCodes.Ldc_I4_0);
+                iLGenerator.Emit(OpCodes.Ceq);
+                return true;
+            }
+            return false;
+        }
+
+        static bool isAndOrisOr(ParseTreeNode node, ILGenerator iLGenerator)
+            => isAnd(node, iLGenerator)
+            || isOr(node, iLGenerator);
+
+        static bool isOr(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is OrOperatorToken)
+            {
+                labels.Add(iLGenerator.DefineLabel());
+                labels.Add(iLGenerator.DefineLabel());
+                for (int i = 0; i < node.Children.Count; i++)
+                {
+                    if (isAndOrisOr(node.Children[i], iLGenerator))
+                    {
+                        throw new Exception("Not Implemented");
+                    }
+                }
+                IsComparison(node.Children[0], iLGenerator);
+                iLGenerator.Emit(OpCodes.Brtrue, labels[labels.Count - 2]);
+                IsComparison(node.Children[1], iLGenerator);
+                iLGenerator.Emit(OpCodes.Br, labels[labels.Count - 1]);
+                iLGenerator.MarkLabel(labels[labels.Count - 2]);
+                iLGenerator.Emit(OpCodes.Ldc_I4, 1);
+                iLGenerator.MarkLabel(labels[labels.Count - 1]);
+                return true;
+            }
+            return false;
+        }
+
+        static bool isAnd(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is AndOperatorToken)
+            {
+
+                labels.Add(iLGenerator.DefineLabel());
+                labels.Add(iLGenerator.DefineLabel());
+                for (int i = 0; i < node.Children.Count; i++)
+                {
+                    if (isAndOrisOr(node.Children[i], iLGenerator))
+                    {
+                        throw new Exception("Not Implemented");
+                    }
+                }
+                IsComparison(node.Children[0], iLGenerator);
+                iLGenerator.Emit(OpCodes.Brfalse, labels[labels.Count - 2]);
+                IsComparison(node.Children[1], iLGenerator);
+                iLGenerator.Emit(OpCodes.Br, labels[labels.Count - 1]);
+                iLGenerator.MarkLabel(labels[labels.Count - 2]);
+                iLGenerator.Emit(OpCodes.Ldc_I4, 0);
+                iLGenerator.MarkLabel(labels[labels.Count - 1]);
+                return true;
+            }
+            return false;
+        }
+
+        static bool isEq(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is EqualOperatorToken)
+            {
+                EmitCode(node.Children[0], iLGenerator);
+                EmitCode(node.Children[1], iLGenerator);
+                iLGenerator.Emit(OpCodes.Ceq);
+                return true;
+            }
+            return false;
+        }
+        static bool isLessThan(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is LessThanOperator)
+            {
+                EmitCode(node.Children[0], iLGenerator);
+                EmitCode(node.Children[1], iLGenerator);
+                iLGenerator.Emit(OpCodes.Clt);
+                return true;
+            }
+            return false;
+        }
+        static bool isGreaterThan(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if (node.Value is GreaterThanOperator)
+            {
+                EmitCode(node.Children[0], iLGenerator);
+                EmitCode(node.Children[1], iLGenerator);
+                iLGenerator.Emit(OpCodes.Cgt);
+                return true;
             }
             return false;
         }
         static bool isIf(ParseTreeNode node, ILGenerator iLGenerator)
         {
-            if(node.Value is IfKeyWordToken)
+            if (node.Value is IfKeyWordToken)
             {
+                var EndOfIf = iLGenerator.DefineLabel();
+                labels.Add(EndOfIf);
+                foreach (var kids in node.Children)
+                {
+                    if (isAndOrisOr(kids, iLGenerator) || IsComparison(kids, iLGenerator))
+                    {
+                        iLGenerator.DeclareLocal(typeof(bool));
+                        LocalsIndex.Add(new IdentifierToken());
 
+                        iLGenerator.Emit(OpCodes.Stloc_S, LocalsIndex.Count - 1);
+                        iLGenerator.Emit(OpCodes.Ldloc_S, LocalsIndex.Count - 1);
+                        iLGenerator.Emit(OpCodes.Brfalse, EndOfIf);
+                    }
+                    else if (kids.Value is OpenBraceToken)
+                    {
+                        EmitCode(kids, iLGenerator);
+                    }
+                    else if (kids.Value is CloseBraceToken)
+                    {
+                        iLGenerator.MarkLabel(EndOfIf);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
             return false;
         }
@@ -223,10 +422,26 @@ namespace CodeGen
                             iLGenerator.Emit(OpCodes.Call, methodInfo);
                             return true;
                         }
-
                     }
                 }
-
+            }
+            return false;
+        }
+        static bool isRead(ParseTreeNode Node, ILGenerator iLGenerator)
+        {
+            if (Node.Value is ReadKeywordToken)
+            {
+                iLGenerator.Emit(OpCodes.Call, typeof(Console).GetMethod("ReadLine"));
+                return true;
+            }
+            return false;
+        }
+        static bool isParse(ParseTreeNode Node, ILGenerator iLGenerator)
+        {
+            if(Node.Value is Parse)
+            {
+                iLGenerator.Emit(OpCodes.Call, typeof(int).GetMethod("Parse", new[] { typeof(string) }));
+                return true;
             }
             return false;
         }
@@ -235,7 +450,7 @@ namespace CodeGen
             x = default;
             if (typeValidator.TokenTypeMap.TryGetValue(node.Value.GetType(), out Type TokenT))
             {
-                
+
                 return TokenToType.TryGetValue(TokenT, out x);
             }
             else if (node.Value is IdentifierToken)
@@ -323,13 +538,13 @@ namespace CodeGen
             {
                 if (IDToMethod.TryGetValue(node.Value as IdentifierToken, out MethodBuilder value))
                 {
-                    if(typeValidator.symbolTable.CurrentClass.TryGetMember(node.Value as IdentifierToken, out MemberInformation memb))
+                    if (typeValidator.symbolTable.CurrentClass.TryGetMember(node.Value as IdentifierToken, out MemberInformation memb))
                     {
-                        if(memb is MethodInformation)
+                        if (memb is MethodInformation)
                         {
-                            foreach(var n in node.Children)
+                            foreach (var n in node.Children)
                             {
-                                if(!EmitCode(n, iLGenerator))
+                                if (!EmitCode(n, iLGenerator))
                                 {
                                     return false;
                                 }
@@ -344,7 +559,7 @@ namespace CodeGen
                 {
                     for (int i = 0; i < parameterInfos.Count; i++)
                     {
-                        if(parameterInfos[i].ID.Lexeme == node.Value.Lexeme)
+                        if (parameterInfos[i].ID.Lexeme == node.Value.Lexeme)
                         {
                             iLGenerator.Emit(OpCodes.Ldarg_S, i);
                             return true;
@@ -439,7 +654,7 @@ namespace CodeGen
                                     }
 
                                     if (!TokenToType.TryGetValue(methodInformation.Type.GetType(), out Type ReturnValue)) return false;
-                                    
+
                                     methodBuilder = typeBuilder.DefineMethod(methodInformation.ID.Lexeme, methodInformation.isStatic ? MethodAttributes.Static : MethodAttributes.Public, ReturnValue, parameterTypes);
                                     if (methodInformation.IsEntryPoint)
                                     {

@@ -37,7 +37,9 @@ namespace TypeCheck
 
             Members.Add(new IdentifierToken("Read"), new MethodInformation() { ID = new IdentifierToken("Read"),  isStatic = true, Type = new StringToken("string") });
 
-            
+            var ParseMethod = new MethodInformation() { ID = new IdentifierToken("Parse"), isStatic = true, Type = new IntToken("int") };
+            ParseMethod.TryAddParameter(new Parameter() { ID = new IdentifierToken("value"), TypeOf = new StringToken("string") });
+            Members.Add(ParseMethod.ID, ParseMethod);
         }
         public bool AddMember(IdentifierToken id, MemberInformation member)
         {

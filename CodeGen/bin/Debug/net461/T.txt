@@ -1,20 +1,14 @@
 
 class Program
 {
-   static method int Temp(int x)
-   {
-	variable int z = x + 1;
-	Print(z);
-	return z;
-   }
    static entrypoint method void Main()
    {
- 	variable int x = 1 + 3;
-	variable int z = Temp(x);
-	
-	Print(x);
-	Print(z);
-
+	variable int Answer = 32;
+	variable int Guess = 0;
+	while(Guess != Answer)
+	{
+	  Guess = Parse(Read());
+	}
 	return;
    }
 }
