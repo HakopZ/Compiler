@@ -77,11 +77,13 @@ namespace CodeGen
             { typeof(StringLiteralToken), (node, iLGenerator) => isConstant(node, iLGenerator) },
             { typeof(CharLiteralToken), (node, iLGenerator) => isConstant(node, iLGenerator) },
             { typeof(TrueKeyWordToken), (node, iLGenerator) => isConstant(node, iLGenerator) },
+            { typeof(EqualOperatorToken), (node, iLGenerator) => isEq(node, iLGenerator) },
             { typeof(FalseKeyWordToken), (node, iLGenerator) => isConstant(node, iLGenerator) },
             { typeof(AssignmentOperatorToken), (node, iLGenerator) => IsAssignment(node, iLGenerator) },
             { typeof(PrintKeywordToken), (node, iLGenerator) => isPrint(node, iLGenerator) },
             { typeof(ReturnKeyWordToken), (node, iLGenerator) => isReturn(node, iLGenerator) },
-            { typeof(VariableKeyWordToken), (node, iLGenerator) => isVariableDeclare(ref node, iLGenerator) }
+            { typeof(VariableKeyWordToken), (node, iLGenerator) => isVariableDeclare(ref node, iLGenerator) },
+            {typeof(IfKeyWordToken), (node, iLGenerator) => isIf(node, iLGenerator) }
 
         };
 
@@ -189,7 +191,24 @@ namespace CodeGen
             }
             return EmitCode(node, iLGenerator);
         }
+        static bool isEq(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if(node.Value is EqualOperatorToken)
+            {
+                EmitCode(node.Children[0], iLGenerator);
+                EmitCode(node.Children[1], iLGenerator);
+                iLGenerator.Emit(OpCodes.Ceq);
+            }
+            return false;
+        }
+        static bool isIf(ParseTreeNode node, ILGenerator iLGenerator)
+        {
+            if(node.Value is IfKeyWordToken)
+            {
 
+            }
+            return false;
+        }
         static bool isPrint(ParseTreeNode Node, ILGenerator iLGenerator)
         {
             if (Node.Value is PrintKeywordToken)
@@ -304,8 +323,22 @@ namespace CodeGen
             {
                 if (IDToMethod.TryGetValue(node.Value as IdentifierToken, out MethodBuilder value))
                 {
-                    
-                    //DO STUFF
+                    if(typeValidator.symbolTable.CurrentClass.TryGetMember(node.Value as IdentifierToken, out MemberInformation memb))
+                    {
+                        if(memb is MethodInformation)
+                        {
+                            foreach(var n in node.Children)
+                            {
+                                if(!EmitCode(n, iLGenerator))
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+
+                    iLGenerator.Emit(OpCodes.Call, value);
+                    return true;
                 }
                 else
                 {

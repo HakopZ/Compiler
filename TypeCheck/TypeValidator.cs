@@ -53,6 +53,7 @@ namespace TypeCheck
                         {
                             if (member.Value is FunctionKeyWordToken)
                             {
+
                                 GetNode<TypeToken>(member, out ParseTreeNode TypeNode, true);
                                 if (GetNode<IdentifierToken>(TypeNode, out ParseTreeNode IDNode, true))
                                 {
@@ -60,14 +61,24 @@ namespace TypeCheck
                                     {
                                         if (EachNode.Value is OpenBraceToken)
                                         {
-                                            foreach (var EachLine in EachNode.Children)
+                                            symbolTable.EnterScope();
+                                            if (symbolTable.TryGetMemberInClass(IDNode.Value as IdentifierToken, out MemberInformation info))
                                             {
-                                                if (!CheckReturn(EachLine, TypeNode.Value as TypeToken))
+                                                var method = info as MethodInformation;
+                                                foreach (var par in method.AllParameters)
                                                 {
-                                                    return false;
+                                                    symbolTable.AddInScope(par.ID, par.TypeOf);
+                                                }
+                                                foreach (var EachLine in EachNode.Children)
+                                                {
+                                                    if (!CheckReturn(EachLine, TypeNode.Value as TypeToken))
+                                                    {
+                                                        return false;
+                                                    }
                                                 }
                                             }
                                         }
+                                        else if (EachNode.Value is CloseBraceToken) symbolTable.ExitScope();
                                     }
                                 }
                                 else
@@ -231,7 +242,14 @@ namespace TypeCheck
 
         bool CheckReturn(ParseTreeNode inScopeNode, TypeToken type)
         {
-
+            if (inScopeNode.Value is VariableKeyWordToken)
+            {
+                var t = inScopeNode.Children[0].Value as TypeToken;
+                GetNode<IdentifierToken>(inScopeNode, out ParseTreeNode id, true);
+                symbolTable.AddInScope(id.Value as IdentifierToken, t);
+            }
+            else if (inScopeNode.Value is OpenBraceToken) symbolTable.EnterScope();
+            else if (inScopeNode.Value is CloseBraceToken) symbolTable.ExitScope();
             if (inScopeNode.Value is ReturnKeyWordToken)
             {
                 if (type is VoidKeyWord)
