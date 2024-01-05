@@ -87,6 +87,7 @@ namespace CodeGen
             { typeof(ReturnKeyWordToken), (node, iLGenerator) => isReturn(node, iLGenerator) },
             { typeof(VariableKeyWordToken), (node, iLGenerator) => isVariableDeclare(ref node, iLGenerator) },
             { typeof(IfKeyWordToken), (node, iLGenerator) => isIf(node, iLGenerator) },
+            { typeof(ElifKeywordToken), (node, iLGenerator) => isIf(node, iLGenerator) },
             { typeof(WhileKeyWord), (node, iLGenerator) => isWhile(node, iLGenerator) }
 
         };
@@ -245,7 +246,7 @@ namespace CodeGen
 
         static bool isNotEq(ParseTreeNode node, ILGenerator iLGenerator)
         {
-            if (node.Value is EqualOperatorToken)
+            if (node.Value is NotEqualOperatorToken)
             {
                 EmitCode(node.Children[0], iLGenerator);
                 EmitCode(node.Children[1], iLGenerator);
@@ -375,7 +376,7 @@ namespace CodeGen
         }
         static bool isIf(ParseTreeNode node, ILGenerator iLGenerator)
         {
-            if (node.Value is IfKeyWordToken)
+            if (node.Value is IfKeyWordToken || node.Value is ElifKeywordToken)
             {
                 var EndOfIf = iLGenerator.DefineLabel();
                 labels.Add(EndOfIf);
@@ -440,8 +441,11 @@ namespace CodeGen
         {
             if(Node.Value is Parse)
             {
-                iLGenerator.Emit(OpCodes.Call, typeof(int).GetMethod("Parse", new[] { typeof(string) }));
-                return true;
+                if (EmitCode(Node.Children[0], iLGenerator))
+                {
+                    iLGenerator.Emit(OpCodes.Call, typeof(int).GetMethod("Parse", new[] { typeof(string) }));
+                    return true;
+                }
             }
             return false;
         }

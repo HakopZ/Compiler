@@ -1,13 +1,21 @@
-
 class Program
 {
    static entrypoint method void Main()
    {
 	variable int Answer = 32;
 	variable int Guess = 0;
+	Print("Guessing Game");
 	while(Guess != Answer)
 	{
 	  Guess = Parse(Read());
+	  if(Guess < Answer)
+	  {
+		Print("Too Low");
+	  }
+          elif(Guess > Answer)
+	  {
+		Print("Too High");
+	  }
 	}
 	return;
    }

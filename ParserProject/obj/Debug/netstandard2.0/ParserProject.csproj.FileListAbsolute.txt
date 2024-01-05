@@ -22,3 +22,17 @@ D:\Visual Studio 2019 Projects\MakeParse\ParserProject\obj\Debug\netstandard2.0\
 D:\Visual Studio 2019 Projects\MakeParse\ParserProject\obj\Debug\netstandard2.0\ParserProject.csproj.CopyComplete
 D:\Visual Studio 2019 Projects\MakeParse\ParserProject\obj\Debug\netstandard2.0\ParserProject.dll
 D:\Visual Studio 2019 Projects\MakeParse\ParserProject\obj\Debug\netstandard2.0\ParserProject.pdb
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\bin\Debug\netstandard2.0\ParserProject.deps.json
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\bin\Debug\netstandard2.0\ParserProject.dll
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\bin\Debug\netstandard2.0\ParserProject.pdb
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\bin\Debug\netstandard2.0\Excersize.dll
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\bin\Debug\netstandard2.0\Excersize.pdb
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.csproj.AssemblyReference.cache
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.AssemblyInfoInputs.cache
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.AssemblyInfo.cs
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.csproj.CoreCompileInputs.cache
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.sourcelink.json
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.csproj.CopyComplete
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.dll
+C:\Users\hakop\Source\Repos\Compiler\ParserProject\obj\Debug\netstandard2.0\ParserProject.pdb

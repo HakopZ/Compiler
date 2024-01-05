@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Excersize\Excersize.csproj" />
+    <ProjectReference Include="..\Excersize\Tokenizer.csproj" />
     <ProjectReference Include="..\ParserProject\ParserProject.csproj" />
   </ItemGroup>
 

@@ -16,3 +16,14 @@ D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netstandard2.0\Exce
 D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netstandard2.0\Excersize.csproj.CoreCompileInputs.cache
 D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netstandard2.0\Excersize.dll
 D:\Visual Studio 2019 Projects\MakeParse\Excersize\obj\Debug\netstandard2.0\Excersize.pdb
+C:\Users\hakop\Source\Repos\Compiler\Excersize\bin\Debug\netstandard2.0\Excersize.deps.json
+C:\Users\hakop\Source\Repos\Compiler\Excersize\bin\Debug\netstandard2.0\Excersize.dll
+C:\Users\hakop\Source\Repos\Compiler\Excersize\bin\Debug\netstandard2.0\Excersize.pdb
+C:\Users\hakop\Source\Repos\Compiler\Excersize\obj\Debug\netstandard2.0\Excersize.csproj.AssemblyReference.cache
+C:\Users\hakop\Source\Repos\Compiler\Excersize\obj\Debug\netstandard2.0\Excersize.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hakop\Source\Repos\Compiler\Excersize\obj\Debug\netstandard2.0\Excersize.AssemblyInfoInputs.cache
+C:\Users\hakop\Source\Repos\Compiler\Excersize\obj\Debug\netstandard2.0\Excersize.AssemblyInfo.cs
+C:\Users\hakop\Source\Repos\Compiler\Excersize\obj\Debug\netstandard2.0\Excersize.csproj.CoreCompileInputs.cache
+C:\Users\hakop\Source\Repos\Compiler\Excersize\obj\Debug\netstandard2.0\Excersize.sourcelink.json
+C:\Users\hakop\Source\Repos\Compiler\Excersize\obj\Debug\netstandard2.0\Excersize.dll
+C:\Users\hakop\Source\Repos\Compiler\Excersize\obj\Debug\netstandard2.0\Excersize.pdb

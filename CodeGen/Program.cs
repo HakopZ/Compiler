@@ -16,7 +16,8 @@ namespace CodeGen
 
 
 
-            /*var assemblyName = new AssemblyName("MyAssembly");
+            /*
+            var assemblyName = new AssemblyName("MyAssembly");
             var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule", "MyCode.exe");
            

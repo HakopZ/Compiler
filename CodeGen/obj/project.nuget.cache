@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "v5Qv6chBHfG4JA+23oExJ79ctFG9MH8DoEDiJZddOZfN9CmlJOKbPY78FUwp8KDDysZO+gV+9c3nfOBGRShmLQ==",
+  "dgSpecHash": "9Xm0jSZ/bWB6GdM8NLKxw4/62u0LgVim9q5c9vbjl/tsfWbunrTYbVCF2Cb+o5H5XXIm+F26zx1Zr+rhsXziYg==",
   "success": true,
-  "projectFilePath": "\\\\GMRDC1\\Folder Redirection\\hakop.zarikyan\\Documents\\Visual Studio 2019\\Projects\\MakeParse\\CodeGen\\CodeGen.csproj",
+  "projectFilePath": "C:\\Users\\hakop\\source\\repos\\Compiler\\CodeGen\\CodeGen.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
-    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net461\\1.0.3\\microsoft.netframework.referenceassemblies.net461.1.0.3.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\hakop\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
-    "C:\\Users\\hakop.zarikyan\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+    "C:\\Users\\hakop\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }

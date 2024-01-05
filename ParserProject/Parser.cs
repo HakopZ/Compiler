@@ -138,6 +138,7 @@ namespace ParserProject
             => isCall(tokens, out node)
             || isConditionCall<IfKeyWordToken>(tokens, out node)
             || isConditionCall<WhileKeyWord>(tokens, out node)
+            || isConditionCall<ElifKeywordToken>(tokens, out node)
             || IsReturnCall(tokens, out node);
 
 
@@ -545,18 +546,18 @@ namespace ParserProject
             }
             return false;
         }
-        bool IsArithmetic(TokenCollection tokens, out ParseTreeNode node)
+        bool IsArithmetic(TokenCollection tokens, out ParseTreeNode node, bool funcCallBefore = false)
             => IsArithmeticPlus(tokens, out node)
             || IsArithmeticMinus(tokens, out node)
-            || IsArithmeticPrime(tokens, out node);
+            || IsArithmeticPrime(tokens, out node, funcCallBefore);
 
-        bool IsArithmeticPrime(TokenCollection tokens, out ParseTreeNode node)
+        bool IsArithmeticPrime(TokenCollection tokens, out ParseTreeNode node, bool funcCallBefore = false)
             => IsEMultiplication(tokens, out node)
             || IsEDivision(tokens, out node)
             || IsMod(tokens, out node)
             || IsEParenthesisArithemetic(tokens, out node)
             || IsComparison(tokens, out node)
-            || IsBaseCase(tokens, out node);
+            || IsBaseCase(tokens, out node, funcCallBefore);
 
         bool IsArithmeticPlus(TokenCollection tokens, out ParseTreeNode node)
             => GetExactOperator<PlusOperatorToken>(tokens, out node);
@@ -564,10 +565,10 @@ namespace ParserProject
         bool IsArithmeticMinus(TokenCollection tokens, out ParseTreeNode node)
             => GetExactOperator<SubtractionOperatorToken>(tokens, out node);
 
-        bool IsEFuncCall(TokenCollection tokens, bool SemiColon, out ParseTreeNode node)
+        bool IsEFuncCall(TokenCollection tokens, bool SemiColon, out ParseTreeNode node, bool fromOtherCall = false)
         {
             node = default;
-            if (IsEFuncCall(tokens, SemiColon, out List<ParseTreeNode> x))
+            if (IsEFuncCall(tokens, SemiColon, out List<ParseTreeNode> x, fromOtherCall))
             {
                 if (x.Count == 1)
                 {
@@ -577,7 +578,7 @@ namespace ParserProject
             }
             return false;
         }
-        bool IsEFuncCall(TokenCollection tokens, bool SemiColon, out List<ParseTreeNode> node)
+        bool IsEFuncCall(TokenCollection tokens, bool SemiColon,  out List<ParseTreeNode> node, bool fromOtherCall = false)
         {
             node = new List<ParseTreeNode>();
             if (tokens.Count < 3) return false;
@@ -596,6 +597,8 @@ namespace ParserProject
                     if (IsBuiltIn(tokens.SliceTo(0, x), out ParseTreeNode temp))
                     {
                         node.Add(temp);
+
+                        if (!SemiColon) return true;
                     }
                     if (SemiColon && tokens[x + 1] is SemiColonToken)
                     {
@@ -677,7 +680,7 @@ namespace ParserProject
             || GetExactOperator<SubtractWithOperatorToken>(tokens, out node)
             || GetExactOperator<MultiplyWithOperatorToken>(tokens, out node)
             || GetExactOperator<DivideWithOperatorToken>(tokens, out node);
-        bool IsBaseCase(TokenCollection tokens, out ParseTreeNode node)
+        bool IsBaseCase(TokenCollection tokens, out ParseTreeNode node, bool funcCallBefore = false)
         => IsType<NumberLiteralToken>(tokens, out node)
               || IsType<StringLiteralToken>(tokens, out node)
               || IsType<CharLiteralToken>(tokens, out node)
@@ -687,7 +690,7 @@ namespace ParserProject
               || IsType<NullKeyWordToken>(tokens, out node)
               || IsDot(tokens, out node)
               || IsNewKeyWord(tokens, out node)
-              || IsEFuncCall(tokens, false, out node);
+              || IsEFuncCall(tokens, false, out node, funcCallBefore);
 
         bool IsDot(TokenCollection tokens, out ParseTreeNode node)
         {
@@ -895,7 +898,7 @@ namespace ParserProject
 
                     }
                 }
-                if (IsArithmetic(e.Slice(st), out ParseTreeNode Tn))
+                if (IsArithmetic(e.Slice(st), out ParseTreeNode Tn, true))
                 {
                     node.Add(Tn);
                     return true;

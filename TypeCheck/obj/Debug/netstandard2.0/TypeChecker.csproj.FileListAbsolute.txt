@@ -26,3 +26,19 @@ D:\Visual Studio 2019 Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.0\Type
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.csproj.CopyComplete
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.dll
 \\GMRDC1\Folder Redirection\hakop.zarikyan\Documents\Visual Studio 2019\Projects\MakeParse\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.pdb
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\bin\Debug\netstandard2.0\TypeChecker.deps.json
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\bin\Debug\netstandard2.0\TypeChecker.dll
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\bin\Debug\netstandard2.0\TypeChecker.pdb
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\bin\Debug\netstandard2.0\Excersize.dll
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\bin\Debug\netstandard2.0\ParserProject.dll
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\bin\Debug\netstandard2.0\Excersize.pdb
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\bin\Debug\netstandard2.0\ParserProject.pdb
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.csproj.AssemblyReference.cache
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.AssemblyInfoInputs.cache
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.AssemblyInfo.cs
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.csproj.CoreCompileInputs.cache
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.sourcelink.json
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.csproj.CopyComplete
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.dll
+C:\Users\hakop\Source\Repos\Compiler\TypeCheck\obj\Debug\netstandard2.0\TypeChecker.pdb

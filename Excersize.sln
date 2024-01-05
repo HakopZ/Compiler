@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30225.117
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excersize", "Excersize\Excersize.csproj", "{9FDA08FF-1E7E-45D8-9A11-F5DB18D44D4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tokenizer", "Excersize\Tokenizer.csproj", "{9FDA08FF-1E7E-45D8-9A11-F5DB18D44D4D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{1E3108C7-620C-497E-9D35-3CFEE7A77D3D}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteOutTree", "WriteOutTre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeChecker", "TypeCheck\TypeChecker.csproj", "{3BDB84D7-54C7-460D-95CA-D925D0E3955B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "CodeGen\CodeGen.csproj", "{DF8D7A00-45F6-4C0C-BD74-3425724F03A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGen", "CodeGen\CodeGen.csproj", "{DF8D7A00-45F6-4C0C-BD74-3425724F03A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

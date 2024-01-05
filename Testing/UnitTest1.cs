@@ -20,6 +20,7 @@ namespace Testing
         DividingOperatorToken divide = new DividingOperatorToken("/");
         OpenParenthesisToken openParenthesisToken = new OpenParenthesisToken("(");
         CloseParenthesisToken closeParenthesisToken = new CloseParenthesisToken(")");
+        SemiColonToken t = new SemiColonToken(";");
         IdentifierToken a = new IdentifierToken("a");
         IdentifierToken b = new IdentifierToken("b");
         IdentifierToken c = new IdentifierToken("c");
@@ -31,9 +32,13 @@ namespace Testing
         [Fact]
         public void ParseTreeCheck()
         {
-
-            
-            //rule.AddProduction();
+            TokenCollection tokens = new TokenCollection();
+            tokens.Add(a);
+            tokens.Add(plus);
+            tokens.Add(b);
+            tokens.Add(t);
+            Parser parser = new Parser();
+            Assert.True(parser.TryParse(tokens, out ParseTreeNode tree));
         }
 
     }

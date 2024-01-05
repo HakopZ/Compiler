@@ -1,0 +1,5 @@
+is_global = true
+build_property.RootNamespace = TypeChecker
+build_property.ProjectDir = C:\Users\hakop\source\repos\Compiler\TypeCheck\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
